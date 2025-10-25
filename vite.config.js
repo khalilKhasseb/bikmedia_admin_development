@@ -11,6 +11,16 @@ export default defineConfig({
             include: path.resolve(__dirname, "./src/locales/**"),
         }),
     ],
+
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://bikmedia.com',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '/dashboard')
+            }
+        }
+    },
     optimizeDeps: {
         include: ["quill", "nouislider"],
     },
@@ -20,7 +30,12 @@ export default defineConfig({
                 find: /^~(.*)$/,
                 replacement: "node_modules/$1",
             },
-            // {
+
+            {
+                find: /^@services(.*)$/,
+                replacement: "src/services/$1",
+            },
+            // { 
             //     "@": path.resolve(__dirname, ".src/"),
             // },
         ],

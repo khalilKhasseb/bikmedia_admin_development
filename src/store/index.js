@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import i18n from "../i18n";
-
+import auth from "./modules/auth";
 export default new createStore({
     state: {
         layout: "app",
@@ -51,6 +51,7 @@ export default new createStore({
             value = value || "light";
             localStorage.setItem("dark_mode", value);
             state.dark_mode = value;
+            
             if (value == "light") {
                 state.is_dark_mode = false;
             } else if (value == "dark") {
@@ -95,5 +96,7 @@ export default new createStore({
         },
     },
     actions: {},
-    modules: {},
+    modules: {
+        auth,
+    },
 });

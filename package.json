@@ -66,6 +66,7 @@
     "@rollup/plugin-alias": "^3.1.9",
     "@vitejs/plugin-vue": "^3.1.0",
     "autoprefixer": "^10.4.8",
+    "axios": "^1.12.2",
     "postcss": "^8.4.16",
     "sass": "^1.54.9",
     "vite": "^3.1.0"
