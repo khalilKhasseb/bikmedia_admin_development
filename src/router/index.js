@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import templateRoutes from './modules/template';
 import Home from '../views/index.vue';
 import store from '../store';
+import giftRoutes from './modules/gift';
+import { clearAuthStorage, getAuthToken } from '../utils/auth-storage';
 
 // Vue.use(VueRouter);
 // import { createApp } from 'vue';
@@ -18,8 +20,9 @@ const routes = [
             requireAuth: true
         }
     },
+    ...giftRoutes,
     ...templateRoutes,
-
+    
 ];
 
 const router = new createRouter({
@@ -45,26 +48,79 @@ router.beforeEach((to, from, next) => {
     next(true);
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     /**
+     * Enhanced Authentication Guard
      * 
-     * The sequence of the code is as follows
-     * 1. Check if the route requires authentication
-     * 2. If the route requires authentication, check if the user is authenticated
-     * 3. If the user is authenticated, allow the user to access the route
-     * 4. If the user is not authenticated, redirect the user to the login page
+     * Flow:
+     * 1. Check Vuex store for authentication state (primary source of truth)
+     * 2. Validate token expiration for localStorage logins
+     * 3. Prevent authenticated users from accessing auth pages (login, register, etc.)
+     * 4. Protect routes requiring authentication with returnUrl support
+     * 5. Fallback to storage check if Vuex state hasn't been initialized yet
      */
-    if (to.meta && to.meta.requireAuth) {
-        const token = localStorage.getItem('authToken');
-        // const { token } = user;
-        if (token) {
-            next();
-        } else {
-            next('/auth/login');
-        }
-    } else {
-        next();
+    
+    // Step 1: Check Vuex store authentication state
+    let isAuthenticated = store.getters['auth/isAuthenticated'];
+    const isTokenExpired = store.getters['auth/isTokenExpired'];
+    
+    // Step 2: Handle expired tokens
+    if (isAuthenticated && isTokenExpired) {
+        // Token has expired, clear all auth data
+        clearAuthStorage();
+        store.commit('auth/setIsAuthenticated', false);
+        store.commit('auth/setUser', null);
+        store.commit('auth/setTokenExpiresAt', null);
+        isAuthenticated = false;
     }
+    
+    // Step 3: Prevent authenticated users from accessing auth pages
+    if (to.meta && to.meta.layout === 'auth') {
+        if (isAuthenticated) {
+            // User is already logged in, redirect to home
+            return next('/');
+        }
+    }
+    
+    // Step 4: Protect routes requiring authentication
+    if (to.meta && to.meta.requireAuth) {
+        if (isAuthenticated) {
+            // User is authenticated and token is valid
+            return next();
+        }
+        
+        // Fallback: Initialize auth state from storage if Vuex hasn't been initialized
+        // Retrieve and decrypt auth token from storage as fallback (in case Vuex state hasn't been initialized yet)
+        const token = getAuthToken();
+        if (token) {
+            // Dispatch initializeAuth to restore Vuex state from storage
+            await store.dispatch('auth/initializeAuth');
+            
+            // Re-evaluate authentication state after initialization
+            isAuthenticated = store.getters['auth/isAuthenticated'];
+            const isExpired = store.getters['auth/isTokenExpired'];
+            
+            if (isAuthenticated && !isExpired) {
+                // Token is valid, allow access
+                return next();
+            }
+            
+            // Token is invalid or expired, clear and redirect
+            clearAuthStorage();
+            store.commit('auth/setIsAuthenticated', false);
+            store.commit('auth/setUser', null);
+            store.commit('auth/setTokenExpiresAt', null);
+        }
+        
+        // User is not authenticated, redirect to login with returnUrl
+        return next({
+            path: '/auth/login',
+            query: { returnUrl: to.fullPath }
+        });
+    }
+    
+    // Step 5: Allow access to public routes
+    next();
 });
 
 

@@ -1,21 +1,20 @@
-// this fill will handel the auth state for the application it will retrun isAuthenticated and user
+// this file will handle the auth state for the application it will return isAuthenticated and user
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import authService from '../services/auth';
 
 export const useAuth = () => {
-    const isAuthenticated = ref(false);
-    const user = ref(null);
+    const store = useStore();
 
-    const login = () => {
-        isAuthenticated.value = true;
-    };
-
-    const logout = () => {
-        isAuthenticated.value = false;
-    };
+    const isAuthenticated = computed(() => store.getters['auth/isAuthenticated']);
+    const user = computed(() => store.getters['auth/getUser']);
+    const rememberMe = computed(() => store.getters['auth/getRememberMe']);
 
     return {
         isAuthenticated,
         user,
-        login,
-        logout,
+        rememberMe,
+        login: authService.login,
+        logout: authService.logout,
     };
 };

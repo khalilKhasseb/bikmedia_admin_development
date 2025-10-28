@@ -16,6 +16,11 @@ pnpm-debug.log*
 # Editor directories and files
 .idea
 .vscode
+.windsurf
+.windsurfrules
+.windsurfrules.json
+.windsurfrules.md
+
 *.suo
 *.ntvs*
 *.njsproj

@@ -99,4 +99,6 @@ export default new createStore({
     modules: {
         auth,
     },
+
+    
 });

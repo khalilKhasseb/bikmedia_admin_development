@@ -539,7 +539,7 @@
                             </svg>
                         </a>
                         <ul class="collapse submenu list-unstyled">
-                            <li><router-link to="/tables/basic">Basic</router-link></li>
+                            <li><router-link to="/tables">Basic</router-link></li>
                             <li class="sub-sub-submenu-list">
                                 <a href="javascript:;" class="dropdown-toggle">
                                     DataTables

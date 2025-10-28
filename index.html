@@ -4,6 +4,45 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Content Security Policy: Helps prevent XSS attacks by restricting resource sources -->
+        <!-- DEVELOPMENT CSP: Permissive policy for Vite dev mode -->
+        <!-- Note: 'unsafe-inline' and 'unsafe-eval' are required for Vite dev mode and Vue -->
+        <!-- 
+        PRODUCTION CSP RECOMMENDATIONS:
+        1. Remove 'unsafe-eval' from script-src (not needed in production builds)
+        2. Replace 'unsafe-inline' with nonce-based or hash-based CSP for stricter security
+        3. Implement environment-based CSP injection via server headers or build-time templating
+        4. Update connect-src to match your production API domain(s)
+        5. Consider using report-uri or report-to for CSP violation monitoring
+        
+        Example Production CSP (implement via server headers):
+        Content-Security-Policy: 
+            default-src 'self';
+            script-src 'self' 'nonce-{RANDOM}';
+            style-src 'self' 'nonce-{RANDOM}' https://fonts.googleapis.com;
+            font-src 'self' https://fonts.gstatic.com;
+            img-src 'self' data: https:;
+            connect-src 'self' https://your-api-domain.com;
+            frame-src 'none';
+            object-src 'none';
+            base-uri 'self';
+            form-action 'self';
+            upgrade-insecure-requests;
+            report-uri /csp-report;
+        -->
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval';
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+            font-src 'self' https://fonts.gstatic.com;
+            img-src 'self' data: https:;
+            connect-src 'self' http://bikmedia.com https://bikmedia.com;
+            frame-src 'none';
+            object-src 'none';
+            base-uri 'self';
+            form-action 'self';
+            upgrade-insecure-requests;
+        ">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />

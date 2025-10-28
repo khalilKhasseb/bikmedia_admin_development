@@ -1,0 +1,566 @@
+<template>
+    <div class="layout-px-spacing app-contacts">
+        <teleport to="#breadcrumb">
+            <ul class="navbar-nav flex-row">
+                <li>
+                    <div class="page-header">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:;">Store</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Levels</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </li>
+            </ul>
+        </teleport>
+
+        <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+            <div class="col-lg-12">
+                <div class="panel-body searchable-container" :class="[grid_type]">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search layout-spacing align-self-center">
+                            <form class="form-inline my-2 my-lg-0">
+                                <div class="">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-search"
+                                    >
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <input type="text" v-model.trim="search_text" class="product-search form-control" @input="onSearchInput" placeholder="Search Levels..." />
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-end text-center layout-spacing align-self-center">
+                            <div class="d-flex justify-content-sm-end justify-content-center">
+                                <!-- Filters Dropdown -->
+                                <div class="dropdown me-2">
+                                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
+                                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                                        </svg>
+                                        Filters
+                                    </button>
+                                    <ul class="dropdown-menu" style="min-width: 250px; padding: 15px;">
+                                        <li class="mb-3">
+                                            <label class="form-label">Level Range</label>
+                                            <select class="form-select" v-model="filters.levelRange" @change="onFilterChange">
+                                                <option value="">All Levels</option>
+                                                <option value="1-10">Level 1-10</option>
+                                                <option value="11-20">Level 11-20</option>
+                                                <option value="21-30">Level 21-30</option>
+                                                <option value="31-40">Level 31-40</option>
+                                                <option value="41-50">Level 41-50</option>
+                                                <option value="51-60">Level 51-60</option>
+                                                <option value="61-70">Level 61-70</option>
+                                                <option value="71-80">Level 71-80</option>
+                                                <option value="81-90">Level 81-90</option>
+                                                <option value="91-100">Level 91-100</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="switch align-self-center">
+                                    <a href="javascript:;" @click="grid_type = 'list'">
+                                        <svg
+                                            :class="{ 'active-view': grid_type == 'list' }"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-list view-list me-1"
+                                        >
+                                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                                            <line x1="3" y1="6" x2="3" y2="6"></line>
+                                            <line x1="3" y1="12" x2="3" y2="12"></line>
+                                            <line x1="3" y1="18" x2="3" y2="18"></line>
+                                        </svg>
+                                    </a>
+                                    <a href="javascript:;" @click="grid_type = 'grid'">
+                                        <svg
+                                            :class="{ 'active-view': grid_type == 'grid' }"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-grid view-grid"
+                                        >
+                                            <rect x="3" y="3" width="7" height="7"></rect>
+                                            <rect x="14" y="3" width="7" height="7"></rect>
+                                            <rect x="14" y="14" width="7" height="7"></rect>
+                                            <rect x="3" y="14" width="7" height="7"></rect>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div v-if="loading" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading levels...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div v-else-if="!loading && filtered_levels_list.length === 0" class="text-center py-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox text-muted">
+                            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                            <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+                        </svg>
+                        <h5 class="mt-3">No levels found</h5>
+                        <p class="text-muted">Try adjusting your search or filters</p>
+                    </div>
+
+                    <div v-else class="searchable-items" :class="[grid_type]">
+                        <div class="items items-header-section">
+                            <div class="item-content">
+                                <div class="">
+                                    <h4>Level</h4>
+                                </div>
+                                <div class="user-email">
+                                    <h4>Level ID</h4>
+                                </div>
+                                <div class="user-location">
+                                    <h4 style="margin-left: 0">Name</h4>
+                                </div>
+                                <div class="user-phone">
+                                    <h4 style="margin-left: 3px">Target</h4>
+                                </div>
+                                <div class="action-btn">
+                                    <h4>Icons</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-for="(level, index) in paginatedLevels" class="items" :key="level.id">
+                            <div class="item-content">
+                                <div class="user-profile">
+                                    <img :src="level.level?.icon || defaultAvatar" alt="level" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
+                                    <div class="user-meta-info">
+                                        <p class="user-name">Level {{ level.lvl }}</p>
+                                        <p class="user-work">ID: {{ level.id }}</p>
+                                    </div>
+                                </div>
+                                <div class="user-email">
+                                    <p class="info-title">Level ID:</p>
+                                    <p class="usr-email-addr">{{ level.lid }}</p>
+                                </div>
+                                <div class="user-location">
+                                    <p class="info-title">Name:</p>
+                                    <p class="usr-location">{{ level.level?.name || 'N/A' }}</p>
+                                </div>
+                                <div class="user-phone">
+                                    <p class="info-title">Target:</p>
+                                    <p class="usr-ph-no">{{ formatNumber(level.target) }}</p>
+                                </div>
+                                <div class="action-btn">
+                                    <a href="javascript:;" class="me-2" @click="handleView(level)" title="View Level">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </a>
+                                    <div class="d-flex gap-1">
+                                        <img v-if="level.level?.icon" :src="level.level.icon" alt="icon" title="Active Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #4361ee;" />
+                                        <img v-if="level.level?.icon_disable" :src="level.level.icon_disable" alt="icon_disable" title="Disabled Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #ccc;" />
+                                        <img v-if="level.level?.icon_anim" :src="level.level.icon_anim" alt="icon_anim" title="Animated Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #1abc9c;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div v-if="!loading && filtered_levels_list.length > 0" class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2">Items Per Page:</label>
+                                <select class="form-select" style="width: auto;" v-model.number="pagination.limit" @change="onLimitChange">
+                                    <option :value="10">10 items</option>
+                                    <option :value="25">25 items</option>
+                                    <option :value="50">50 items</option>
+                                    <option :value="100">100 items</option>
+                                </select>
+                                <span class="ms-3 text-muted">
+                                    Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filtered_levels_list.length }} levels
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-end mb-0">
+                                    <li class="page-item" :class="{ disabled: pagination.page === 1 }">
+                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page - 1)">Previous</a>
+                                    </li>
+                                    <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: page === pagination.page, disabled: page === '...' }">
+                                        <a class="page-link" href="javascript:;" @click="page !== '...' && changePage(page)">{{ page }}</a>
+                                    </li>
+                                    <li class="page-item" :class="{ disabled: pagination.page === pagination.pages }">
+                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page + 1)">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TODO: Edit Modal - Ready for future implementation when API supports edit -->
+                <!-- 
+                <div id="editLevelModal" class="modal fade" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-dialog-centered">
+                        <div class="modal-content mailbox-popup">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Level #{{ params.id }}</h5>
+                                <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="add-contact-box">
+                                    <div class="add-contact-content">
+                                        <form id="editLevelForm">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group mb-4">
+                                                        <label>Level</label>
+                                                        <input type="number" v-model.number="params.lvl" class="form-control" placeholder="Level" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group mb-4">
+                                                        <label>Target</label>
+                                                        <input type="number" v-model.number="params.target" class="form-control" placeholder="Target Points" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" data-bs-dismiss="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-primary" @click="save_level()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg>
+                                    Update Level
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+    .searchable-container .switch {
+        width: auto;
+        height: auto;
+    }
+    .searchable-container .searchable-items.grid .items .user-profile .custom-checkbox {
+        display: none !important;
+    }
+</style>
+
+<script setup>
+    import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+    import { useRouter } from 'vue-router';
+    import levelService from "@services/api/level.service";
+    import "/src/assets/sass/apps/contacts.scss";
+    import { sanitizeInput } from '/src/utils/sanitize.js';
+    import defaultAvatar from '/src/assets/images/profile-30.png';
+
+    import { useMeta } from "/src/composables/use-meta";
+    useMeta({ title: "Levels Management" });
+
+    const router = useRouter();
+    const levels_list = ref([]);
+    const filtered_levels_list = ref([]);
+    const search_text = ref("");
+    const grid_type = ref("list");
+    const loading = ref(false);
+    let searchTimeout = null;
+
+    // Filters
+    const filters = ref({
+        levelRange: '' // Empty string to show "All Levels" as default
+    });
+
+    // Pagination
+    const pagination = ref({
+        page: 1,
+        limit: 25,
+        pages: 1
+    });
+
+    // Computed properties for pagination
+    const paginatedLevels = computed(() => {
+        const start = (pagination.value.page - 1) * pagination.value.limit;
+        const end = start + pagination.value.limit;
+        return filtered_levels_list.value.slice(start, end);
+    });
+
+    const startIndex = computed(() => {
+        return (pagination.value.page - 1) * pagination.value.limit;
+    });
+
+    const endIndex = computed(() => {
+        const end = pagination.value.page * pagination.value.limit;
+        return end > filtered_levels_list.value.length ? filtered_levels_list.value.length : end;
+    });
+
+    const visiblePages = computed(() => {
+        const pages = [];
+        const total = pagination.value.pages;
+        const current = pagination.value.page;
+        
+        if (total <= 7) {
+            for (let i = 1; i <= total; i++) {
+                pages.push(i);
+            }
+        } else {
+            if (current <= 4) {
+                for (let i = 1; i <= 5; i++) pages.push(i);
+                pages.push('...');
+                pages.push(total);
+            } else if (current >= total - 3) {
+                pages.push(1);
+                pages.push('...');
+                for (let i = total - 4; i <= total; i++) pages.push(i);
+            } else {
+                pages.push(1);
+                pages.push('...');
+                for (let i = current - 1; i <= current + 1; i++) pages.push(i);
+                pages.push('...');
+                pages.push(total);
+            }
+        }
+        return pages.filter(p => p !== '...' || pages.indexOf(p) === pages.lastIndexOf(p));
+    });
+
+    onMounted(() => {
+        // TODO: Initialize modal when edit functionality is added
+        // initPopup();
+        fetchLevels();
+    });
+
+    // TODO: Initialize modal for future edit functionality
+    // const initPopup = () => {
+    //     editLevelModal = new window.bootstrap.Modal(document.getElementById("editLevelModal"));
+    // };
+
+    // Fetch levels from API
+    const fetchLevels = async () => {
+        loading.value = true;
+        try {
+            const response = await levelService.getAll();
+            
+            console.log('API Response:', response);
+
+            // Extract items from response.items.list (same structure as equipments)
+            levels_list.value = response.items?.list || [];
+            applyFilters();
+
+            console.log('Levels loaded:', levels_list.value.length, 'items');
+        } catch (error) {
+            console.error("Failed to fetch levels:", error);
+            showMessage(error.message || "Failed to load levels", "error");
+            levels_list.value = [];
+            filtered_levels_list.value = [];
+        } finally {
+            loading.value = false;
+        }
+    };
+
+    // Handle filter change
+    const onFilterChange = () => {
+        applyFilters();
+    };
+
+    // Apply filters and search
+    const applyFilters = () => {
+        let filtered = Array.isArray(levels_list.value) ? [...levels_list.value] : [];
+
+        console.log('Applying filters:', filters.value);
+        console.log('Total levels:', filtered.length);
+
+        // Apply level range filter
+        if (filters.value.levelRange) {
+            const [min, max] = filters.value.levelRange.split('-').map(Number);
+            console.log('Filtering by level range:', min, '-', max);
+            filtered = filtered.filter(l => l.lvl >= min && l.lvl <= max);
+            console.log('After level range filter:', filtered.length);
+        }
+
+        // Apply search filter
+        if (search_text.value) {
+            const sanitizedSearch = sanitizeInput(search_text.value);
+            const searchLower = sanitizedSearch.toLowerCase();
+            filtered = filtered.filter(l => 
+                (l.lvl && l.lvl.toString().includes(searchLower)) ||
+                (l.level?.name && l.level.name.toLowerCase().includes(searchLower)) ||
+                (l.id && l.id.toString().includes(searchLower)) ||
+                (l.lid && l.lid.toString().includes(searchLower))
+            );
+            console.log('After search filter:', filtered.length);
+        }
+
+        filtered_levels_list.value = filtered;
+        console.log('Final filtered list:', filtered_levels_list.value.length);
+
+        // Update pagination
+        pagination.value.pages = Math.ceil(filtered_levels_list.value.length / pagination.value.limit);
+        
+        // Reset to page 1 if current page is beyond new total pages
+        if (pagination.value.page > pagination.value.pages && pagination.value.pages > 0) {
+            pagination.value.page = 1;
+        }
+    };
+
+    // Change page
+    const changePage = (page) => {
+        if (page < 1 || page > pagination.value.pages || page === pagination.value.page) {
+            return;
+        }
+        pagination.value.page = page;
+    };
+
+    // Handle limit change
+    const onLimitChange = () => {
+        pagination.value.page = 1; // Reset to first page when changing limit
+        applyFilters(); // Recalculate pages
+    };
+
+    // Handle search input with debounce
+    const onSearchInput = () => {
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+        
+        searchTimeout = setTimeout(() => {
+            applyFilters();
+        }, 300); // 300ms debounce
+    };
+
+    onBeforeUnmount(() => {
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+    });
+
+    // Helper function to format numbers with commas
+    const formatNumber = (num) => {
+        if (!num) return '0';
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+
+    // Navigation handler
+    const handleView = (level) => {
+        if (!level || !level.id) {
+            showMessage('Invalid level ID', 'error');
+            return;
+        }
+        router.push({ name: 'level-view', params: { id: level.id } });
+    };
+
+    // TODO: Edit level function for future implementation
+    // const edit_level = async (level) => {
+    //     console.log('=== EDIT LEVEL CLICKED ===');
+    //     console.log('Level object received:', JSON.stringify(level, null, 2));
+    //     
+    //     if (level) {
+    //         params.value = {
+    //             id: level.id,
+    //             lvl: Number(level.lvl) || 0,
+    //             target: Number(level.target) || 0,
+    //             lid: Number(level.lid) || 0
+    //         };
+    //         
+    //         console.log('Params after assignment:', JSON.stringify(params.value, null, 2));
+    //         
+    //         await nextTick();
+    //     }
+    //  
+    //     editLevelModal.show();
+    // };
+
+    // TODO: Save level function for future implementation
+    // const save_level = async () => {
+    //     if (!params.value.id) {
+    //         showMessage("Level ID is required.", "error");
+    //         return;
+    //     }
+    //
+    //     try {
+    //         loading.value = true;
+    //         
+    //         // TODO: Implement API call when backend provides edit endpoint
+    //         // const response = await levelService.update(params.value.id, {
+    //         //     lvl: params.value.lvl,
+    //         //     target: params.value.target,
+    //         //     lid: params.value.lid
+    //         // });
+    //
+    //         showMessage("Level updated successfully.", "success");
+    //         editLevelModal.hide();
+    //         
+    //         // Refresh the list
+    //         await fetchLevels();
+    //     } catch (error) {
+    //         console.error("Failed to update level:", error);
+    //         showMessage(error.message || "Failed to update level", "error");
+    //     } finally {
+    //         loading.value = false;
+    //     }
+    // };
+
+    const showMessage = (msg = "", type = "success") => {
+        const toast = window.Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: "10px 20px",
+        });
+    };
+</script>

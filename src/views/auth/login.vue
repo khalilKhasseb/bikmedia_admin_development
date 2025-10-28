@@ -67,7 +67,7 @@
 
                                     <div class="field-wrapper text-center keep-logged-in">
                                         <div class="checkbox-outline-primary custom-control custom-checkbox">
-                                            <input  type="checkbox" class="custom-control-input" value="true" id="chkRemember" />
+                                            <input v-model="rememberMe" type="checkbox" class="custom-control-input" value="true" id="chkRemember" />
                                             <label class="custom-control-label" for="chkRemember">Keep me logged in</label>
                                         </div>
                                     </div>
@@ -102,23 +102,47 @@
     import { ref } from "vue";
     import { useStore } from "vuex";
     import auth from "/src/services/auth";
-    import { useRouter } from "vue-router";
+    import { useRouter, useRoute } from "vue-router";
+    import { sanitizeInput } from '/src/utils/sanitize.js';
 
     const store = useStore();
     const { login } = auth;
     const router = useRouter();
+    const route = useRoute();
 
     const username = ref("");
     const password = ref("");
     const loading = ref(false);
+    const rememberMe = ref(false);
 
+    /**
+     * Handles login form submission.
+     * After successful login, redirects user to returnUrl query parameter if present,
+     * otherwise redirects to home page. Validates returnUrl to prevent open redirect attacks.
+     */
     const onSubmit = async () => {
         loading.value = true;
-       const user = await login(username.value, password.value);
-       loading.value = false;
+        
+        // Sanitize username to prevent XSS attacks
+        // Note: Password is NOT sanitized to avoid altering valid user credentials
+        const sanitizedUsername = sanitizeInput(username.value);
+        
+        const user = await login(sanitizedUsername, password.value, rememberMe.value);
+        loading.value = false;
+       
        if (user) {
-           store.commit("auth/setUser", user);
-           router.push("/");
+           // Check for returnUrl query parameter
+           const returnUrl = route.query.returnUrl;
+           
+           // Validate returnUrl is a safe internal path to prevent open redirect vulnerabilities
+           if (returnUrl && typeof returnUrl === 'string' && returnUrl.startsWith('/')) {
+               router.push(returnUrl);
+           } else {
+               router.push("/");
+           }
+       } else {
+           // Login failed - show error message
+           alert('Login failed. Please check your username and password.');
        }
     };
 </script>
