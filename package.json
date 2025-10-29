@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:pages": "vite build --mode production --base=/bikmedia_admin_development/",
+    "build:pages-local": "vite build --mode pages --base=/bikmedia_admin_development/",
+    "preview": "vite preview",
+    "preview:pages": "npm run build:pages-local && vite preview --base=/bikmedia_admin_development/",
+    "deploy:pages": "npm run build:pages && gh-pages -d dist -r bikmedia_admin_development -b gh-pages"
   },
   "dependencies": {
     "@bhplugin/vue3-datatable": "^1.0.1",
@@ -36,6 +40,7 @@
     "jspdf-autotable": "^3.5.25",
     "maska": "^1.5.0",
     "path": "^0.12.7",
+    "svgaplayerweb": "^2.3.2",
     "sweetalert2": "^11.4.17",
     "v-tables-3": "^0.4.7",
     "vue": "^3.2.13",
@@ -69,6 +74,7 @@
     "@vitejs/plugin-vue": "^3.1.0",
     "autoprefixer": "^10.4.8",
     "axios": "^1.12.2",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.16",
     "sass": "^1.54.9",
     "vite": "^3.1.0"

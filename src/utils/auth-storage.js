@@ -37,11 +37,11 @@ export const clearAuthStorage = () => {
 export const getAuthToken = () => {
     // Check sessionStorage first, then fall back to localStorage
     const encryptedToken = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
-    
+
     if (!encryptedToken) {
         return null;
     }
-    
+
     // Decrypt and return the token
     const token = decryptToken(encryptedToken);
     return token;
@@ -62,11 +62,11 @@ export const getAuthToken = () => {
 export const getStoredUser = () => {
     // Check sessionStorage first, then fall back to localStorage
     const userJson = sessionStorage.getItem('user') || localStorage.getItem('user');
-    
+
     if (!userJson) {
         return null;
     }
-    
+
     // Parse the JSON with error handling
     try {
         const user = JSON.parse(userJson);

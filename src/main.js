@@ -19,6 +19,10 @@ import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
 import { createHead } from "@vueuse/head";
 const head = createHead();
 
+// Initialize CSP detection for media loading
+import { initCSPDetection } from "./utils/media-config.js";
+initCSPDetection();
+
 //Sweetalert
 import Swal from "sweetalert2";
 window.Swal = Swal;

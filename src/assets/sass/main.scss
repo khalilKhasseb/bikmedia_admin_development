@@ -3,6 +3,8 @@
 //  =================
 
 @import '../base/base'; // Base Variables
+@import 'two-panel-layout'; // Two-Panel Layout Responsive Enhancements
+@import 'components/sub-gift-carousel'; // Sub-Gift Carousel Component
 
 html {
     min-height: 100%;

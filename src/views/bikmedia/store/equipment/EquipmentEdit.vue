@@ -45,194 +45,80 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="doc-container">
           <div class="row">
-            <div class="col-xl-9">
-
-              <!-- Section 1: Basic Info -->
-              <FormSection title="Basic Information" description="Equipment name in multiple languages">
-                <TranslationInput
-                  fieldName="name"
-                  :fieldConfig="getFieldConfig('name')"
-                  :locales="equipmentConfig.supportedLocales"
-                  v-model="formData"
-                  :isSubmitted="isSubmitted"
-                  :errors="validationErrors"
-                />
-              </FormSection>
-
-              <!-- Section 2: Details -->
-              <FormSection title="Details" description="Equipment description in multiple languages">
-                <TranslationInput
-                  fieldName="description"
-                  :fieldConfig="getFieldConfig('description')"
-                  :locales="equipmentConfig.supportedLocales"
-                  v-model="formData"
-                  :isSubmitted="isSubmitted"
-                  :errors="validationErrors"
-                />
-              </FormSection>
-
-              <!-- Section 3: Settings -->
-              <FormSection title="Settings" description="Equipment configuration and requirements">
-                <div class="row">
-                  <!-- Coin -->
-                  <div class="col-md-6">
-                    <div class="form-group mb-4">
-                      <label for="coin" class="form-label">Coins</label>
-                      <input
-                        type="number"
-                        id="coin"
-                        v-model.number="formData.coin"
-                        class="form-control"
-                        placeholder="Coin Value"
-                        min="0"
-                        :class="getFieldValidationClass('coin')"
-                      />
-                      <div class="invalid-feedback">{{ validationErrors.coin }}</div>
-                    </div>
-                  </div>
-
-                  <!-- Days -->
-                  <div class="col-md-6">
-                    <div class="form-group mb-4">
-                      <label for="days" class="form-label">Days</label>
-                      <input
-                        type="number"
-                        id="days"
-                        v-model.number="formData.days"
-                        class="form-control"
-                        placeholder="Duration in Days"
-                        min="0"
-                        :class="getFieldValidationClass('days')"
-                      />
-                      <div class="invalid-feedback">{{ validationErrors.days }}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- Type -->
-                  <div class="col-md-6">
-                    <div class="form-group mb-4">
-                      <label for="type" class="form-label">
-                        Type <span class="text-danger">*</span>
-                      </label>
-                      <select
-                        id="type"
-                        v-model.number="formData.type"
-                        class="form-select"
-                        required
-                        :class="getFieldValidationClass('type')"
-                      >
-                        <option v-for="option in (getFieldConfig('type')?.options || equipmentConfig.nonTranslatableFields.find(f => f.name === 'type')?.options || [])" :key="option.value" :value="option.value">
-                          {{ option.label }}
-                        </option>
-                      </select>
-                      <div class="invalid-feedback">{{ validationErrors.type || 'Please select a type' }}</div>
-                    </div>
-                  </div>
-
-                  <!-- Level -->
-                  <div class="col-md-6">
-                    <div class="form-group mb-4">
-                      <label for="lvl" class="form-label">Level</label>
-                      <input
-                        type="number"
-                        id="lvl"
-                        v-model.number="formData.lvl"
-                        class="form-control"
-                        placeholder="Level Requirement"
-                        min="0"
-                        :class="getFieldValidationClass('lvl')"
-                      />
-                      <div class="invalid-feedback">{{ validationErrors.lvl }}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- VIP -->
-                  <div class="col-md-6">
-                    <div class="form-group mb-4">
-                      <label for="vip" class="form-label">VIP</label>
-                      <input
-                        type="number"
-                        id="vip"
-                        v-model.number="formData.vip"
-                        class="form-control"
-                        placeholder="VIP Requirement"
-                        min="0"
-                        :class="getFieldValidationClass('vip')"
-                      />
-                      <div class="invalid-feedback">{{ validationErrors.vip }}</div>
-                    </div>
-                  </div>
-                </div>
-              </FormSection>
-
-              <!-- Section 4: Media -->
-              <FormSection title="Media" description="Upload icon and animation files for the equipment">
-                <div class="row">
-                  <!-- Icon -->
-                  <div class="col-md-6">
-                    <FileUploadInput
-                      fieldName="icon"
-                      :label="getFieldConfig('icon')?.label || 'Equipment Icon'"
-                      v-model="formData.iconData"
-                      :accept="getFieldConfig('icon')?.accept || 'image/*'"
-                      :maxSize="(getFieldConfig('icon')?.maxSize || 5) * 1024 * 1024"
-                      :required="getFieldConfig('icon')?.required || false"
-                      :showUrlInput="getFieldConfig('icon')?.supportsUrlFallback || true"
-                      :existingUrl="equipment?.icon || ''"
-                      :isSubmitted="isSubmitted"
-                      :errors="validationErrors"
-                    />
-                  </div>
-
-                  <!-- Animation -->
-                  <div class="col-md-6">
-                    <FileUploadInput
-                      fieldName="anim"
-                      :label="getFieldConfig('anim')?.label || 'Equipment Animation'"
-                      v-model="formData.animData"
-                      :accept="getFieldConfig('anim')?.accept || '.svga,.webp,.gif'"
-                      :maxSize="(getFieldConfig('anim')?.maxSize || 10) * 1024 * 1024"
-                      :required="getFieldConfig('anim')?.required || false"
-                      :showUrlInput="getFieldConfig('anim')?.supportsUrlFallback || true"
-                      :existingUrl="equipment?.anim || ''"
-                      :isSubmitted="isSubmitted"
-                      :errors="validationErrors"
-                    />
-                  </div>
-                </div>
-              </FormSection>
-
-              <!-- Action Buttons -->
-              <div class="row mt-4">
+            <!-- Content Panel -->
+            <div class="col-xl-9 col-lg-12 content-panel">
+              <!-- Locale Selector -->
+              <div class="row mb-4">
                 <div class="col-12">
-                  <div class="d-flex justify-content-end gap-2">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      @click="handleCancel"
-                      :disabled="isSubmitting"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      @click="handleSubmit"
-                      :disabled="isSubmitting"
-                    >
-                      <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                      <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                      {{ isSubmitting ? 'Updating...' : 'Update Equipment' }}
-                    </button>
+                  <div class="d-flex justify-content-between align-items-center page-header-responsive">
+                    <h3>Edit Equipment</h3>
+                    <div class="d-flex align-items-end gap-2">
+                      <div class="locale-selector" style="width: 200px;">
+                        <label for="localeSelect" class="form-label mb-1">Language:</label>
+                        <select
+                          id="localeSelect"
+                          class="form-select"
+                          v-model="selectedLocale"
+                          @change="handleLocaleChange"
+                        >
+                          <option v-for="locale in equipmentConfig.supportedLocales" :key="locale.code" :value="locale.code">
+                            {{ locale.label }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch ms-2">
+                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales" @change="handleShowAllLocalesChange">
+                        <label class="form-check-label" for="toggleAllLocales">Edit all locales</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Fully Dynamic Form with Custom Panel Layout -->
+              <DynamicFormBuilder
+                :entityConfig="equipmentConfig"
+                v-model="formData"
+                :isSubmitted="isSubmitted"
+                :errors="validationErrors"
+                :existingData="equipment"
+                :selectedLocale="selectedLocale"
+                :showAllLocales="showAllLocales"
+                :layoutMode="'custom-panels'"
+                mode="edit"
+              />
+            </div>
 
+            <!-- Action Sidebar -->
+            <div class="col-xl-3 col-lg-12 action-sidebar">
+              <div class="invoice-actions-btn sticky-sidebar">
+                <div class="invoice-action-btn">
+                  <div class="row">
+                    <div class="col-xl-12 col-md-6 col-sm-6">
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-block w-100 mb-3"
+                        @click="handleCancel"
+                        :disabled="isSubmitting"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="col-xl-12 col-md-6 col-sm-6">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-block w-100 mb-3"
+                        @click="handleSubmit"
+                        :disabled="isSubmitting"
+                      >
+                        <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save me-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        {{ isSubmitting ? 'Updating...' : 'Update Equipment' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -245,11 +131,10 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useMeta } from '@/composables/use-meta';
-import FormSection from '@/components/forms/FormSection.vue';
-import TranslationInput from '@/views/bikmedia/components/TranslationInput.vue';
-import FileUploadInput from '@/components/forms/FileUploadInput.vue';
+import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
 import equipmentService from '@/services/api/equipment.service';
 import { equipmentConfig } from '@/config/entities/equipment.config';
+import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
 import { sanitizeObject } from '@/utils/sanitize';
 import Swal from 'sweetalert2';
 
@@ -261,19 +146,7 @@ const router = useRouter();
 const route = useRoute();
 
 // Reactive State
-const formData = ref({
-  nameEN: '',
-  nameAR: '',
-  descriptionEN: '',
-  descriptionAR: '',
-  coin: 0,
-  days: 0,
-  type: 1,
-  lvl: 0,
-  vip: 0,
-  iconData: { file: null, url: '' },
-  animData: { file: null, url: '' }
-});
+const formData = ref(initializeFormData(equipmentConfig));
 
 const equipment = ref(null);
 const loading = ref(true);
@@ -281,167 +154,43 @@ const loadError = ref(null);
 const isSubmitted = ref(false);
 const isSubmitting = ref(false);
 const validationErrors = ref({});
+const selectedLocale = ref('en');
+const showAllLocales = ref(false);
+const syncingTranslations = ref(false);
 
-// Helper Methods
-const getFieldConfig = (fieldName) => {
-  // Check translatable fields first
-  const translatableField = equipmentConfig.translatableFields.find(
-    f => f.name === fieldName
-  );
-  if (translatableField) return translatableField;
-
-  // Check non-translatable fields
-  const nonTranslatableField = equipmentConfig.nonTranslatableFields.find(
-    f => f.name === fieldName
-  );
-  return nonTranslatableField || null;
-};
-
-const getFieldValidationClass = (fieldName) => {
-  if (!isSubmitted.value) return '';
-
-  const hasError = validationErrors.value[fieldName];
-  if (hasError) return 'is-invalid';
-
-  const fieldConfig = getFieldConfig(fieldName);
-  if (fieldConfig?.required) {
-    const value = formData.value[fieldName];
-    return value ? 'is-valid' : '';
-  }
-
-  return '';
-};
+// All form handling is now managed by DynamicFormBuilder
 
 const validateForm = () => {
-  const errors = {};
-
-  // Validate non-translatable required fields
-  equipmentConfig.nonTranslatableFields.forEach(field => {
-    if (field.required) {
-      const value = formData.value[field.name];
-      if (value === null || value === undefined || value === '') {
-        errors[field.name] = `${field.label} is required`;
-      }
-    }
-  });
-
-  // Validate translatable fields (at least one locale should be filled for required fields)
-  equipmentConfig.translatableFields.forEach(field => {
-    if (field.required) {
-      const hasValue = equipmentConfig.supportedLocales.some(locale => {
-        const suffixedName = `${field.name}${locale.code.toUpperCase()}`;
-        const value = formData.value[suffixedName];
-        return value && value.trim() !== '';
-      });
-
-      if (!hasValue) {
-        equipmentConfig.supportedLocales.forEach(locale => {
-          const suffixedName = `${field.name}${locale.code.toUpperCase()}`;
-          errors[suffixedName] = `${field.name} is required in at least one language`;
-        });
-      }
-    }
-  });
-
+  const { valid, errors } = validateEntityFields(equipmentConfig, formData.value);
   validationErrors.value = errors;
-  return Object.keys(errors).length === 0;
+  return valid;
 };
 
-const buildChangedFieldsPayload = () => {
-  const hasFiles = Boolean(formData.value.iconData?.file || formData.value.animData?.file);
-
-  const originalNameEN = equipment.value?.nameEN || equipment.value?.name || '';
-  const originalNameAR = equipment.value?.nameAR || '';
-  const originalDescriptionEN = equipment.value?.descriptionEN || '';
-  const originalDescriptionAR = equipment.value?.descriptionAR || '';
-  const originalCoin = Number(equipment.value?.coin) || 0;
-  const originalDays = Number(equipment.value?.days) || 0;
-  const originalType = Number(equipment.value?.type) || 1;
-  const originalLvl = Number(equipment.value?.lvl) || 0;
-  const originalVip = Number(equipment.value?.vip) || 0;
-  const originalIconUrl = equipment.value?.icon || '';
-  const originalAnimUrl = equipment.value?.anim || '';
-
-  if (hasFiles) {
-    const formDataToSend = new FormData();
-    formDataToSend.append('id', route.params.id);
-
-    formDataToSend.append('nameEN', formData.value.nameEN || originalNameEN || '');
-    formDataToSend.append('nameAR', formData.value.nameAR || originalNameAR || '');
-    formDataToSend.append('descriptionEN', formData.value.descriptionEN || originalDescriptionEN || '');
-    formDataToSend.append('descriptionAR', formData.value.descriptionAR || originalDescriptionAR || '');
-    formDataToSend.append('coin', String(formData.value.coin ?? originalCoin));
-    formDataToSend.append('days', String(formData.value.days ?? originalDays));
-    formDataToSend.append('type', String(formData.value.type ?? originalType));
-    formDataToSend.append('lvl', String(formData.value.lvl ?? originalLvl));
-    formDataToSend.append('vip', String(formData.value.vip ?? originalVip));
-
-    if (formData.value.iconData?.file) {
-      formDataToSend.append('icon', formData.value.iconData.file);
-    } else {
-      const currentIconUrl = formData.value.iconData?.url || '';
-      if (currentIconUrl || originalIconUrl) {
-        formDataToSend.append('icon', currentIconUrl || originalIconUrl || '');
+// Prefetch other locales in background and populate suffixed buffers
+const backgroundPrefetchOtherLocales = async (activeLocale, equipmentId) => {
+  const others = (equipmentConfig.supportedLocales || []).map(l => l.code).filter(code => code !== activeLocale);
+  if (others.length === 0) return;
+  syncingTranslations.value = true;
+  try {
+    for (const locale of others) {
+      try {
+        const resp = await equipmentService.getById(equipmentId, locale);
+        const item = resp?.item?.list?.find(e => e.id === Number(equipmentId)) || resp?.data?.one || null;
+        if (item && typeof item.name === 'string') {
+          const key = `name${locale.toUpperCase()}`;
+          if (!formData.value[key]) formData.value[key] = item.name;
+        }
+      } catch (e) {
+        // ignore individual locale failures
+        console.warn('Prefetch locale failed:', locale, e?.message);
       }
     }
-
-    if (formData.value.animData?.file) {
-      formDataToSend.append('anim', formData.value.animData.file);
-    } else {
-      const currentAnimUrl = formData.value.animData?.url || '';
-      if (currentAnimUrl || originalAnimUrl) {
-        formDataToSend.append('anim', currentAnimUrl || originalAnimUrl || '');
-      }
-    }
-
-    return formDataToSend;
+  } finally {
+    syncingTranslations.value = false;
   }
-
-  const changed = {};
-
-  if (formData.value.nameEN !== originalNameEN) {
-    changed.nameEN = formData.value.nameEN || '';
-  }
-  if (formData.value.nameAR !== originalNameAR) {
-    changed.nameAR = formData.value.nameAR || '';
-  }
-  if (formData.value.descriptionEN !== originalDescriptionEN) {
-    changed.descriptionEN = formData.value.descriptionEN || '';
-  }
-  if (formData.value.descriptionAR !== originalDescriptionAR) {
-    changed.descriptionAR = formData.value.descriptionAR || '';
-  }
-
-  if (formData.value.coin !== originalCoin) {
-    changed.coin = formData.value.coin;
-  }
-  if (formData.value.days !== originalDays) {
-    changed.days = formData.value.days;
-  }
-  if (formData.value.type !== originalType) {
-    changed.type = formData.value.type;
-  }
-  if (formData.value.lvl !== originalLvl) {
-    changed.lvl = formData.value.lvl;
-  }
-  if (formData.value.vip !== originalVip) {
-    changed.vip = formData.value.vip;
-  }
-
-  const currentIconUrl = formData.value.iconData?.url || '';
-  if (currentIconUrl !== originalIconUrl && typeof currentIconUrl === 'string') {
-    changed.icon = currentIconUrl;
-  }
-
-  const currentAnimUrl = formData.value.animData?.url || '';
-  if (currentAnimUrl !== originalAnimUrl && typeof currentAnimUrl === 'string') {
-    changed.anim = currentAnimUrl;
-  }
-
-  return changed;
 };
 
-const loadEquipment = async () => {
+const loadEquipment = async (lang = null) => {
   loading.value = true;
   loadError.value = null;
   
@@ -451,45 +200,57 @@ const loadEquipment = async () => {
     if (!equipmentId) {
       throw new Error('Equipment ID is required');
     }
-    
-    // Workaround: Use getAll() and filter by ID
-    // TODO: Replace with equipmentService.getById(id) when available
-    // This workaround will be replaced in subsequent phase "Extend API Services with Missing CRUD Methods"
-    const response = await equipmentService.getAll();
-    const equipmentList = response.items?.list || [];
-    
-    const foundEquipment = equipmentList.find(e => e.id === Number(equipmentId));
-    
-    if (!foundEquipment) {
-      throw new Error(`Equipment with ID ${equipmentId} not found`);
-    }
-    
-    equipment.value = foundEquipment;
-    
-    // Pre-populate form data
-    formData.value = {
-      nameEN: foundEquipment.nameEN || foundEquipment.name || '',
-      nameAR: foundEquipment.nameAR || '',
-      descriptionEN: foundEquipment.descriptionEN || '',
-      descriptionAR: foundEquipment.descriptionAR || '',
-      coin: Number(foundEquipment.coin) || 0,
-      days: Number(foundEquipment.days) || 0,
-      type: Number(foundEquipment.type) || 1,
-      lvl: Number(foundEquipment.lvl) || 0,
-      vip: Number(foundEquipment.vip) || 0,
-      iconData: { 
-        file: null, 
-        url: foundEquipment.icon || '' 
-      },
-      animData: { 
-        file: null, 
-        url: foundEquipment.anim || '' 
+    const locale = lang || selectedLocale.value;
+
+    let foundEquipment = null;
+    try {
+      // Preferred: fetch by id with locale
+      const response = await equipmentService.getById(equipmentId, locale);
+      foundEquipment = response?.item?.list?.find(e => e.id === Number(equipmentId)) || response?.data?.one || null;
+      if (!foundEquipment) throw new Error('Invalid getById() response');
+    } catch (e) {
+      // Fallback to getAll with locale and filter
+      const response = await equipmentService.getAll({ lang: locale });
+      const equipmentList = response.items?.list || [];
+      foundEquipment = equipmentList.find(e => e.id === Number(equipmentId));
+      if (!foundEquipment) {
+        throw new Error(`Equipment with ID ${equipmentId} not found`);
       }
-    };
-    
+    }
+
+    equipment.value = foundEquipment;
+
+    // Initialize form with existing data to populate non-translatables
+    const prevModel = formData.value;
+    formData.value = initializeFormData(equipmentConfig, foundEquipment);
+
+    // Map unsuffixed localized fields from response into active locale buffers
+    const suffix = selectedLocale.value.toUpperCase();
+    if (typeof foundEquipment.name === 'string') {
+      const key = `name${suffix}`;
+      formData.value[key] = foundEquipment.name;
+    }
+
+    // Preserve other locale buffers if previously edited
+    if (prevModel) {
+      equipmentConfig.translatableFields.forEach(field => {
+        const fname = typeof field === 'string' ? field : field.name;
+        if (!fname) return;
+        equipmentConfig.supportedLocales.forEach(loc => {
+          const k = `${fname}${loc.code.toUpperCase()}`;
+          if (loc.code !== selectedLocale.value && prevModel[k] && !formData.value[k]) {
+            formData.value[k] = prevModel[k];
+          }
+        });
+      });
+    }
+
     console.log('Equipment loaded:', foundEquipment);
     console.log('Form data populated:', formData.value);
     
+    // Background prefetch for other locales to populate hidden buffers
+    backgroundPrefetchOtherLocales(selectedLocale.value, equipmentId);
+  
   } catch (error) {
     console.error('Failed to load equipment:', error);
     loadError.value = error.message || 'Failed to load equipment data';
@@ -499,20 +260,32 @@ const loadEquipment = async () => {
   }
 };
 
+const handleLocaleChange = async () => {
+  const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(equipmentConfig, equipment.value || {}));
+  if (hasChanges && !showAllLocales.value) {
+    const result = await Swal.fire({
+      title: 'Switch language?',
+      text: 'Unsaved changes may be lost when switching language.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Switch',
+      cancelButtonText: 'Stay'
+    });
+    if (!result.isConfirmed) return;
+  }
+  await loadEquipment(selectedLocale.value);
+};
+
+const handleShowAllLocalesChange = async () => {
+  if (showAllLocales.value && equipment?.value?.id) {
+    // Ensure all locales are populated when enabling 'edit all'
+    await backgroundPrefetchOtherLocales(selectedLocale.value, equipment.value.id);
+  }
+};
+
 // Event Handlers
 const handleCancel = () => {
-  const hasChanges = 
-    formData.value.nameEN !== (equipment.value?.nameEN || equipment.value?.name || '') ||
-    formData.value.nameAR !== (equipment.value?.nameAR || '') ||
-    formData.value.descriptionEN !== (equipment.value?.descriptionEN || '') ||
-    formData.value.descriptionAR !== (equipment.value?.descriptionAR || '') ||
-    formData.value.coin !== (Number(equipment.value?.coin) || 0) ||
-    formData.value.days !== (Number(equipment.value?.days) || 0) ||
-    formData.value.type !== (Number(equipment.value?.type) || 1) ||
-    formData.value.lvl !== (Number(equipment.value?.lvl) || 0) ||
-    formData.value.vip !== (Number(equipment.value?.vip) || 0) ||
-    formData.value.iconData?.file !== null ||
-    formData.value.animData?.file !== null;
+  const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(equipmentConfig, equipment.value || {}));
 
   if (hasChanges) {
     Swal.fire({
@@ -546,22 +319,21 @@ const handleSubmit = async () => {
     // Sanitize string inputs
     const sanitizedData = {
       nameEN: formData.value.nameEN,
-      nameAR: formData.value.nameAR,
-      descriptionEN: formData.value.descriptionEN,
-      descriptionAR: formData.value.descriptionAR
+      nameAR: formData.value.nameAR
     };
 
-    const cleaned = sanitizeObject(sanitizedData, ['nameEN', 'nameAR', 'descriptionEN', 'descriptionAR']);
+    const cleaned = sanitizeObject(sanitizedData, ['nameEN']);
+
     Object.assign(formData.value, cleaned);
 
-    // Build payload with only changed fields
-    const changedFields = buildChangedFieldsPayload();
-    const isFormData = changedFields instanceof FormData;
+    // Build payload dynamically
+    const payload = buildDynamicPayload(equipmentConfig, formData.value, equipment.value, 'update', { id: route.params.id, updateStrategy: 'all' });
+    const isFormData = payload instanceof FormData;
 
     // Check if there are any changes
     if (
-      (!isFormData && Object.keys(changedFields).length === 0) ||
-      (isFormData && Array.from(changedFields.keys()).filter((key) => key !== 'id').length === 0)
+      (!isFormData && Object.keys(payload).length === 0) ||
+      (isFormData && Array.from(payload.keys()).filter((key) => key !== 'id').length === 0)
     ) {
       showMessage('No changes to update', 'info');
       isSubmitting.value = false;
@@ -569,8 +341,8 @@ const handleSubmit = async () => {
     }
 
     const response = isFormData
-      ? await equipmentService.postFormData('/edit', changedFields)
-      : await equipmentService.update(route.params.id, changedFields);
+      ? await equipmentService.postFormData('/edit', payload)
+      : await equipmentService.update(route.params.id, payload);
 
     // Show success message
     showMessage('Equipment updated successfully', 'success');
@@ -603,6 +375,8 @@ const showMessage = (msg, type = 'success') => {
   });
 };
 
+// All file handling is now managed by DynamicFormBuilder
+
 // Lifecycle Hooks
 onMounted(() => {
   // Load equipment data on mount
@@ -611,11 +385,106 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.bnequipment-edit {
-  /* Inherits layout-px-spacing from template */
-}
-
 .gap-2 {
   gap: 0.5rem;
 }
+
+@media (min-width: 1200px) {
+  .sticky-sidebar {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+  }
+}
+
+/* Media upload box styling */
+.media-upload-box {
+  padding: 1.5rem;
+  border: 2px dashed #e0e6ed;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.media-upload-box:hover {
+  border-color: #bbb6d0;
+  background-color: #f1f2f3;
+}
+
+.current-media-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.animation-preview img,
+.current-media-preview img {
+  border: 2px solid #e0e6ed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.animation-placeholder {
+  text-align: center;
+}
+
+/* Custom file input styling */
+.custom-file {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  margin-bottom: 0;
+}
+
+.custom-file-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  margin: 0;
+  opacity: 0;
+}
+
+.custom-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.custom-file-label::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: calc(1.5em + 0.75rem);
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  content: attr(data-browse);
+  background-color: #e9ecef;
+  border-left: inherit;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.form-file-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
+n

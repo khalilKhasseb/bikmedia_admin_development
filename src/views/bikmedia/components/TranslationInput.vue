@@ -166,7 +166,8 @@ const emit = defineEmits(['update:modelValue']);
  * Computed: Input type (from fieldConfig or type prop)
  */
 const inputType = computed(() => {
-  return props.fieldConfig?.type || props.type || 'text';
+  const t = props.fieldConfig?.type || props.type || 'text';
+  return ['text', 'textarea'].includes(t) ? t : 'text';
 });
 
 /**
@@ -220,7 +221,10 @@ const localeModel = (localeCode) => {
  * @returns {string} Placeholder text
  */
 const getPlaceholder = (localeCode) => {
-  return props.fieldConfig?.placeholder?.[localeCode] || '';
+  const ph = props.fieldConfig?.placeholder;
+  if (!ph) return '';
+  if (typeof ph === 'string') return ph;
+  return ph[localeCode] || '';
 };
 
 /**
@@ -249,7 +253,7 @@ const getValidationClass = (localeCode) => {
   if (!props.isSubmitted) return '';
   
   const suffixedFieldName = getSuffixedFieldName(localeCode);
-  const fieldValue = props.modelValue[suffixedFieldName];
+  const fieldValue = props.modelValue?.[suffixedFieldName];
   const hasError = props.errors[suffixedFieldName];
   
   if (hasError) return 'is-invalid';

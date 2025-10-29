@@ -7,7 +7,12 @@ import vueI18n from "@intlify/vite-plugin-vue-i18n";
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     
+    // Configure base URL for GitHub Pages deployment
+    const isProduction = mode === 'production';
+    const baseUrl = isProduction ? '/bikmedia_admin_development/' : '/';
+    
     return {
+    base: baseUrl,
     plugins: [
         vue(),
         vueI18n({
@@ -55,6 +60,21 @@ export default defineConfig(({ mode }) => {
             }
         }
     },
+    // Build configuration optimized for GitHub Pages
+    build: {
+        outDir: 'dist',
+        assetsDir: 'assets',
+        sourcemap: false,
+        minify: isProduction,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['vue', 'vue-router'],
+                    ui: ['quill', 'nouislider']
+                }
+            }
+        }
+    },
     optimizeDeps: {
         include: ["quill", "nouislider"],
     },
@@ -67,7 +87,7 @@ export default defineConfig(({ mode }) => {
 
             {
                 find: /^@services(.*)$/,
-                replacement: "src/services/$1",
+                replacement: `${path.resolve(__dirname, './src/services')}$1`,
             },
             {
                 find: '@/',

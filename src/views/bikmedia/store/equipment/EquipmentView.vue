@@ -46,11 +46,11 @@
 
             <!-- Content Area -->
             <template v-else>
-              <div class="col-xl-9">
+              <div class="col-xl-9 content-panel">
                 <!-- Locale Selector -->
                 <div class="row mb-4">
                   <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center page-header-responsive">
                       <h3>Equipment Details</h3>
                       <div class="locale-selector" style="width: 200px;">
                         <label for="localeSelect" class="form-label mb-1">Language:</label>
@@ -81,9 +81,20 @@
                           Name
                           <span v-if="showNameFallback" class="badge bg-light text-muted ms-2" style="font-weight: normal;">Using default locale</span>
                         </label>
-                        <p class="form-control-plaintext" :dir="isRTL ? 'rtl' : 'ltr'">
-                          {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
-                        </p>
+                        <div class="d-flex align-items-center">
+                          <SmartIcon
+                            v-if="equipment?.icon"
+                            :src="equipment.icon"
+                            alt="Equipment Icon"
+                            width="48px"
+                            height="48px"
+                            class="me-3"
+                            style="border-radius: 8px; border: 1px solid #e0e6ed;"
+                          />
+                          <p class="form-control-plaintext mb-0" :dir="isRTL ? 'rtl' : 'ltr'">
+                            {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -172,6 +183,7 @@
                 <FormSection
                   title="Media"
                   description="Icon and animation files"
+                  class="media-section"
                 >
                   <div class="row">
                     <div class="col-md-6">
@@ -238,7 +250,7 @@
               </div>
 
               <!-- Action Buttons Sidebar -->
-              <div class="col-xl-3">
+              <div class="col-xl-3 action-sidebar">
                 <div class="invoice-actions-btn">
                   <div class="invoice-action-btn">
                     <div class="row">
@@ -300,6 +312,7 @@ import { useRouter, useRoute } from 'vue-router';
 import equipmentConfig from '@/config/entities/equipment.config.js';
 import equipmentService from '@/services/api/equipment.service.js';
 import FormSection from '@/components/forms/FormSection.vue';
+import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { useMeta } from '@/composables/use-meta';
 import useClipboard from 'vue-clipboard3';
 
@@ -513,12 +526,12 @@ const getTypeLabel = (type) => {
 // Get type badge class
 const getTypeBadgeClass = (type) => {
   const badgeClasses = {
-    1: 'badge-light-primary',
-    2: 'badge-light-success',
-    3: 'badge-light-warning',
-    4: 'badge-light-info'
+    1: 'bg-primary',
+    2: 'bg-success',
+    3: 'bg-warning text-dark',
+    4: 'bg-info text-dark'
   };
-  return badgeClasses[type] || 'badge-light-secondary';
+  return badgeClasses[type] || 'bg-secondary';
 };
 
 // Show message

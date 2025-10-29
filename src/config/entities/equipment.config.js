@@ -34,17 +34,18 @@ const equipmentConfig = {
         // fa: 'نام تجهیز'
       }
     },
-    // {
-    //   name: 'description',
-    //   type: 'textarea',
-    //   required: false,
-    //   maxLength: 1000,
-    //   rows: 4,
-    //   placeholder: {
-    //     en: 'Equipment Description',
-    //     ar: 'وصف المعدات'
-    //   }
-    // }
+    {
+      name: 'description',
+      type: 'textarea',
+      required: false,
+      maxLength: 1000,
+      rows: 4,
+      label: 'Description',
+      placeholder: {
+        en: 'Equipment Description',
+        ar: 'وصف المعدات'
+      }
+    }
   ],
 
   // Equipment non-translatable fields
@@ -108,9 +109,9 @@ const equipmentConfig = {
       maxSize: 5
     },
     {
-      name: 'anim',
+      name: 'svga',
       type: 'file',
-      accept: '.svga,.webp,.gif',
+      accept: '.svga,.webp,.gif,.svg',
       required: false,
       label: 'Animation',
       supportsUrlFallback: true,
@@ -127,7 +128,7 @@ const equipmentConfig = {
     {
       name: 'details',
       label: 'Details',
-      fields: ['description']
+      fields: []
     },
     {
       name: 'settings',
@@ -137,7 +138,7 @@ const equipmentConfig = {
     {
       name: 'media',
       label: 'Media',
-      fields: ['icon', 'anim']
+      fields: ['icon', 'svga']
     }
   ]
 };

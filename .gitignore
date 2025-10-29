@@ -4,6 +4,7 @@ node_modules
 
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -20,6 +21,8 @@ pnpm-debug.log*
 .windsurfrules
 .windsurfrules.json
 .windsurfrules.md
+.kiro
+.editorconfig
 
 *.suo
 *.ntvs*

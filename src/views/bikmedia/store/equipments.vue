@@ -366,12 +366,12 @@
     // Helper function to get badge class for type
     const getTypeBadgeClass = (type) => {
         const badgeClasses = {
-            1: 'badge-light-primary',
-            2: 'badge-light-success',
-            3: 'badge-light-warning',
-            4: 'badge-light-info'
+            1: 'bg-primary',
+            2: 'bg-success',
+            3: 'bg-warning text-dark',
+            4: 'bg-info text-dark'
         };
-        return badgeClasses[type] || 'badge-light-secondary';
+        return badgeClasses[type] || 'bg-secondary';
     };
 
     // Helper function to format numbers with commas

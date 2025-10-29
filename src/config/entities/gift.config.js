@@ -23,31 +23,42 @@ const giftConfig = {
 
   // Translatable field definitions for name and description
   translatableFields: [
+    // {
+    //   name: 'name',
+    //   type: 'text',
+    //   required: false,
+    //   maxLength: 255,
+    //   label: 'Name',
+    //   placeholder: {
+    //     en: 'Gift Name',
+    //     ar: 'اسم الهدية'
+    //   }
+    // },
+    // {
+    //   name: 'description',
+    //   type: 'textarea',
+    //   required: false,
+    //   maxLength: 1000,
+    //   rows: 4,
+    //   label: 'Description',
+    //   placeholder: {
+    //     en: 'Gift Description',
+    //     ar: 'وصف الهدية'
+    //   }
+    // }
+  ],
+
+  // Gift non-translatable fields
+  nonTranslatableFields: [
     {
       name: 'name',
       type: 'text',
       required: false,
       maxLength: 255,
-      placeholder: {
-        en: 'Gift Name',
-        ar: 'اسم الهدية'
-      }
+      label: 'Name',
+      placeholder: "Gift name"
     },
-    {
-      name: 'description',
-      type: 'textarea',
-      required: false,
-      maxLength: 1000,
-      rows: 4,
-      placeholder: {
-        en: 'Gift Description',
-        ar: 'وصف الهدية'
-      }
-    }
-  ],
 
-  // Gift non-translatable fields
-  nonTranslatableFields: [
     {
       name: 'coin',
       type: 'number',
@@ -127,9 +138,9 @@ const giftConfig = {
       maxSize: 5
     },
     {
-      name: 'anim',
+      name: 'svga',
       type: 'file',
-      accept: '.svga,.webp,.gif',
+      accept: '.svga,.webp,.gif,.svg',
       required: false,
       label: 'Animation',
       supportsUrlFallback: true,
@@ -141,22 +152,26 @@ const giftConfig = {
     {
       name: 'basicInfo',
       label: 'Basic Info',
-      fields: ['name']
+      description: 'Gift name and identification',
+      fields: ['name', 'coin']
+    },
+    {
+      name: 'media',
+      label: 'Media',
+      description: 'Upload icon and animation files',
+      fields: ['icon', 'svga']
     },
     {
       name: 'details',
       label: 'Details',
+      description: 'Additional information',
       fields: ['description']
     },
     {
       name: 'settings',
       label: 'Settings',
-      fields: ['coin', 'type', 'lvl', 'vip', 'anim_type', 'list_order', 'mark']
-    },
-    {
-      name: 'media',
-      label: 'Media',
-      fields: ['icon', 'anim']
+      description: 'Gift properties and requirements',
+      fields: ['type', 'lvl', 'vip', 'anim_type', 'list_order', 'mark']
     }
   ]
 };

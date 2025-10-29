@@ -298,6 +298,37 @@ class GiftService extends BaseService {
       throw normalizedError;
     }
   }
+
+  /**
+   * Add a sub-gift (icon) to an existing gift
+   *
+   * @param {number|string} giftId
+   * @param {{ file?: File, name: string }} payload
+   * @returns {Promise<Object>}
+   */
+  async addSubGift(giftId, payload) {
+    if (giftId === null || giftId === undefined || giftId === '') {
+      throw new Error('GiftService.addSubGift requires a valid giftId.');
+    }
+    if (!payload || !payload.name) {
+      throw new Error('GiftService.addSubGift requires a name.');
+    }
+
+    try {
+      const form = new FormData();
+      form.append('id', giftId);
+      form.append('name', payload.name);
+      if (payload.file) {
+        form.append('icon', payload.file);
+      }
+
+      const response = await this.postFormData('/addMore', form);
+      return transformSingleResponse(response);
+    } catch (error) {
+      const normalizedError = transformErrorResponse(error);
+      throw normalizedError;
+    }
+  }
 }
 
 // Export singleton instance

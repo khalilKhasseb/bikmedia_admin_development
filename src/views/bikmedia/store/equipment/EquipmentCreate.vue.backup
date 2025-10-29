@@ -17,74 +17,47 @@
       </ul>
     </teleport>
 
-    <!-- Main Layout with Two-Panel Design -->
+    <!-- Main Layout -->
     <div class="row layout-top-spacing layout-spacing">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="doc-container">
-          <div class="row two-panel-layout">
-            <!-- Content Panel -->
-            <div class="col-xl-9 col-lg-12 content-panel">
-              <!-- Page Header -->
-              <div class="row mb-4">
-                <div class="col-12">
-                  <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                    <h3>Create Equipment</h3>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Dynamic Form with Custom Panel Layout -->
+          <div class="row">
+            <div class="col-xl-9">
               <DynamicFormBuilder
                 :entityConfig="equipmentConfig"
                 v-model="formData"
                 :isSubmitted="isSubmitted"
                 :errors="validationErrors"
                 :existingData="null"
-                :layoutMode="'custom-panels'"
                 mode="create"
               />
-            </div>
 
-            <!-- Action Sidebar -->
-            <div class="col-xl-3 col-lg-12 action-sidebar">
-              <div class="sticky-sidebar">
-                <div class="invoice-actions-btn">
-                  <div class="invoice-action-btn">
-                    <div class="row">
-                      <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-secondary btn-block w-100 mb-3"
-                          @click="handleCancel"
-                          :disabled="isSubmitting"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                          Cancel
-                        </button>
-                      </div>
-                      <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-primary btn-block w-100 mb-3"
-                          @click="handleSubmit"
-                          :disabled="isSubmitting"
-                        >
-                          <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                            <polyline points="7 3 7 8 15 8"></polyline>
-                          </svg>
-                          {{ isSubmitting ? 'Creating...' : 'Create Equipment' }}
-                        </button>
-                      </div>
-                    </div>
+              <!-- Action Buttons -->
+              <div class="row mt-4">
+                <div class="col-12">
+                  <div class="d-flex justify-content-end gap-2">
+                    <button 
+                      type="button" 
+                      class="btn btn-secondary"
+                      @click="handleCancel"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      Cancel
+                    </button>
+                    <button 
+                      type="button" 
+                      class="btn btn-primary"
+                      @click="handleSubmit"
+                      :disabled="isSubmitting"
+                    >
+                      <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                      {{ isSubmitting ? 'Creating...' : 'Create Equipment' }}
+                    </button>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -217,12 +190,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Responsive adjustments */
-@media (min-width: 1200px) {
-  .sticky-sidebar {
-    position: sticky;
-    top: 100px;
-    z-index: 10;
-  }
+/* Ensure consistent spacing for action buttons */
+.gap-2 {
+  gap: 0.5rem;
 }
 </style>

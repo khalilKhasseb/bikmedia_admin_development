@@ -44,246 +44,149 @@
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="doc-container">
           <div class="row">
-            <div class="col-xl-9">
-              
-              <!-- Section 1: Basic Info (Name) -->
-              <FormSection title="Basic Information" description="Gift name in multiple languages">
-                <TranslationInput
-                  fieldName="name"
-                  :fieldConfig="getFieldConfig('name')"
-                  :locales="giftConfig.supportedLocales"
-                  v-model="formData"
-                  :isSubmitted="isSubmitted"
-                  :errors="validationErrors"
-                />
-              </FormSection>
-
-              <!-- Section 2: Details (Description) -->
-              <FormSection title="Details" description="Gift description in multiple languages">
-                <TranslationInput
-                  fieldName="description"
-                  :fieldConfig="getFieldConfig('description')"
-                  :locales="giftConfig.supportedLocales"
-                  v-model="formData"
-                  :isSubmitted="isSubmitted"
-                  :errors="validationErrors"
-                />
-              </FormSection>
-
-              <!-- Section 3: Settings (Non-Translatable Fields) -->
-              <FormSection title="Settings" description="Gift configuration and requirements">
-                
-                <!-- Row 1: Coin + Type -->
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="coin" class="form-label">Coins</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="coin"
-                        v-model.number="formData.coin"
-                        placeholder="Coin Value"
-                        min="0"
-                        :class="getFieldValidationClass('coin')"
-                      />
-                      <div class="invalid-feedback">
-                        {{ validationErrors.coin }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="type" class="form-label">Type <span class="text-danger">*</span></label>
-                      <select
-                        class="form-select"
-                        id="type"
-                        v-model.number="formData.type"
-                        :class="getFieldValidationClass('type')"
-                      >
-                        <option v-for="option in (getFieldConfig('type')?.options || giftConfig.nonTranslatableFields.find(f => f.name === 'type')?.options || [])" :key="option.value" :value="option.value">
-                          {{ option.label }}
-                        </option>
-                      </select>
-                      <div class="invalid-feedback">
-                        {{ validationErrors.type || 'Please select a type' }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Row 2: Level + VIP -->
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="lvl" class="form-label">Level</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="lvl"
-                        v-model.number="formData.lvl"
-                        placeholder="Level Requirement"
-                        min="0"
-                        :class="getFieldValidationClass('lvl')"
-                      />
-                      <div class="invalid-feedback">
-                        {{ validationErrors.lvl }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="vip" class="form-label">VIP</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="vip"
-                        v-model.number="formData.vip"
-                        placeholder="VIP Requirement"
-                        min="0"
-                        :class="getFieldValidationClass('vip')"
-                      />
-                      <div class="invalid-feedback">
-                        {{ validationErrors.vip }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Row 3: Animation Type + List Order -->
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="anim_type" class="form-label">Animation Type</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="anim_type"
-                        v-model.number="formData.anim_type"
-                        placeholder="Animation Type"
-                        min="0"
-                        :class="getFieldValidationClass('anim_type')"
-                      />
-                      <div class="invalid-feedback">
-                        {{ validationErrors.anim_type }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="list_order" class="form-label">List Order</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="list_order"
-                        v-model.number="formData.list_order"
-                        placeholder="Display Order"
-                        min="0"
-                        :class="getFieldValidationClass('list_order')"
-                      />
-                      <small class="form-text text-muted">Lower numbers appear first</small>
-                      <div class="invalid-feedback">
-                        {{ validationErrors.list_order }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Row 4: Mark -->
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="mark" class="form-label">Mark</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="mark"
-                        v-model.number="formData.mark"
-                        placeholder="Mark Value"
-                        min="0"
-                        :class="getFieldValidationClass('mark')"
-                      />
-                      <div class="invalid-feedback">
-                        {{ validationErrors.mark }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </FormSection>
-
-              <!-- Section 4: Media (File Upload Fields) -->
-              <FormSection title="Media" description="Upload icon and animation files for the gift">
-                <div class="row">
-                  <div class="col-md-6">
-                    <FileUploadInput
-                      fieldName="icon"
-                      :label="getFieldConfig('icon')?.label || 'Gift Icon'"
-                      v-model="formData.iconData"
-                      :accept="getFieldConfig('icon')?.accept || 'image/*'"
-                      :maxSize="(getFieldConfig('icon')?.maxSize || 5) * 1024 * 1024"
-                      :required="getFieldConfig('icon')?.required || false"
-                      :showUrlInput="getFieldConfig('icon')?.supportsUrlFallback || true"
-                      :existingUrl="gift?.icon || ''"
-                      :isSubmitted="isSubmitted"
-                      :errors="validationErrors"
-                    />
-                  </div>
-                  
-                  <div class="col-md-6">
-                    <FileUploadInput
-                      fieldName="anim"
-                      :label="getFieldConfig('anim')?.label || 'Gift Animation'"
-                      v-model="formData.animData"
-                      :accept="getFieldConfig('anim')?.accept || '.svga,.webp,.gif'"
-                      :maxSize="(getFieldConfig('anim')?.maxSize || 10) * 1024 * 1024"
-                      :required="getFieldConfig('anim')?.required || false"
-                      :showUrlInput="getFieldConfig('anim')?.supportsUrlFallback || true"
-                      :existingUrl="gift?.anim || ''"
-                      :isSubmitted="isSubmitted"
-                      :errors="validationErrors"
-                    />
-                  </div>
-                </div>
-              </FormSection>
-
-              <!-- Action Buttons -->
-              <div class="row mt-4">
+            <!-- Content Panel -->
+            <div class="col-xl-9 col-lg-12 content-panel">
+              <!-- Locale Selector -->
+              <div class="row mb-4">
                 <div class="col-12">
-                  <div class="d-flex justify-content-end gap-2">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      @click="handleCancel"
-                      :disabled="isSubmitting"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      @click="handleSubmit"
-                      :disabled="isSubmitting"
-                    >
-                      <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                      <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                        <polyline points="7 3 7 8 15 8"></polyline>
-                      </svg>
-                      {{ isSubmitting ? 'Updating...' : 'Update Gift' }}
-                    </button>
+                  <div class="d-flex justify-content-between align-items-center page-header-responsive">
+                    <h3>Edit Gift</h3>
+                    <div class="d-flex align-items-end gap-2">
+                      <div class="locale-selector" style="width: 200px;">
+                        <label for="localeSelect" class="form-label mb-1">Language:</label>
+                        <select
+                          id="localeSelect"
+                          class="form-select"
+                          v-model="selectedLocale"
+                          @change="handleLocaleChange"
+                        >
+                          <option v-for="locale in giftConfig.supportedLocales" :key="locale.code" :value="locale.code">
+                            {{ locale.label }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch ms-2">
+                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales" @change="handleShowAllLocalesChange">
+                        <label class="form-check-label" for="toggleAllLocales">Edit all locales</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Fully Dynamic Form with Custom Panel Layout -->
+              <DynamicFormBuilder
+                :entityConfig="giftConfig"
+                v-model="formData"
+                :isSubmitted="isSubmitted"
+                :errors="validationErrors"
+                :existingData="gift"
+                :selectedLocale="selectedLocale"
+                :showAllLocales="showAllLocales"
+                :layoutMode="'custom-panels'"
+                mode="edit"
+              />
 
+              <!-- Sub Gifts Section -->
+              <div class="row mt-4 sub-gifts-grid" v-if="gift && gift.id">
+                <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Sub Gifts</h5>
+                    <button type="button" class="btn btn-sm btn-primary" @click="openSubGiftModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                      </svg>
+                      Add Sub Gift
+                    </button>
+                  </div>
+
+                  <div v-if="(gift.icons && gift.icons.length)" class="row g-3">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" v-for="(sg, idx) in gift.icons" :key="idx">
+                      <div class="card h-100">
+                        <div style="height: 140px; overflow: hidden;">
+                          <SmartIcon :src="sg.icon" alt="subgift" width="100%" height="140px" fit="cover" />
+                        </div>
+                        <div class="card-body p-2">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-truncate" :title="sg.name">{{ sg.name }}</div>
+                            <button type="button" class="btn btn-sm btn-outline-danger" disabled title="Delete coming soon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                                <path d="M10 11v6"></path>
+                                <path d="M14 11v6"></path>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="text-muted">No sub gifts yet.</div>
+                </div>
+              </div>
+
+              <!-- SubGift Modal Mount -->
+              <SubGiftModal v-if="gift && gift.id" :giftId="gift.id" :show="showSubGiftModal" @close="showSubGiftModal = false" @success="handleSubGiftAdded" />
+            </div>
+
+            <!-- Action Sidebar -->
+            <div class="col-xl-3 col-lg-12 action-sidebar">
+              <div class="sticky-sidebar">
+                <div class="invoice-actions-btn">
+                  <div class="invoice-action-btn">
+                    <div class="row">
+                      <div class="col-xl-12 col-md-6 col-sm-6">
+                        <button
+                          type="button"
+                          class="btn btn-info btn-block w-100 mb-3"
+                          @click="openSubGiftModal"
+                          :disabled="!gift || !gift.id"
+                          v-if="gift && gift.id"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                          </svg>
+                          Add Sub Gift
+                        </button>
+                      </div>
+                      <div class="col-xl-12 col-md-6 col-sm-6">
+                        <button
+                          type="button"
+                          class="btn btn-secondary btn-block w-100 mb-3"
+                          @click="handleCancel"
+                          :disabled="isSubmitting"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                          Cancel
+                        </button>
+                      </div>
+                      <div class="col-xl-12 col-md-6 col-sm-6">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-block w-100 mb-3"
+                          @click="handleSubmit"
+                          :disabled="isSubmitting"
+                        >
+                          <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                          </svg>
+                          {{ isSubmitting ? 'Updating...' : 'Update Gift' }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -296,11 +199,12 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useMeta } from '@/composables/use-meta';
-import FormSection from '@/components/forms/FormSection.vue';
-import TranslationInput from '@/views/bikmedia/components/TranslationInput.vue';
-import FileUploadInput from '@/components/forms/FileUploadInput.vue';
+import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
 import giftService from '@/services/api/gift.service';
+import SubGiftModal from '@/views/bikmedia/components/SubGiftModal.vue';
+import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { giftConfig } from '@/config/entities/gift.config';
+import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
 import { sanitizeObject } from '@/utils/sanitize';
 import Swal from 'sweetalert2';
 
@@ -312,26 +216,11 @@ const router = useRouter();
 const route = useRoute();
 
 // Reactive State
-const formData = ref({
-  // Translatable fields (suffixed)
-  nameEN: '',
-  nameAR: '',
-  descriptionEN: '',
-  descriptionAR: '',
-  
-  // Non-translatable fields
-  coin: 0,
-  type: 0,
-  lvl: 0,
-  vip: 0,
-  anim_type: 0,
-  list_order: 100000,
-  mark: 1,
-  
-  // File upload data objects
-  iconData: { file: null, url: '' },
-  animData: { file: null, url: '' }
-});
+const initialFormData = initializeFormData(giftConfig);
+// Initialize file data fields
+initialFormData.iconData = { file: null, url: '' };
+initialFormData.svgaData = { file: null, url: '' };
+const formData = ref(initialFormData);
 
 const gift = ref(null);
 const loading = ref(true);
@@ -339,173 +228,19 @@ const loadError = ref(null);
 const isSubmitted = ref(false);
 const isSubmitting = ref(false);
 const validationErrors = ref({});
-
-// Helper Methods
-const getFieldConfig = (fieldName) => {
-  // Check translatable fields first
-  const translatableField = giftConfig.translatableFields.find(
-    f => f.name === fieldName
-  );
-  if (translatableField) return translatableField;
-  
-  // Check non-translatable fields
-  const nonTranslatableField = giftConfig.nonTranslatableFields.find(
-    f => f.name === fieldName
-  );
-  if (nonTranslatableField) return nonTranslatableField;
-  
-  return null;
-};
-
-const getFieldValidationClass = (fieldName) => {
-  if (!isSubmitted.value) return '';
-  
-  // Check if field has error
-  if (validationErrors.value[fieldName]) {
-    return 'is-invalid';
-  }
-  
-  // Check if field has value (for optional fields)
-  const fieldValue = formData.value[fieldName];
-  if (fieldValue !== null && fieldValue !== undefined && fieldValue !== '') {
-    return 'is-valid';
-  }
-  
-  return '';
-};
+const selectedLocale = ref('en');
+const showAllLocales = ref(false);
+const showSubGiftModal = ref(false);
 
 const validateForm = () => {
-  validationErrors.value = {};
-  let isValid = true;
-  
-  // Validate required fields from config
-  giftConfig.nonTranslatableFields.forEach(field => {
-    if (field.required) {
-      const value = formData.value[field.name];
-      if (value === null || value === undefined || value === '') {
-        validationErrors.value[field.name] = `${field.label} is required`;
-        isValid = false;
-      }
-    }
-  });
-  
-  // Validate translatable fields (at least one locale required)
-  giftConfig.translatableFields.forEach(field => {
-    if (field.required) {
-      const hasValue = giftConfig.supportedLocales.some(locale => {
-        const fieldKey = `${field.name}${locale.suffix}`;
-        const value = formData.value[fieldKey];
-        return value && value.trim() !== '';
-      });
-      
-      if (!hasValue) {
-        giftConfig.supportedLocales.forEach(locale => {
-          const fieldKey = `${field.name}${locale.suffix}`;
-          validationErrors.value[fieldKey] = `${field.label} is required in at least one language`;
-        });
-        isValid = false;
-      }
-    }
-  });
-  
-  return isValid;
+  const { valid, errors } = validateEntityFields(giftConfig, formData.value);
+  validationErrors.value = errors;
+  return valid;
 };
 
-const buildChangedFieldsPayload = () => {
-  const hasFiles = Boolean(formData.value.iconData?.file || formData.value.animData?.file);
+// All form handling is now managed by DynamicFormBuilder
 
-  const originalName = gift.value?.nameEN || gift.value?.name || '';
-  const originalCoin = Number(gift.value?.coin) || 0;
-  const originalType = Number(gift.value?.type) || 0;
-  const originalLvl = Number(gift.value?.lvl) || 0;
-  const originalVip = Number(gift.value?.vip) || 0;
-  const originalAnimType = Number(gift.value?.anim_type) || 0;
-  const originalIconUrl = gift.value?.icon || '';
-  const originalAnimUrl = gift.value?.anim || '';
-
-  const appendSupportedFields = (target) => {
-    const nameValue = formData.value.nameEN ?? originalName;
-    target.append('name', (nameValue !== undefined && nameValue !== null ? nameValue : originalName) || '');
-
-    const coinValue = formData.value.coin ?? originalCoin;
-    target.append('coin', String(coinValue));
-
-    const typeValue = formData.value.type ?? originalType;
-    target.append('type', String(typeValue));
-
-    const lvlValue = formData.value.lvl ?? originalLvl;
-    target.append('lvl', String(lvlValue));
-
-    const vipValue = formData.value.vip ?? originalVip;
-    target.append('vip', String(vipValue));
-
-    const animTypeValue = formData.value.anim_type ?? originalAnimType;
-    target.append('anim_type', String(animTypeValue));
-  };
-
-  if (hasFiles) {
-    const formDataToSend = new FormData();
-    formDataToSend.append('id', route.params.id);
-
-    appendSupportedFields(formDataToSend);
-
-    if (formData.value.iconData?.file) {
-      formDataToSend.append('icon', formData.value.iconData.file);
-    } else {
-      const currentIconUrl = formData.value.iconData?.url || '';
-      if (currentIconUrl !== originalIconUrl && typeof currentIconUrl === 'string') {
-        formDataToSend.append('icon', currentIconUrl);
-      }
-    }
-
-    if (formData.value.animData?.file) {
-      formDataToSend.append('anim', formData.value.animData.file);
-    } else {
-      const currentAnimUrl = formData.value.animData?.url || '';
-      if (currentAnimUrl !== originalAnimUrl && typeof currentAnimUrl === 'string') {
-        formDataToSend.append('anim', currentAnimUrl);
-      }
-    }
-
-    // Note: Backend update endpoint may need multipart/form-data support for files
-    return formDataToSend;
-  }
-
-  const changed = {};
-
-  const appendChangedValue = (field, value) => {
-    if (value !== undefined) {
-      changed[field] = value;
-    }
-  };
-
-  const appendIfChanged = (field, currentValue, originalValue) => {
-    if (currentValue !== originalValue) {
-      appendChangedValue(field, currentValue);
-    }
-  };
-
-  appendIfChanged('name', formData.value.nameEN || '', originalName || '');
-  appendIfChanged('coin', formData.value.coin, originalCoin);
-  appendIfChanged('type', formData.value.type, originalType);
-  appendIfChanged('lvl', formData.value.lvl, originalLvl);
-  appendIfChanged('vip', formData.value.vip, originalVip);
-  appendIfChanged('anim_type', formData.value.anim_type, originalAnimType);
-
-  const currentIconUrl = formData.value.iconData?.url || '';
-  if (currentIconUrl !== originalIconUrl && typeof currentIconUrl === 'string') {
-    changed.icon = currentIconUrl;
-  }
-
-  const currentAnimUrl = formData.value.animData?.url || '';
-  if (currentAnimUrl !== originalAnimUrl && typeof currentAnimUrl === 'string') {
-    changed.anim = currentAnimUrl;
-  }
-
-  return changed;
-};
-
-const loadGift = async () => {
+const loadGift = async (lang = null) => {
   loading.value = true;
   loadError.value = null;
   
@@ -515,47 +250,31 @@ const loadGift = async () => {
     if (!giftId) {
       throw new Error('Gift ID is required');
     }
-    
-    // Workaround: Use getAll() and filter by ID
-    // TODO: Replace with giftService.getById(id) when available
-    // This workaround will be replaced in subsequent phase "Extend API Services with Missing CRUD Methods"
-    const response = await giftService.getAll({ p: 1, limit: 1000 });
-    const giftList = response.items?.list || [];
-    
-    const foundGift = giftList.find(g => g.id === Number(giftId));
-    
-    if (!foundGift) {
-      throw new Error(`Gift with ID ${giftId} not found`);
-    }
-    
-    gift.value = foundGift;
-    
-    // Pre-populate form data
-    formData.value = {
-      nameEN: foundGift.nameEN || foundGift.name || '',
-      nameAR: foundGift.nameAR || '',
-      descriptionEN: foundGift.descriptionEN || '',
-      descriptionAR: foundGift.descriptionAR || '',
-      coin: Number(foundGift.coin) || 0,
-      type: Number(foundGift.type) || 0,
-      lvl: Number(foundGift.lvl) || 0,
-      vip: Number(foundGift.vip) || 0,
-      anim_type: Number(foundGift.anim_type) || 0,
-      list_order: Number(foundGift.list_order) || 100000,
-      mark: Number(foundGift.mark) || 1,
-      iconData: { 
-        file: null, 
-        url: foundGift.icon || '' 
-      },
-      animData: { 
-        file: null, 
-        url: foundGift.anim || '' 
+    const locale = lang || selectedLocale.value;
+
+    try {
+      // Preferred: fetch by id with locale
+      const response = await giftService.getById(giftId, locale);
+      const one = response?.item?.list?.find(g => g.id === Number(giftId)) || response?.data?.one || null;
+      if (!one) throw new Error('Invalid getById() response');
+      gift.value = one;
+    } catch (e) {
+      // Fallback to getAll with locale and filter
+      const response = await giftService.getAll({ lang: locale, p: 1, limit: 1000 });
+      const giftList = response.items?.list || [];
+      const foundGift = giftList.find(g => g.id === Number(giftId));
+      if (!foundGift) {
+        throw new Error(`Gift with ID ${giftId} not found`);
       }
-    };
+      gift.value = foundGift;
+    }
+
+    // Initialize form data for DynamicFormBuilder
+    formData.value = initializeFormData(giftConfig, gift.value);
     
-    console.log('Gift loaded:', foundGift);
+    console.log('Gift loaded:', gift.value);
     console.log('Form data populated:', formData.value);
-    
+  
   } catch (error) {
     console.error('Failed to load gift:', error);
     loadError.value = error.message || 'Failed to load gift data';
@@ -565,24 +284,41 @@ const loadGift = async () => {
   }
 };
 
+const handleLocaleChange = async () => {
+  const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(giftConfig, gift.value || {}));
+  if (hasChanges && !showAllLocales.value) {
+    const result = await Swal.fire({
+      title: 'Switch language?',
+      text: 'Unsaved changes may be lost when switching language.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Switch',
+      cancelButtonText: 'Stay'
+    });
+    if (!result.isConfirmed) return;
+  }
+  await loadGift(selectedLocale.value);
+};
+
+const handleShowAllLocalesChange = async () => {
+  if (showAllLocales.value && gift?.value?.id) {
+    // Ensure all locales are populated when enabling 'edit all'
+    // This would be handled by the DynamicFormBuilder
+    console.log('Show all locales enabled');
+  }
+};
+
+const openSubGiftModal = () => {
+  showSubGiftModal.value = true;
+};
+
+const handleSubGiftAdded = async () => {
+  await loadGift(selectedLocale.value);
+};
+
 // Event Handlers
 const handleCancel = () => {
-  const hasChanges = 
-    formData.value.nameEN !== (gift.value?.nameEN || gift.value?.name || '') ||
-    formData.value.nameAR !== (gift.value?.nameAR || '') ||
-    formData.value.descriptionEN !== (gift.value?.descriptionEN || '') ||
-    formData.value.descriptionAR !== (gift.value?.descriptionAR || '') ||
-    formData.value.coin !== (Number(gift.value?.coin) || 0) ||
-    formData.value.type !== (Number(gift.value?.type) || 0) ||
-    formData.value.lvl !== (Number(gift.value?.lvl) || 0) ||
-    formData.value.vip !== (Number(gift.value?.vip) || 0) ||
-    formData.value.anim_type !== (Number(gift.value?.anim_type) || 0) ||
-    formData.value.list_order !== (Number(gift.value?.list_order) || 100000) ||
-    formData.value.mark !== (Number(gift.value?.mark) || 1) ||
-    formData.value.iconData?.file !== null ||
-    formData.value.animData?.file !== null ||
-    (formData.value.iconData?.url || '') !== (gift.value?.icon || '') ||
-    (formData.value.animData?.url || '') !== (gift.value?.anim || '');
+  const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(giftConfig, gift.value || {}));
   
   if (hasChanges) {
     Swal.fire({
@@ -613,26 +349,19 @@ const handleSubmit = async () => {
   try {
     isSubmitting.value = true;
     
-    // Sanitize string inputs
-    const sanitizedData = {
-      nameEN: formData.value.nameEN,
-      nameAR: formData.value.nameAR,
-      descriptionEN: formData.value.descriptionEN,
-      descriptionAR: formData.value.descriptionAR
-    };
-    
-    const cleaned = sanitizeObject(sanitizedData, ['nameEN', 'nameAR', 'descriptionEN', 'descriptionAR']);
-    Object.assign(formData.value, cleaned);
-    
-    // Build payload with only changed fields
-    const changedFields = buildChangedFieldsPayload();
-    const isFormData = changedFields instanceof FormData;
+    // Sanitize string fields only
+    const cleaned = sanitizeObject({ ...formData.value }, Object.keys(formData.value).filter(k => typeof formData.value[k] === 'string'));
+    formData.value = cleaned;
+
+    // Build payload dynamically
+    const payload = buildDynamicPayload(giftConfig, formData.value, gift.value, 'update', { id: route.params.id, updateStrategy: 'all' });
+    const isFormData = payload instanceof FormData;
 
     const hasPayloadChanges = () => {
       if (!isFormData) {
-        return Object.keys(changedFields).length > 0;
+        return Object.keys(payload).length > 0;
       }
-      const keys = Array.from(changedFields.keys());
+      const keys = Array.from(payload.keys());
       const nonIdKeys = keys.filter((key) => key !== 'id');
       return nonIdKeys.length > 0;
     };
@@ -644,8 +373,8 @@ const handleSubmit = async () => {
     }
 
     const response = isFormData
-      ? await giftService.postFormData('/edit', changedFields)
-      : await giftService.update(route.params.id, changedFields);
+      ? await giftService.postFormData('/edit', payload)
+      : await giftService.update(route.params.id, payload);
     
     // Show success message
     showMessage('Gift updated successfully', 'success');
@@ -683,11 +412,114 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.gift-edit {
-  /* Inherits layout-px-spacing from template */
-}
-
 .gap-2 {
   gap: 0.5rem;
 }
+
+/* Sticky sidebar */
+.sticky-sidebar {
+  position: sticky;
+  top: 160px; /* Increased margin to avoid header overlap */
+  z-index: 10;
+  
+}
+
+/* Media upload boxes */
+.media-upload-box {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.media-upload-box:hover {
+  border-color: #007bff;
+  background: #f0f8ff;
+}
+
+.media-upload-box .form-group {
+  margin-bottom: 0;
+}
+
+/* Media preview styling */
+.current-media-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.animation-preview img {
+  border: 2px solid #e9ecef;
+}
+
+.animation-placeholder {
+  text-align: center;
+}
+
+/* Custom form layout improvements */
+.custom-form-layout .panel {
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.custom-form-layout .panel-heading {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+}
+
+.custom-form-layout .panel-heading h4 {
+  color: white;
+  margin: 0;
+  font-weight: 600;
+}
+
+.custom-form-layout .panel-heading p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  margin-top: 0.25rem;
+}
+
+.custom-form-layout .panel-body {
+  padding: 1.5rem;
+}
+
+/* Form improvements */
+.form-label {
+  font-weight: 600;
+  color: #3b3f5c;
+  margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+  border: 1px solid #e0e6ed;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control.is-valid, .form-select.is-valid {
+  border-color: #28a745;
+}
+
+.form-control.is-invalid, .form-select.is-invalid {
+  border-color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1199.98px) {
+  .sticky-sidebar {
+    position: static;
+    margin-top: 2rem;
+  }
+}
 </style>
+

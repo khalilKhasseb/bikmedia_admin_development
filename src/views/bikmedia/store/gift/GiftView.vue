@@ -44,11 +44,11 @@
             <!-- Content Area -->
             <template v-else>
               <!-- Main Content Column -->
-              <div class="col-xl-9">
+              <div class="col-xl-9 col-lg-12 content-panel">
                 <!-- Header with Locale Selector -->
                 <div class="row mb-4">
                   <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center page-header-responsive">
                       <h3>Gift Details</h3>
                       <div class="locale-selector" style="width: 200px;">
                         <label for="localeSelect" class="form-label mb-1">Language:</label>
@@ -70,7 +70,7 @@
                 <!-- Section 1: Basic Information (Name) -->
                 <FormSection
                   title="Basic Information"
-                  description="Gift name"
+                  description="Gift name and identification"
                 >
                   <div class="row">
                     <div class="col-12">
@@ -79,9 +79,21 @@
                           Name
                           <span v-if="showNameFallback" class="badge bg-light text-muted ms-2" style="font-weight: normal;">Using default locale</span>
                         </label>
-                        <p class="form-control-plaintext" :dir="isRTL ? 'rtl' : 'ltr'">
-                          {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
-                        </p>
+                        <div class="d-flex align-items-center">
+                          <SmartIcon
+                            v-if="gift?.icon || gift?.img"
+                            :src="gift.icon || gift.img"
+                            alt="Gift Icon"
+                            width="48px"
+                            height="48px"
+                            class="me-3"
+                            style="border-radius: 8px; border: 1px solid #e0e6ed;"
+                            @error="handleImageError"
+                          />
+                          <p class="form-control-plaintext mb-0" :dir="isRTL ? 'rtl' : 'ltr'">
+                            {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -124,8 +136,8 @@
                       <div class="mb-3">
                         <label class="form-label text-muted">Type</label>
                         <p class="form-control-plaintext">
-                          <span class="badge" :class="getTypeBadgeClass(gift?.type)">
-                            {{ getTypeLabel(gift?.type) }}
+                          <span class="badge" :class="getTypeBadgeClass(normalizeTypeValue(gift))">
+                            {{ getTypeDisplay(gift) }}
                           </span>
                         </p>
                       </div>
@@ -181,6 +193,7 @@
                 <FormSection
                   title="Media"
                   description="Icon and animation files"
+                  class="media-section"
                 >
                   <div class="row">
                     <div class="col-md-6">
@@ -239,10 +252,26 @@
                     </div>
                   </div>
                 </FormSection>
+
+                <!-- Sub Gifts Section -->
+                <FormSection title="Sub Gifts" v-if="gift && gift.icons && gift.icons.length" class="sub-gifts-grid">
+                  <div class="row g-3">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" v-for="(sg, idx) in gift.icons" :key="idx">
+                      <div class="card h-100">
+                        <div style="height: 140px; overflow: hidden;">
+                          <SmartIcon :src="sg.icon" alt="Sub Gift" width="100%" height="140px" fit="cover" />
+                        </div>
+                        <div class="card-body p-2 text-center">
+                          <div class="text-truncate small" :title="sg.name">{{ sg.name }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </FormSection>
               </div>
 
               <!-- Action Buttons Sidebar -->
-              <div class="col-xl-3">
+              <div class="col-xl-3 col-lg-12 action-sidebar">
                 <div class="invoice-actions-btn">
                   <div class="invoice-action-btn">
                     <div class="row">
@@ -303,6 +332,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import giftService from '@services/api/gift.service';
 import FormSection from '@/components/forms/FormSection.vue';
+import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { useMeta } from '@/composables/use-meta';
 import useClipboard from 'vue-clipboard3';
 import giftConfig from '@/config/entities/gift.config';
@@ -519,15 +549,29 @@ const getTypeLabel = (type) => {
   return typeLabels[type] || `Type ${type}`;
 };
 
+// Normalize numeric type and prefer backend-provided typeName when present
+const normalizeTypeValue = (gift) => {
+  const raw = gift?.type;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : 0;
+};
+
+const getTypeDisplay = (gift) => {
+  if (gift && typeof gift.typeName === 'string' && gift.typeName.trim() !== '') {
+    return gift.typeName;
+  }
+  return getTypeLabel(normalizeTypeValue(gift));
+};
+
 const getTypeBadgeClass = (type) => {
   const badgeClasses = {
-    0: 'badge-light-secondary',
-    1: 'badge-light-primary',
-    2: 'badge-light-success',
-    3: 'badge-light-warning',
-    4: 'badge-light-info'
+    0: 'bg-secondary',
+    1: 'bg-primary',
+    2: 'bg-success',
+    3: 'bg-warning text-dark',
+    4: 'bg-info text-dark'
   };
-  return badgeClasses[type] || 'badge-light-secondary';
+  return badgeClasses[type] || 'bg-secondary';
 };
 
 const showMessage = (msg = '', type = 'success') => {
