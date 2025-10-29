@@ -59,7 +59,7 @@ window.$appSetting.init();
 //markdown editor
 import VueEasymde from 'vue3-easymde';
 import "easymde/dist/easymde.min.css";
-
+console.log("Before app mpunts",import.meta.env)
 // Initialize authentication state from storage before mounting
 (async () => {
     await store.dispatch('auth/initializeAuth');
@@ -76,4 +76,6 @@ import "easymde/dist/easymde.min.css";
     .use(head)
     .use(VueEasymde)
     .mount("#app");
+console.log("after app mpunts",import.meta.env)
+    
 })();
