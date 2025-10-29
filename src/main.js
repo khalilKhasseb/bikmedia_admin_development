@@ -76,6 +76,5 @@ console.log("Before app mpunts",import.meta.env)
     .use(head)
     .use(VueEasymde)
     .mount("#app");
-console.log("after app mpunts",import.meta.env)
     
 })();

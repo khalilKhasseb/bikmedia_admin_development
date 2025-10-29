@@ -7,12 +7,10 @@ import vueI18n from "@intlify/vite-plugin-vue-i18n";
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     
-    // Configure base URL for GitHub Pages deployment
     const isProduction = mode === 'production';
-    const baseUrl = isProduction ? '/bikmedia_admin_development/' : '/';
     
     return {
-    base: "./",
+    base: "/",
     plugins: [
         vue(),
         vueI18n({
