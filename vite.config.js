@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     const baseUrl = isProduction ? '/bikmedia_admin_development/' : '/';
     
     return {
-    base: baseUrl,
+    base: "./",
     plugins: [
         vue(),
         vueI18n({
