@@ -102,8 +102,8 @@ const isActive = computed(() => {
 
 // Get label (support i18n keys)
 const getLabel = (label) => {
-    // Check if label is an i18n key (lowercase with underscores)
-    if (label && /^[a-z_]+$/.test(label)) {
+    // Check if label is an i18n key (contains dots or underscores)
+    if (label && (label.includes('.') || /^[a-z_]+$/.test(label))) {
         return t(label);
     }
     return label;

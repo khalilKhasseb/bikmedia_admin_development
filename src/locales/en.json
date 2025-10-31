@@ -22,5 +22,367 @@
     "more": "More",
     "store": "Store",
     "gifts": "Gifts",
-    "equipments": "Equipments"
+    "equipments": "Equipments",
+    "bikmedia": {
+        "store": {
+            "gifts": "Gifts",
+            "equipment": "Equipment",
+            "level": "Level",
+            "levels": "Levels",
+            "title": "Store Management"
+        },
+        "actions": {
+            "create": "Create",
+            "edit": "Edit",
+            "delete": "Delete",
+            "save": "Save",
+            "cancel": "Cancel",
+            "view": "View",
+            "search": "Search",
+            "filter": "Filter",
+            "filters": "Filters",
+            "new": "New",
+            "add": "Add",
+            "update": "Update",
+            "remove": "Remove",
+            "confirm": "Confirm",
+            "close": "Close",
+            "submit": "Submit",
+            "reset": "Reset",
+            "backToList": "Back to List",
+            "clear": "Clear",
+            "refresh": "Refresh",
+            "reload": "Reload",
+            "retry": "Retry",
+            "copy": "Copy"
+        },
+        "navigation": {
+            "menu": {
+                "store": "Store",
+                "gifts": "Gifts",
+                "equipment": "Equipment",
+                "levels": "Levels"
+            },
+            "breadcrumb": {
+                "store": "Store",
+                "gifts": "Gifts",
+                "equipment": "Equipment",
+                "levels": "Levels",
+                "create": "Create",
+                "edit": "Edit",
+                "view": "View"
+            }
+        },
+        "forms": {
+            "name": "Name",
+            "description": "Description",
+            "type": "Type",
+            "status": "Status",
+            "level": "Level",
+            "coins": "Coins",
+            "price": "Price",
+            "image": "Image",
+            "icon": "Icon",
+            "category": "Category",
+            "language": "Language",
+            "days": "Days",
+            "levelId": "Level ID",
+            "target": "Target",
+            "activeIcon": "Active Icon",
+            "disabledIcon": "Disabled Icon",
+            "animatedIcon": "Animated Icon",
+            "required": "Required",
+            "optional": "Optional",
+            "placeholder": {
+                "search": "Search...",
+                "searchGifts": "Search Gifts...",
+                "searchEquipment": "Search Equipment...",
+                "searchLevels": "Search Levels...",
+                "enterName": "Enter name",
+                "enterDescription": "Enter description",
+                "selectType": "Select type",
+                "selectLevel": "Select level",
+                "selectLanguage": "Select language"
+            },
+            "validation": {
+                "required": "This field is required",
+                "invalid": "Invalid input",
+                "minLength": "Minimum length is {min} characters",
+                "maxLength": "Maximum length is {max} characters",
+                "email": "Please enter a valid email",
+                "number": "Please enter a valid number",
+                "positive": "Number must be positive",
+                "url": "Please enter a valid URL"
+            }
+        },
+        "table": {
+            "headers": {
+                "gift": "Gift",
+                "equipment": "Equipment",
+                "level": "Level",
+                "name": "Name",
+                "type": "Type",
+                "coins": "Coins",
+                "status": "Status",
+                "actions": "Actions",
+                "id": "ID",
+                "description": "Description",
+                "price": "Price",
+                "category": "Category"
+            },
+            "actions": {
+                "view": "View",
+                "edit": "Edit",
+                "delete": "Delete"
+            },
+            "pagination": {
+                "showing": "Showing",
+                "to": "to",
+                "of": "of",
+                "entries": "entries",
+                "itemsPerPage": "items per page",
+                "items": "items",
+                "previous": "Previous",
+                "next": "Next"
+            },
+            "empty": {
+                "noGifts": "No gifts found",
+                "noEquipment": "No equipment found",
+                "noLevels": "No levels found",
+                "noData": "No data available",
+                "tryAdjusting": "Try adjusting your search or filters"
+            }
+        },
+        "filters": {
+            "giftType": "Gift Type",
+            "equipmentType": "Equipment Type",
+            "language": "Language",
+            "itemsPerPage": "Items Per Page",
+            "allTypes": "All Types",
+            "english": "English",
+            "arabic": "Arabic",
+            "levelRange": "Level Range",
+            "allLevels": "All Levels"
+        },
+        "types": {
+            "gift": {
+                "default": "Default",
+                "standard": "Standard",
+                "premium": "Premium",
+                "video": "Video",
+                "special": "Special"
+            },
+            "equipment": {
+                "weapon": "Weapon",
+                "armor": "Armor",
+                "accessory": "Accessory",
+                "consumable": "Consumable",
+                "frame": "Frame",
+                "entryEffect": "Entry Effect",
+                "badge": "Badge",
+                "theme": "Theme"
+            }
+        },
+        "messages": {
+            "loading": "Loading...",
+            "loadingGifts": "Loading gifts...",
+            "loadingEquipment": "Loading equipment...",
+            "loadingLevels": "Loading levels...",
+            "success": {
+                "created": "Created successfully",
+                "updated": "Updated successfully",
+                "deleted": "Deleted successfully",
+                "saved": "Saved successfully",
+                "giftCreated": "Gift created successfully",
+                "giftUpdated": "Gift updated successfully",
+                "giftDeleted": "Gift deleted successfully",
+                "equipmentCreated": "Equipment created successfully",
+                "equipmentUpdated": "Equipment updated successfully",
+                "equipmentDeleted": "Equipment deleted successfully",
+                "levelCreated": "Level created successfully",
+                "levelUpdated": "Level updated successfully",
+                "levelDeleted": "Level deleted successfully"
+            },
+            "errors": {
+                "required": "This field is required",
+                "invalid": "Invalid input",
+                "network": "Network error occurred",
+                "server": "Server error",
+                "notFound": "Not found",
+                "unauthorized": "Unauthorized",
+                "forbidden": "Forbidden",
+                "timeout": "Request timeout",
+                "unknown": "Unknown error",
+                "failedToLoad": "Failed to load",
+                "failedToSave": "Failed to save",
+                "failedToDelete": "Failed to delete",
+                "failedToCreate": "Failed to create",
+                "failedToUpdate": "Failed to update",
+                "invalidGiftId": "Invalid gift ID",
+                "invalidEquipmentId": "Invalid equipment ID",
+                "invalidLevelId": "Invalid level ID",
+                "loadGifts": "Failed to load gifts",
+                "loadEquipment": "Failed to load equipment",
+                "loadLevels": "Failed to load levels",
+                "operationNotSupported": "Operation Not Supported",
+                "levelCreateNotSupported": "Level creation is not supported by the API. Levels are managed by the system.",
+                "levelEditNotSupported": "Level editing is not currently supported by the API. This feature will be available when the backend supports it.",
+                "api": {
+                    "400": "Bad request - Invalid data provided",
+                    "401": "Unauthorized - Please log in again",
+                    "403": "Forbidden - You don't have permission to perform this action",
+                    "404": "Not found - The requested resource was not found",
+                    "408": "Request timeout - The request took too long to complete",
+                    "409": "Conflict - The resource already exists or conflicts with current state",
+                    "422": "Validation failed - Please check your input data",
+                    "429": "Too many requests - Please wait before trying again",
+                    "500": "Internal server error - Something went wrong on our end",
+                    "502": "Bad gateway - Service temporarily unavailable",
+                    "503": "Service unavailable - Please try again later",
+                    "504": "Gateway timeout - The service is taking too long to respond",
+                    "networkError": "Network error - Please check your internet connection",
+                    "requestFailed": "Request failed - Please try again",
+                    "connectionLost": "Connection lost - Please check your network",
+                    "serverUnavailable": "Server unavailable - Please try again later"
+                }
+            },
+            "confirmations": {
+                "delete": "Delete?",
+                "deleteGift": "Delete Gift?",
+                "deleteEquipment": "Delete Equipment?",
+                "deleteLevel": "Delete Level?",
+                "cannotUndo": "This action cannot be undone.",
+                "areYouSure": "Are you sure?",
+                "confirmDelete": "Confirm Delete",
+                "confirmAction": "Confirm Action"
+            },
+            "notifications": {
+                "noChanges": "No changes to update",
+                "copySuccess": "Link copied to clipboard!",
+                "copyError": "Failed to copy link",
+                "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?",
+                "languageSwitchWarning": "Unsaved changes may be lost when switching language."
+            }
+        },
+        "modals": {
+            "subGift": {
+                "title": "Manage Sub Gifts",
+                "addSubGift": "Add Sub Gift",
+                "editSubGift": "Edit Sub Gift",
+                "noSubGifts": "No sub gifts available",
+                "subGiftName": "Sub Gift Name",
+                "subGiftIcon": "Sub Gift Icon",
+                "iconName": "Icon Name",
+                "iconFile": "Icon File",
+                "chooseFile": "Choose file...",
+                "maxFileSize": "Max 5MB. Allowed: images, .svga, .svg",
+                "adding": "Adding...",
+                "validation": {
+                    "nameRequired": "Name is required",
+                    "fileRequired": "Please select an icon file",
+                    "provideName": "Please provide a name.",
+                    "selectIconFile": "Please select an icon file.",
+                    "fileSizeExceeds": "File size exceeds 5MB limit",
+                    "failedToAdd": "Failed to add sub gift"
+                },
+                "placeholders": {
+                    "enterSubgiftName": "Enter subgift name"
+                }
+            }
+        },
+        "components": {
+            "dynamicField": {
+                "selectOption": "Select an option",
+                "enterValue": "Enter value",
+                "uploadFile": "Upload file",
+                "selectFile": "Select file",
+                "looksGood": "Looks good!",
+                "thisFieldRequired": "This field is required",
+                "current": "Current",
+                "choose": "Choose",
+                "file": "file...",
+                "max": "Max",
+                "allowed": "Allowed",
+                "orEnter": "Or enter",
+                "url": "URL:",
+                "enter": "Enter",
+                "note": "Note: Uploaded files take priority over URLs",
+                "fileSizeExceeds": "File size exceeds {maxSize}MB limit"
+            },
+            "carousel": {
+                "noItems": "No items to display",
+                "loadingItems": "Loading items...",
+                "errorLoading": "Error loading",
+                "retryLoading": "Retry",
+                "previous": "Previous",
+                "next": "Next"
+            },
+            "subGiftCard": {
+                "imageNotAvailable": "Image not available",
+                "unnamedGift": "Unnamed Gift",
+                "subGift": "Sub Gift"
+            },
+            "subGiftCarousel": {
+                "loading": "Loading...",
+                "loadingSubGifts": "Loading sub gifts...",
+                "failedToLoad": "Failed to load sub gifts",
+                "noSubGifts": "No sub gifts",
+                "tryAgain": "Try Again"
+            },
+            "translationInput": {
+                "looksGood": "Looks good!",
+                "pleaseFill": "Please fill the"
+            }
+        },
+        "pages": {
+            "gifts": {
+                "title": "Gifts Management",
+                "subtitle": "Manage all gifts in the system",
+                "create": {
+                    "title": "Create New Gift",
+                    "subtitle": "Add a new gift to the system"
+                },
+                "edit": {
+                    "title": "Edit Gift",
+                    "subtitle": "Update gift information"
+                },
+                "view": {
+                    "title": "View Gift",
+                    "subtitle": "View gift details"
+                }
+            },
+            "equipment": {
+                "title": "Equipment Management",
+                "subtitle": "Manage all equipment in the system",
+                "create": {
+                    "title": "Create New Equipment",
+                    "subtitle": "Add new equipment to the system"
+                },
+                "edit": {
+                    "title": "Edit Equipment",
+                    "subtitle": "Update equipment information"
+                },
+                "view": {
+                    "title": "View Equipment",
+                    "subtitle": "View equipment details"
+                }
+            },
+            "levels": {
+                "title": "Levels Management",
+                "subtitle": "Manage all levels in the system",
+                "create": {
+                    "title": "Create New Level",
+                    "subtitle": "Add a new level to the system"
+                },
+                "edit": {
+                    "title": "Edit Level",
+                    "subtitle": "Update level information"
+                },
+                "view": {
+                    "title": "View Level",
+                    "subtitle": "View level details"
+                }
+            }
+        }
+    }
 }

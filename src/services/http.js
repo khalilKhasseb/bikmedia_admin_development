@@ -4,14 +4,13 @@
  * Version: 1.0.0
 */
 import axios from 'axios';
-import router from '../router/index.js';
 import { clearAuthStorage, getAuthToken } from '../utils/auth-storage';
 
 const http = axios.create({
     baseURL: "/api",
     headers: {
         'API-KEY': import.meta.env.VITE_API_KEY,
-        'Auth-Token':import.meta.env.VITE_AUTH_TOKEN
+        'Auth-Token': import.meta.env.VITE_AUTH_TOKEN
         // Auth-Token is added dynamically in request interceptor when user is authenticated
     },
 });
@@ -26,15 +25,15 @@ http.interceptors.request.use(
         // Note: We don't set Auth-Token if no token exists, avoiding default env value
 
         // Transform request body to URL-encoded format for POST, PUT, PATCH
-        if (config.data && typeof config.data === 'object' && 
+        if (config.data && typeof config.data === 'object' &&
             ['post', 'put', 'patch'].includes(config.method.toLowerCase())) {
-            
+
             // Handle FormData: delete Content-Type to let browser set multipart boundary
             if (config.data instanceof FormData) {
                 delete config.headers['Content-Type'];
                 return config;
             }
-            
+
             // Handle URLSearchParams: set urlencoded Content-Type
             if (config.data instanceof URLSearchParams) {
                 config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -47,15 +46,15 @@ http.interceptors.request.use(
                 for (const key in obj) {
                     if (!obj.hasOwnProperty(key)) continue;
                     const value = obj[key];
-                    
+
                     // Skip null/undefined or convert to empty string per API expectations
                     if (value === null || value === undefined) {
                         pairs.push(`${encodeURIComponent(prefix ? `${prefix}[${key}]` : key)}=`);
                         continue;
                     }
-                    
+
                     const fullKey = prefix ? `${prefix}[${key}]` : key;
-                    
+
                     if (Array.isArray(value)) {
                         // Handle arrays
                         value.forEach((item, index) => {
@@ -75,7 +74,7 @@ http.interceptors.request.use(
                 }
                 return pairs.filter(p => p).join('&');
             };
-            
+
             config.data = serialize(config.data);
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
         }
@@ -114,11 +113,20 @@ http.interceptors.response.use(
                     // Unauthorized - Clear storage and redirect to login
                     console.error('Unauthorized: Token expired or invalid. Redirecting to login...');
                     clearAuthStorage();
-                    
-                    // Guard against duplicate redirects
-                    if (router.currentRoute.value.path !== '/auth/login') {
-                        router.replace('/auth/login');
-                    }
+
+                    // Lazy import router to avoid circular dependency
+                    import('../router/index.js').then(({ default: router }) => {
+                        // Guard against duplicate redirects
+                        if (router.currentRoute.value.path !== '/auth/login') {
+                            router.replace('/auth/login');
+                        }
+                    }).catch(error => {
+                        console.error('Failed to import router for redirect:', error);
+                        // Fallback: redirect using window.location
+                        if (window.location.pathname !== '/auth/login') {
+                            window.location.href = '/auth/login';
+                        }
+                    });
                     break;
 
                 case 403:
@@ -139,7 +147,7 @@ http.interceptors.response.use(
         } else if (error.request) {
             // Request was made but no response received
             console.error('Network Error: No response received from server.');
-        } else {n
+        } else {
             // Something else happened
             console.error('Error:', error.message);
         }

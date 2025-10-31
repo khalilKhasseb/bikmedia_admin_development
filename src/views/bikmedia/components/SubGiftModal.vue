@@ -11,24 +11,24 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Add Sub Gift</h5>
-          <button type="button" class="btn-close" @click="handleClose" aria-label="Close"></button>
+          <h5 class="modal-title">{{ $t('bikmedia.modals.subGift.addSubGift') }}</h5>
+          <button type="button" class="btn-close" @click="handleClose" :aria-label="$t('bikmedia.actions.close')"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Icon Name</label>
+            <label class="form-label">{{ $t('bikmedia.modals.subGift.iconName') }}</label>
             <input 
               type="text" 
               class="form-control" 
               v-model.trim="form.name" 
               :class="{ 'is-invalid': isSubmitted && !form.name }" 
-              placeholder="Enter subgift name" 
+              :placeholder="$t('bikmedia.modals.subGift.placeholders.enterSubgiftName')" 
             />
-            <div class="invalid-feedback">Name is required</div>
+            <div class="invalid-feedback">{{ $t('bikmedia.modals.subGift.validation.nameRequired') }}</div>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Icon File</label>
+            <label class="form-label">{{ $t('bikmedia.modals.subGift.iconFile') }}</label>
             <div class="custom-file">
               <input 
                 id="iconFile" 
@@ -38,23 +38,23 @@
                 @change="handleFileChange"
                 :class="{ 'is-invalid': isSubmitted && !form.iconData?.file }"
               />
-              <label for="iconFile" data-browse="Browse" class="custom-file-label">
-                <span class="d-block form-file-text">{{ form.iconData?.file ? form.iconData.file.name : 'Choose file...' }}</span>
+              <label for="iconFile" :data-browse="$t('bikmedia.actions.search')" class="custom-file-label">
+                <span class="d-block form-file-text">{{ form.iconData?.file ? form.iconData.file.name : $t('bikmedia.modals.subGift.chooseFile') }}</span>
               </label>
             </div>
-            <small class="text-muted d-block mt-3">Max 5MB. Allowed: images, .svga, .svg</small>
+            <small class="text-muted d-block mt-3">{{ $t('bikmedia.modals.subGift.maxFileSize') }}</small>
             <div v-if="isSubmitted && !form.iconData?.file" class="invalid-feedback d-block">
-              Please select an icon file
+              {{ $t('bikmedia.modals.subGift.validation.fileRequired') }}
             </div>
           </div>
 
           <div v-if="errorMessage" class="alert alert-danger py-2">{{ errorMessage }}</div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" :disabled="isSubmitting" @click="handleClose">Cancel</button>
+          <button type="button" class="btn btn-secondary" :disabled="isSubmitting" @click="handleClose">{{ $t('bikmedia.actions.cancel') }}</button>
           <button type="button" class="btn btn-primary" :disabled="isSubmitting" @click="handleSubmit">
             <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-            {{ isSubmitting ? 'Adding...' : 'Add Sub Gift' }}
+            {{ isSubmitting ? $t('bikmedia.modals.subGift.adding') : $t('bikmedia.modals.subGift.addSubGift') }}
           </button>
         </div>
       </div>
@@ -67,7 +67,10 @@
 
 <script setup>
 import { reactive, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import giftService from '@/services/api/gift.service.js';
+
+const { t } = useI18n();
 
 const props = defineProps({
   giftId: { type: [String, Number], required: true },
@@ -108,7 +111,7 @@ function handleFileChange(event) {
   if (file) {
     // Check file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
-      errorMessage.value = 'File size exceeds 5MB limit';
+      errorMessage.value = t('bikmedia.modals.subGift.validation.fileSizeExceeds');
       event.target.value = ''; // Clear the input
       form.iconData = { file: null, url: '' };
       return;
@@ -126,11 +129,11 @@ async function handleSubmit() {
   errorMessage.value = '';
 
   if (!form.name) {
-    errorMessage.value = 'Please provide a name.';
+    errorMessage.value = t('bikmedia.modals.subGift.validation.provideName');
     return;
   }
   if (!form.iconData?.file) {
-    errorMessage.value = 'Please select an icon file.';
+    errorMessage.value = t('bikmedia.modals.subGift.validation.selectIconFile');
     return;
   }
 
@@ -140,7 +143,7 @@ async function handleSubmit() {
     emit('success');
     emit('close');
   } catch (e) {
-    errorMessage.value = e?.message || 'Failed to add sub gift';
+    errorMessage.value = e?.message || t('bikmedia.modals.subGift.validation.failedToAdd');
   } finally {
     isSubmitting.value = false;
   }

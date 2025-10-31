@@ -1,63 +1,30 @@
 <template>
   <div class="row">
-    <div 
-      v-for="locale in locales" 
-      :key="locale.code"
-      :class="getColumnClass()"
-    >
+    <div v-for="locale in locales" :key="locale.code" :class="getColumnClass()">
       <div class="form-group">
-        <label 
-          :for="getInputId(locale.code)" 
-          class="form-label"
-        >
+        <label :for="getInputId(locale.code)" class="form-label">
           {{ fieldConfig?.label || fieldName }} ({{ locale.label }})
           <span class="text-danger" v-if="isRequired">*</span>
         </label>
 
         <!-- Text Input -->
-        <input
-          v-if="inputType === 'text'"
-          type="text"
-          class="form-control"
-          :id="getInputId(locale.code)"
-          v-model="localeModel(locale.code).value"
-          :placeholder="getPlaceholder(locale.code)"
-          :dir="locale.direction"
-          :maxlength="fieldConfig?.maxLength"
-          :required="isRequired"
-          :class="getValidationClass(locale.code)"
-        />
+        <input v-if="inputType === 'text'" type="text" class="form-control" :id="getInputId(locale.code)"
+          v-model="localeModel(locale.code).value" :placeholder="getPlaceholder(locale.code)" :dir="locale.direction"
+          :maxlength="fieldConfig?.maxLength" :required="isRequired" :class="getValidationClass(locale.code)" />
 
         <!-- Textarea -->
-        <textarea
-          v-else-if="inputType === 'textarea'"
-          class="form-control"
-          :id="getInputId(locale.code)"
-          v-model="localeModel(locale.code).value"
-          :placeholder="getPlaceholder(locale.code)"
-          :dir="locale.direction"
-          :maxlength="fieldConfig?.maxLength"
-          :rows="fieldConfig?.rows || 4"
-          :required="isRequired"
-          :class="getValidationClass(locale.code)"
-        ></textarea>
+        <textarea v-else-if="inputType === 'textarea'" class="form-control" :id="getInputId(locale.code)"
+          v-model="localeModel(locale.code).value" :placeholder="getPlaceholder(locale.code)" :dir="locale.direction"
+          :maxlength="fieldConfig?.maxLength" :rows="fieldConfig?.rows || 4" :required="isRequired"
+          :class="getValidationClass(locale.code)"></textarea>
 
         <!-- Fallback: Default Text Input -->
-        <input
-          v-else
-          type="text"
-          class="form-control"
-          :id="getInputId(locale.code)"
-          v-model="localeModel(locale.code).value"
-          :placeholder="getPlaceholder(locale.code)"
-          :dir="locale.direction"
-          :maxlength="fieldConfig?.maxLength"
-          :required="isRequired"
-          :class="getValidationClass(locale.code)"
-        />
+        <input v-else type="text" class="form-control" :id="getInputId(locale.code)"
+          v-model="localeModel(locale.code).value" :placeholder="getPlaceholder(locale.code)" :dir="locale.direction"
+          :maxlength="fieldConfig?.maxLength" :required="isRequired" :class="getValidationClass(locale.code)" />
 
         <!-- Validation Feedback -->
-        <div class="valid-feedback">Looks good!</div>
+        <div class="valid-feedback">{{ $t('bikmedia.components.translationInput.looksGood') }}</div>
         <div class="invalid-feedback">{{ getErrorMessage(locale.code) }}</div>
       </div>
     </div>
@@ -66,7 +33,10 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { generateSuffixedFields } from '@/config/entities/helpers.js';
+
+const { t } = useI18n();
 
 /**
  * TranslationInput Component
@@ -235,7 +205,7 @@ const getColumnClass = () => {
   if (props.cols) {
     return `col-md-${props.cols} mb-4`;
   }
-  
+
   // Auto-calculate based on locale count
   const localeCount = props.locales.length;
   if (localeCount <= 2) return 'col-md-6 mb-4';
@@ -251,15 +221,15 @@ const getColumnClass = () => {
  */
 const getValidationClass = (localeCode) => {
   if (!props.isSubmitted) return '';
-  
+
   const suffixedFieldName = getSuffixedFieldName(localeCode);
   const fieldValue = props.modelValue?.[suffixedFieldName];
   const hasError = props.errors[suffixedFieldName];
-  
+
   if (hasError) return 'is-invalid';
   if (isRequired.value && !fieldValue) return 'is-invalid';
   if (fieldValue) return 'is-valid';
-  
+
   return '';
 };
 
@@ -271,11 +241,11 @@ const getValidationClass = (localeCode) => {
 const getErrorMessage = (localeCode) => {
   const suffixedFieldName = getSuffixedFieldName(localeCode);
   const customError = props.errors[suffixedFieldName];
-  
+
   if (customError) return customError;
-  
+
   const locale = props.locales.find(l => l.code === localeCode);
-  return `Please fill the ${props.fieldConfig?.label || props.fieldName} (${locale?.label || localeCode})`;
+  return `${t('bikmedia.components.translationInput.pleaseFill')} ${props.fieldConfig?.label || props.fieldName} (${locale?.label || localeCode})`;
 };
 </script>
 

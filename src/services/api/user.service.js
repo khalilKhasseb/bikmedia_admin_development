@@ -60,9 +60,12 @@ class UserService extends BaseService {
    */
   async getAll(params = {}) {
     try {
+      // Ensure HTTP client is initialized
+      this.httpClient;
+
       // Create FormData instance as required by the API
       const formData = new FormData();
-      
+
       // Append parameters to FormData if provided
       if (params && Object.keys(params).length > 0) {
         Object.keys(params).forEach(key => {
@@ -71,12 +74,64 @@ class UserService extends BaseService {
           }
         });
       }
-      
+
       // Make request using postFormData method
       const response = await this.postFormData('', formData);
-      
+
       // Transform and return normalized response
       return transformListResponse(response);
+    } catch (error) {
+      // Normalize error and re-throw
+      const normalizedError = transformErrorResponse(error);
+      throw normalizedError;
+    }
+  }
+
+  /**
+   * Delete a user
+   * 
+   * Deletes a user record by its ID. The API returns a structured response
+   * with success/error codes that need to be handled appropriately.
+   * Uses FormData as required by the /admin/user endpoint.
+   * 
+   * @param {number|string} itemId - User ID to delete (required)
+   * @returns {Promise<Object>} Promise resolving to raw API response for success/error handling
+   * @returns {Object} returns.data - API response data
+   * @returns {number} returns.data.code - Response code (200 for success, 201 for errors)
+   * @returns {string|null} returns.data.err - Error message (null for success, "notFound" for missing item)
+   * @returns {Object} returns.data.data - Response payload (contains success: 1 for successful deletion)
+   * 
+   * @throws {Error} Normalized error object with message and details
+   * 
+   * @example
+   * // Delete a user
+   * try {
+   *   const response = await userService.delete(123);
+   *   if (response.data?.code === 200 && response.data?.err === null) {
+   *     console.log('User deleted successfully');
+   *   }
+   * } catch (error) {
+   *   console.error('Failed to delete user:', error.message);
+   * }
+   */
+  async delete(itemId) {
+    if (itemId === null || itemId === undefined || itemId === '') {
+      throw new Error('UserService.delete requires a valid itemId.');
+    }
+
+    try {
+      // Ensure HTTP client is initialized
+      this.httpClient;
+
+      // Create FormData with the item ID as required by the API
+      const formData = new FormData();
+      formData.append('id', itemId);
+
+      // Make POST request to /admin/user/delete with FormData payload
+      const response = await this.postFormData('/delete', formData);
+
+      // Return raw response for component-level success/error handling
+      return response;
     } catch (error) {
       // Normalize error and re-throw
       const normalizedError = transformErrorResponse(error);

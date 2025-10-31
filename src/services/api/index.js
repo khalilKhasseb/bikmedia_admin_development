@@ -30,7 +30,7 @@ import {
 
 // Resource Services
 // Import resource services here as they are created:
-import userService from './user.service.js';
+// import userService from './user.service.js'; // Disabled - API not ready
 import giftService from './gift.service.js';
 import equipmentService from './equipment.service.js';
 import levelService from './level.service.js';
@@ -50,7 +50,7 @@ import levelService from './level.service.js';
  * };
  */
 export default {
-  user: userService,
+  // user: userService, // Disabled - API not ready
   gift: giftService,
   equipment: equipmentService,
   level: levelService

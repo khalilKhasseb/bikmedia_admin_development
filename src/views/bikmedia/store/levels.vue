@@ -6,8 +6,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:;">Store</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Levels</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:;">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.levels') }}</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -37,7 +37,7 @@
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input type="text" v-model.trim="search_text" class="product-search form-control" @input="onSearchInput" placeholder="Search Levels..." />
+                                    <input type="text" v-model.trim="search_text" class="product-search form-control" @input="onSearchInput" :placeholder="$t('bikmedia.forms.placeholder.searchLevels')" />
                                 </div>
                             </form>
                         </div>
@@ -50,23 +50,23 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
                                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                         </svg>
-                                        Filters
+                                        {{ $t('bikmedia.actions.filters') }}
                                     </button>
                                     <ul class="dropdown-menu" style="min-width: 250px; padding: 15px;">
                                         <li class="mb-3">
-                                            <label class="form-label">Level Range</label>
+                                            <label class="form-label">{{ $t('bikmedia.filters.levelRange') }}</label>
                                             <select class="form-select" v-model="filters.levelRange" @change="onFilterChange">
-                                                <option value="">All Levels</option>
-                                                <option value="1-10">Level 1-10</option>
-                                                <option value="11-20">Level 11-20</option>
-                                                <option value="21-30">Level 21-30</option>
-                                                <option value="31-40">Level 31-40</option>
-                                                <option value="41-50">Level 41-50</option>
-                                                <option value="51-60">Level 51-60</option>
-                                                <option value="61-70">Level 61-70</option>
-                                                <option value="71-80">Level 71-80</option>
-                                                <option value="81-90">Level 81-90</option>
-                                                <option value="91-100">Level 91-100</option>
+                                                <option value="">{{ $t('bikmedia.filters.allLevels') }}</option>
+                                                <option value="1-10">{{ $t('bikmedia.forms.level') }} 1-10</option>
+                                                <option value="11-20">{{ $t('bikmedia.forms.level') }} 11-20</option>
+                                                <option value="21-30">{{ $t('bikmedia.forms.level') }} 21-30</option>
+                                                <option value="31-40">{{ $t('bikmedia.forms.level') }} 31-40</option>
+                                                <option value="41-50">{{ $t('bikmedia.forms.level') }} 41-50</option>
+                                                <option value="51-60">{{ $t('bikmedia.forms.level') }} 51-60</option>
+                                                <option value="61-70">{{ $t('bikmedia.forms.level') }} 61-70</option>
+                                                <option value="71-80">{{ $t('bikmedia.forms.level') }} 71-80</option>
+                                                <option value="81-90">{{ $t('bikmedia.forms.level') }} 81-90</option>
+                                                <option value="91-100">{{ $t('bikmedia.forms.level') }} 91-100</option>
                                             </select>
                                         </li>
                                     </ul>
@@ -123,9 +123,9 @@
                     <!-- Loading State -->
                     <div v-if="loading" class="text-center py-5">
                         <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                            <span class="visually-hidden">{{ $t('bikmedia.messages.loading') }}</span>
                         </div>
-                        <p class="mt-2">Loading levels...</p>
+                        <p class="mt-2">{{ $t('bikmedia.messages.loadingLevels') }}</p>
                     </div>
 
                     <!-- Empty State -->
@@ -134,27 +134,27 @@
                             <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
                             <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
                         </svg>
-                        <h5 class="mt-3">No levels found</h5>
-                        <p class="text-muted">Try adjusting your search or filters</p>
+                        <h5 class="mt-3">{{ $t('bikmedia.table.empty.noLevels') }}</h5>
+                        <p class="text-muted">{{ $t('bikmedia.table.empty.tryAdjusting') }}</p>
                     </div>
 
                     <div v-else class="searchable-items" :class="[grid_type]">
                         <div class="items items-header-section">
                             <div class="item-content">
                                 <div class="">
-                                    <h4>Level</h4>
+                                    <h4>{{ $t('bikmedia.forms.level') }}</h4>
                                 </div>
                                 <div class="user-email">
-                                    <h4>Level ID</h4>
+                                    <h4>{{ $t('bikmedia.forms.levelId') }}</h4>
                                 </div>
                                 <div class="user-location">
-                                    <h4 style="margin-left: 0">Name</h4>
+                                    <h4 style="margin-left: 0">{{ $t('bikmedia.forms.name') }}</h4>
                                 </div>
                                 <div class="user-phone">
-                                    <h4 style="margin-left: 3px">Target</h4>
+                                    <h4 style="margin-left: 3px">{{ $t('bikmedia.forms.target') }}</h4>
                                 </div>
                                 <div class="action-btn">
-                                    <h4>Icons</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.actions') }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -164,33 +164,54 @@
                                 <div class="user-profile">
                                     <img :src="level.level?.icon || defaultAvatar" alt="level" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
                                     <div class="user-meta-info">
-                                        <p class="user-name">Level {{ level.lvl }}</p>
-                                        <p class="user-work">ID: {{ level.id }}</p>
+                                        <p class="user-name">{{ $t('bikmedia.forms.level') }} {{ level.lvl }}</p>
+                                        <p class="user-work">{{ $t('bikmedia.table.headers.id') }}: {{ level.id }}</p>
                                     </div>
                                 </div>
                                 <div class="user-email">
-                                    <p class="info-title">Level ID:</p>
+                                    <p class="info-title">{{ $t('bikmedia.forms.levelId') }}:</p>
                                     <p class="usr-email-addr">{{ level.lid }}</p>
                                 </div>
                                 <div class="user-location">
-                                    <p class="info-title">Name:</p>
+                                    <p class="info-title">{{ $t('bikmedia.forms.name') }}:</p>
                                     <p class="usr-location">{{ level.level?.name || 'N/A' }}</p>
                                 </div>
                                 <div class="user-phone">
-                                    <p class="info-title">Target:</p>
+                                    <p class="info-title">{{ $t('bikmedia.forms.target') }}:</p>
                                     <p class="usr-ph-no">{{ formatNumber(level.target) }}</p>
                                 </div>
                                 <div class="action-btn">
-                                    <a href="javascript:;" class="me-2" @click="handleView(level)" title="View Level">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                            <circle cx="12" cy="12" r="3"></circle>
-                                        </svg>
-                                    </a>
-                                    <div class="d-flex gap-1">
-                                        <img v-if="level.level?.icon" :src="level.level.icon" alt="icon" title="Active Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #4361ee;" />
-                                        <img v-if="level.level?.icon_disable" :src="level.level.icon_disable" alt="icon_disable" title="Disabled Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #ccc;" />
-                                        <img v-if="level.level?.icon_anim" :src="level.level.icon_anim" alt="icon_anim" title="Animated Icon" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #1abc9c;" />
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="javascript:;" class="me-1" @click="handleView(level)" :title="$t('bikmedia.table.actions.view')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </a>
+                                        <!-- Conditional Edit Button - Shows even if not supported (will show appropriate message) -->
+                                        <a href="javascript:;" class="me-1" @click="handleEdit(level)" :title="$t('bikmedia.table.actions.edit')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit">
+                                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                            </svg>
+                                        </a>
+
+                                        <a href="javascript:;" class="me-1" @click="handleDelete(level)" :title="$t('bikmedia.table.actions.delete')" 
+                                           :class="{ 'opacity-50': isDeleting && deletingItemId === level.id }">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-trash-2 text-danger">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            </svg>
+                                        </a>
+                                        <div class="d-flex gap-1">
+                                            <img v-if="level.level?.icon" :src="level.level.icon" alt="icon" :title="$t('bikmedia.forms.activeIcon')" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #4361ee;" />
+                                            <img v-if="level.level?.icon_disable" :src="level.level.icon_disable" alt="icon_disable" :title="$t('bikmedia.forms.disabledIcon')" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #ccc;" />
+                                            <img v-if="level.level?.icon_anim" :src="level.level.icon_anim" alt="icon_anim" :title="$t('bikmedia.forms.animatedIcon')" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px; border: 2px solid #1abc9c;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -201,15 +222,15 @@
                     <div v-if="!loading && filtered_levels_list.length > 0" class="row mt-4">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
-                                <label class="me-2">Items Per Page:</label>
+                                <label class="me-2">{{ $t('bikmedia.filters.itemsPerPage') }}:</label>
                                 <select class="form-select" style="width: auto;" v-model.number="pagination.limit" @change="onLimitChange">
-                                    <option :value="10">10 items</option>
-                                    <option :value="25">25 items</option>
-                                    <option :value="50">50 items</option>
-                                    <option :value="100">100 items</option>
+                                    <option :value="10">10 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                    <option :value="25">25 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                    <option :value="50">50 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                    <option :value="100">100 {{ $t('bikmedia.table.pagination.items') }}</option>
                                 </select>
                                 <span class="ms-3 text-muted">
-                                    Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ filtered_levels_list.length }} levels
+                                    {{ $t('bikmedia.table.pagination.showing') }} {{ startIndex + 1 }} {{ $t('bikmedia.table.pagination.to') }} {{ endIndex }} {{ $t('bikmedia.table.pagination.of') }} {{ filtered_levels_list.length }} {{ $t('bikmedia.store.levels') }}
                                 </span>
                             </div>
                         </div>
@@ -217,13 +238,13 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-end mb-0">
                                     <li class="page-item" :class="{ disabled: pagination.page === 1 }">
-                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page - 1)">Previous</a>
+                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page - 1)">{{ $t('bikmedia.table.pagination.previous') }}</a>
                                     </li>
                                     <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: page === pagination.page, disabled: page === '...' }">
                                         <a class="page-link" href="javascript:;" @click="page !== '...' && changePage(page)">{{ page }}</a>
                                     </li>
                                     <li class="page-item" :class="{ disabled: pagination.page === pagination.pages }">
-                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page + 1)">Next</a>
+                                        <a class="page-link" href="javascript:;" @click="changePage(pagination.page + 1)">{{ $t('bikmedia.table.pagination.next') }}</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -237,7 +258,7 @@
                     <div class="modal-dialog modal-md modal-dialog-centered">
                         <div class="modal-content mailbox-popup">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Level #{{ params.id }}</h5>
+                                <h5 class="modal-title">{{ $t('bikmedia.pages.levels.edit.title') }} #{{ params.id }}</h5>
                                 <button type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close" class="btn-close"></button>
                             </div>
                             <div class="modal-body">
@@ -301,13 +322,16 @@
 <script setup>
     import { computed, onBeforeUnmount, onMounted, ref } from "vue";
     import { useRouter } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
     import levelService from "@services/api/level.service";
     import "/src/assets/sass/apps/contacts.scss";
     import { sanitizeInput } from '/src/utils/sanitize.js';
     import defaultAvatar from '/src/assets/images/profile-30.png';
 
     import { useMeta } from "/src/composables/use-meta";
-    useMeta({ title: "Levels Management" });
+
+    const { t } = useI18n();
+    useMeta({ title: t('bikmedia.pages.levels.title') });
 
     const router = useRouter();
     const levels_list = ref([]);
@@ -315,6 +339,8 @@
     const search_text = ref("");
     const grid_type = ref("list");
     const loading = ref(false);
+    const isDeleting = ref(false);
+    const deletingItemId = ref(null);
     let searchTimeout = null;
 
     // Filters
@@ -400,7 +426,7 @@
             console.log('Levels loaded:', levels_list.value.length, 'items');
         } catch (error) {
             console.error("Failed to fetch levels:", error);
-            showMessage(error.message || "Failed to load levels", "error");
+            showMessage(error.message || t('bikmedia.messages.errors.loadLevels'), "error");
             levels_list.value = [];
             filtered_levels_list.value = [];
         } finally {
@@ -490,13 +516,74 @@
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
 
-    // Navigation handler
+    // Navigation handlers
     const handleView = (level) => {
         if (!level || !level.id) {
-            showMessage('Invalid level ID', 'error');
+            showMessage(t('bikmedia.messages.errors.invalidLevelId'), 'error');
             return;
         }
         router.push({ name: 'level-view', params: { id: level.id } });
+    };
+
+    const handleEdit = (level) => {
+        if (!level || !level.id) {
+            showMessage(t('bikmedia.messages.errors.invalidLevelId'), 'error');
+            return;
+        }
+        router.push({ name: 'level-edit', params: { id: level.id } });
+    };
+
+
+
+    // Delete functionality
+    const handleDelete = async (level) => {
+        if (!level || !level.id) {
+            showMessage(t('bikmedia.messages.errors.invalidLevelId'), 'error');
+            return;
+        }
+
+        const result = await window.Swal.fire({
+            title: t('bikmedia.messages.confirmations.deleteLevel'),
+            html: `<div class="text-center"><h4 class="mb-3">${t('bikmedia.forms.level')} ${level.lvl} (${level.level?.name || t('bikmedia.forms.level') + ' #' + level.id})</h4><p class="text-muted">${t('bikmedia.messages.confirmations.cannotUndo')}</p></div>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: t('bikmedia.actions.delete'),
+            confirmButtonColor: '#dc3545',
+            cancelButtonText: t('bikmedia.actions.cancel'),
+            reverseButtons: true
+        });
+
+        if (result.isConfirmed) {
+            await performDelete(level.id);
+        }
+    };
+
+    const performDelete = async (itemId) => {
+        try {
+            isDeleting.value = true;
+            deletingItemId.value = itemId;
+            
+            const response = await levelService.delete(itemId);
+            
+            // Check for success based on API response structure
+            if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+                showMessage(t('bikmedia.messages.success.levelDeleted'), 'success');
+                // Refresh the list
+                await fetchLevels();
+            } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+                throw new Error(t('bikmedia.messages.errors.notFound'));
+            } else if (response.data?.err) {
+                throw new Error(response.data.err);
+            } else {
+                throw new Error(t('bikmedia.messages.errors.failedToDelete'));
+            }
+        } catch (error) {
+            console.error('Delete error:', error);
+            showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+        } finally {
+            isDeleting.value = false;
+            deletingItemId.value = null;
+        }
     };
 
     // TODO: Edit level function for future implementation

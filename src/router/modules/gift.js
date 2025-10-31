@@ -78,5 +78,13 @@ export default [
         meta: {
             requireAuth: true
         }
+    },
+    {
+        path: '/store/level/:id/edit',
+        name: 'level-edit',
+        component: () => import(/* webpackChunkName: "level-edit" */ '../../views/bikmedia/store/level/LevelEdit.vue'),
+        meta: {
+            requireAuth: true
+        }
     }
 ];

@@ -7,9 +7,9 @@
           <div class="page-header">
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">Store</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">Gifts</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span>Edit</span></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.gifts') }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.edit') }}</span></li>
               </ol>
             </nav>
           </div>
@@ -20,9 +20,9 @@
     <!-- Loading State -->
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading gift...</span>
+        <span class="visually-hidden">{{ $t('bikmedia.messages.loadingGifts') }}</span>
       </div>
-      <p class="mt-2">Loading gift data...</p>
+      <p class="mt-2">{{ $t('bikmedia.messages.loadingGifts') }}</p>
     </div>
 
     <!-- Error State -->
@@ -32,10 +32,10 @@
         <line x1="12" y1="8" x2="12" y2="12"></line>
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
       </svg>
-      <h5 class="mt-3">Failed to load gift</h5>
+      <h5 class="mt-3">{{ $t('bikmedia.messages.errors.failedToLoad') }}</h5>
       <p class="text-muted">{{ loadError }}</p>
       <button class="btn btn-primary" @click="router.push('/store/gifts')">
-        Back to List
+        {{ $t('bikmedia.table.actions.view') }}
       </button>
     </div>
 
@@ -50,10 +50,10 @@
               <div class="row mb-4">
                 <div class="col-12">
                   <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                    <h3>Edit Gift</h3>
+                    <h3>{{ $t('bikmedia.pages.gifts.edit.title') }}</h3>
                     <div class="d-flex align-items-end gap-2">
                       <div class="locale-selector" style="width: 200px;">
-                        <label for="localeSelect" class="form-label mb-1">Language:</label>
+                        <label for="localeSelect" class="form-label mb-1">{{ $t('bikmedia.forms.language') }}:</label>
                         <select
                           id="localeSelect"
                           class="form-select"
@@ -67,7 +67,7 @@
                       </div>
                       <div class="form-check form-switch ms-2">
                         <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales" @change="handleShowAllLocalesChange">
-                        <label class="form-check-label" for="toggleAllLocales">Edit all locales</label>
+                        <label class="form-check-label" for="toggleAllLocales">{{ $t('bikmedia.actions.edit') }} {{ $t('bikmedia.forms.language') }}</label>
                       </div>
                     </div>
                   </div>
@@ -90,14 +90,14 @@
               <div class="row mt-4 sub-gifts-grid" v-if="gift && gift.id">
                 <div class="col-12">
                   <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="mb-0">Sub Gifts</h5>
+                    <h5 class="mb-0">{{ $t('bikmedia.modals.subGift.title') }}</h5>
                     <button type="button" class="btn btn-sm btn-primary" @click="openSubGiftModal">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="8" x2="12" y2="16"></line>
                         <line x1="8" y1="12" x2="16" y2="12"></line>
                       </svg>
-                      Add Sub Gift
+                      {{ $t('bikmedia.modals.subGift.addSubGift') }}
                     </button>
                   </div>
 
@@ -123,7 +123,7 @@
                       </div>
                     </div>
                   </div>
-                  <div v-else class="text-muted">No sub gifts yet.</div>
+                  <div v-else class="text-muted">{{ $t('bikmedia.modals.subGift.noSubGifts') }}</div>
                 </div>
               </div>
 
@@ -150,7 +150,24 @@
                             <line x1="12" y1="8" x2="12" y2="16"></line>
                             <line x1="8" y1="12" x2="16" y2="12"></line>
                           </svg>
-                          Add Sub Gift
+                          {{ $t('bikmedia.modals.subGift.addSubGift') }}
+                        </button>
+                      </div>
+                      <div class="col-xl-12 col-md-6 col-sm-6">
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-block w-100 mb-3"
+                          @click="handleDelete"
+                          :disabled="isDeleting || !gift || !gift.id"
+                        >
+                          <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                            <path d="M10 11v6"></path>
+                            <path d="M14 11v6"></path>
+                          </svg>
+                          {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' + $t('bikmedia.store.gifts') }}
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
@@ -164,7 +181,7 @@
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                           </svg>
-                          Cancel
+                          {{ $t('bikmedia.actions.cancel') }}
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
@@ -180,7 +197,7 @@
                             <polyline points="17 21 17 13 7 13 7 21"></polyline>
                             <polyline points="7 3 7 8 15 8"></polyline>
                           </svg>
-                          {{ isSubmitting ? 'Updating...' : 'Update Gift' }}
+                          {{ isSubmitting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.update') + ' ' + $t('bikmedia.store.gifts') }}
                         </button>
                       </div>
                     </div>
@@ -198,6 +215,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useMeta } from '@/composables/use-meta';
 import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
 import giftService from '@/services/api/gift.service';
@@ -206,13 +224,15 @@ import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { giftConfig } from '@/config/entities/gift.config';
 import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
 import { sanitizeObject } from '@/utils/sanitize';
-import Swal from 'sweetalert2';
+
+// i18n
+const { t } = useI18n();
 
 // Meta Setup
-useMeta({ title: 'Edit Gift' });
+useMeta({ title: t('bikmedia.pages.gifts.edit.title') });
 
 // Router Setup
-const router = useRouter();
+const router = useRouter(); 
 const route = useRoute();
 
 // Reactive State
@@ -231,6 +251,7 @@ const validationErrors = ref({});
 const selectedLocale = ref('en');
 const showAllLocales = ref(false);
 const showSubGiftModal = ref(false);
+const isDeleting = ref(false);
 
 const validateForm = () => {
   const { valid, errors } = validateEntityFields(giftConfig, formData.value);
@@ -258,6 +279,10 @@ const loadGift = async (lang = null) => {
       const one = response?.item?.list?.find(g => g.id === Number(giftId)) || response?.data?.one || null;
       if (!one) throw new Error('Invalid getById() response');
       gift.value = one;
+      // initialFormData.svga = one.anim;
+      // initialFormData.svgaData.url = one.anim;
+      // console.log("Inital form", initialFormData);
+      // console.log("Gift",one);
     } catch (e) {
       // Fallback to getAll with locale and filter
       const response = await giftService.getAll({ lang: locale, p: 1, limit: 1000 });
@@ -288,12 +313,12 @@ const handleLocaleChange = async () => {
   const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(giftConfig, gift.value || {}));
   if (hasChanges && !showAllLocales.value) {
     const result = await Swal.fire({
-      title: 'Switch language?',
+      title: t('bikmedia.messages.confirmations.areYouSure'),
       text: 'Unsaved changes may be lost when switching language.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Switch',
-      cancelButtonText: 'Stay'
+      confirmButtonText: t('bikmedia.actions.confirm'),
+      cancelButtonText: t('bikmedia.actions.cancel')
     });
     if (!result.isConfirmed) return;
   }
@@ -317,17 +342,64 @@ const handleSubGiftAdded = async () => {
 };
 
 // Event Handlers
+const handleDelete = async () => {
+  if (!gift.value || !gift.value.id) {
+    showMessage('No gift selected for deletion', 'error');
+    return;
+  }
+
+  const result = await Swal.fire({
+    title: t('bikmedia.messages.confirmations.deleteGift'),
+    html: `<div class="text-center"><h4>${gift.value.name || t('bikmedia.components.subGiftCard.unnamedGift')}</h4></div>`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: t('bikmedia.actions.delete'),
+    confirmButtonColor: '#dc3545',
+    cancelButtonText: t('bikmedia.actions.cancel')
+  });
+
+  if (result.isConfirmed) {
+    await performDelete(gift.value.id);
+  }
+};
+
+const performDelete = async (itemId) => {
+  try {
+    isDeleting.value = true;
+    const response = await giftService.delete(itemId);
+    
+    // Check for success based on API response structure
+    if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+      showMessage(t('bikmedia.messages.success.giftDeleted'), 'success');
+      // Navigate to list page
+      setTimeout(() => {
+        router.push('/store/gifts');
+      }, 1000);
+    } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+      throw new Error('Gift not found');
+    } else if (response.data?.err) {
+      throw new Error(response.data.err);
+    } else {
+      throw new Error('Delete operation failed');
+    }
+  } catch (error) {
+    showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+  } finally {
+    isDeleting.value = false;
+  }
+};
+
 const handleCancel = () => {
   const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(giftConfig, gift.value || {}));
   
   if (hasChanges) {
     Swal.fire({
-      title: 'Discard changes?',
+      title: t('bikmedia.messages.confirmations.areYouSure'),
       text: 'You have unsaved changes. Are you sure you want to leave?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, discard',
-      cancelButtonText: 'No, stay'
+      confirmButtonText: t('bikmedia.actions.confirm'),
+      cancelButtonText: t('bikmedia.actions.cancel')
     }).then((result) => {
       if (result.isConfirmed) {
         router.push('/store/gifts');
@@ -342,7 +414,7 @@ const handleSubmit = async () => {
   isSubmitted.value = true;
   
   if (!validateForm()) {
-    showMessage('Please fix validation errors', 'error');
+    showMessage(t('bikmedia.forms.validation.required'), 'error');
     return;
   }
   
@@ -377,7 +449,7 @@ const handleSubmit = async () => {
       : await giftService.update(route.params.id, payload);
     
     // Show success message
-    showMessage('Gift updated successfully', 'success');
+    showMessage(t('bikmedia.messages.success.giftUpdated'), 'success');
     
     // Navigate to list page
     setTimeout(() => {
@@ -386,7 +458,7 @@ const handleSubmit = async () => {
     
   } catch (error) {
     console.error('Failed to update gift:', error);
-    showMessage(error.message || 'Failed to update gift', 'error');
+    showMessage(error.message || t('bikmedia.messages.errors.failedToUpdate'), 'error');
   } finally {
     isSubmitting.value = false;
   }

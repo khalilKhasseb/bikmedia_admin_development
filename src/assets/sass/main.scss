@@ -5,6 +5,7 @@
 @import '../base/base'; // Base Variables
 @import 'two-panel-layout'; // Two-Panel Layout Responsive Enhancements
 @import 'components/sub-gift-carousel'; // Sub-Gift Carousel Component
+@import 'rtl'; // RTL Support for Arabic Language
 
 html {
     min-height: 100%;

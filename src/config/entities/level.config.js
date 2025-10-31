@@ -16,13 +16,13 @@ const levelConfig = {
   apiEndpoint: '/levels',
   displayName: 'Level',
   pluralName: 'Levels',
-  
-  // Read-only configuration with operation flags
-  readOnly: true,
-  supportsCreate: false,
-  supportsEdit: false,
-  supportsDelete: false,
-  supportsView: true,
+
+  // Configuration with operation flags based on API capabilities
+  readOnly: false, // Allow some operations
+  supportsCreate: false, // API doesn't support level creation
+  supportsEdit: false,   // API doesn't support level editing  
+  supportsDelete: true,  // API supports level deletion
+  supportsView: true,    // API supports viewing levels
 
   // Locales (EN/AR) configured
   supportedLocales: STANDARD_LOCALES,

@@ -23,6 +23,11 @@ const head = createHead();
 import { initCSPDetection } from "./utils/media-config.js";
 initCSPDetection();
 
+// Initialize optimized charts
+import { initializeOptimizedCharts } from "./utils/chart-imports.js";
+const { VueApexCharts } = initializeOptimizedCharts();
+console.log('Main: VueApexCharts component:', VueApexCharts);
+
 //Sweetalert
 import Swal from "sweetalert2";
 window.Swal = Swal;
@@ -40,6 +45,7 @@ registerScrollSpy(app, { offset: 118 });
 
 //vue-i18n
 import i18n from "./i18n";
+import { TranslationValidatorPlugin } from "./utils/translation-validator.js";
 
 // datatables
 import { ClientTable } from "v-tables-3";
@@ -70,6 +76,11 @@ import "easymde/dist/easymde.min.css";
     app.use(store)
     .use(router)
     .use(i18n)
+    .use(TranslationValidatorPlugin, {
+        warningsEnabled: import.meta.env.DEV,
+        fallbackLocale: 'en',
+        supportedLocales: ['en', 'ar']
+    })
     .use(PerfectScrollbar)
     .use(VueNouislider)
     .use(Maska)
@@ -78,6 +89,7 @@ import "easymde/dist/easymde.min.css";
     .use(VueFormWizard)
     .use(head)
     .use(VueEasymde)
+    .component('apexchart', VueApexCharts)
     .mount("#app");
     
 })();

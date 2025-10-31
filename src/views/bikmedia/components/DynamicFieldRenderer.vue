@@ -44,7 +44,7 @@
           :required="meta.config?.required" :class="validationClass" v-model="localValue" />
 
         <!-- Validation Feedback -->
-        <div class="valid-feedback">Looks good!</div>
+        <div class="valid-feedback">{{ $t('bikmedia.components.dynamicField.looksGood') }}</div>
         <div class="invalid-feedback">{{ fieldError }}</div>
       </div>
 
@@ -57,7 +57,7 @@
 
             <!-- Current File Preview -->
             <div v-if="currentFileUrl" class="mb-3">
-              <label class="form-label text-muted small">Current {{ meta.config?.label || meta.name }}:</label>
+              <label class="form-label text-muted small">{{ $t('bikmedia.components.dynamicField.current') }} {{ meta.config?.label || meta.name }}:</label>
               <div class="current-media-preview">
                 <img v-if="isImageFile(currentFileUrl)" :src="currentFileUrl"
                   :alt="`Current ${meta.config?.label || meta.name}`" class="img-thumbnail"
@@ -80,19 +80,16 @@
             <div class="custom-file mb-3">
               <input :id="`${meta.name}File`" type="file" class="custom-file-input"
                 :accept="meta.config?.accept || 'image/*'" @change="handleFileChange" :class="validationClass" />
-              <label :for="`${meta.name}File`" data-browse="Browse" class="custom-file-label">
-                <span class="d-block form-file-text">{{ fileData?.file ? fileData.file.name : `Choose
-                  ${meta.config?.label?.toLowerCase() || meta.name} file...` }}</span>
+              <label :for="`${meta.name}File`" :data-browse="$t('bikmedia.actions.search')" class="custom-file-label">
+                <span class="d-block form-file-text">{{ fileData?.file ? fileData.file.name : `${$t('bikmedia.components.dynamicField.choose')} ${meta.config?.label?.toLowerCase() || meta.name} ${$t('bikmedia.components.dynamicField.file')}` }}</span>
               </label>
             </div>
-            <small class="text-muted d-block mb-2">Max {{ meta.config?.maxSize || 5 }}MB. Allowed: {{ getAcceptedTypes()
-              }}</small>
+            <small class="text-muted d-block mb-2">{{ $t('bikmedia.components.dynamicField.max') }} {{ meta.config?.maxSize || 5 }}MB. {{ $t('bikmedia.components.dynamicField.allowed') }}: {{ getAcceptedTypes() }}</small>
             <div v-if="meta.config?.supportsUrlFallback !== false" class="mb-3">
-              <label :for="`${meta.name}Url`" class="form-label">Or enter {{ meta.config?.label || meta.name }}
-                URL:</label>
+              <label :for="`${meta.name}Url`" class="form-label">{{ $t('bikmedia.components.dynamicField.orEnter') }} {{ meta.config?.label || meta.name }} {{ $t('bikmedia.components.dynamicField.url') }}</label>
               <input type="url" :id="`${meta.name}Url`" class="form-control" v-model="fileData.url"
-                :placeholder="`Enter ${meta.config?.label?.toLowerCase() || meta.name} URL`" />
-              <small class="form-text text-muted">Note: Uploaded files take priority over URLs</small>
+                :placeholder="`${$t('bikmedia.components.dynamicField.enter')} ${meta.config?.label?.toLowerCase() || meta.name} URL`" />
+              <small class="form-text text-muted">{{ $t('bikmedia.components.dynamicField.note') }}</small>
             </div>
             <div v-if="validationClass === 'is-invalid'" class="invalid-feedback d-block">
               {{ fieldError }}
@@ -112,8 +109,11 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import TranslationInput from '@/views/bikmedia/components/TranslationInput.vue';
 import FileUploadInput from '@/components/forms/FileUploadInput.vue';
+
+const { t } = useI18n();
 
 const props = defineProps({
   fieldConfig: { type: Object, required: true },
@@ -146,7 +146,7 @@ const localesToRender = computed(() => {
   return all.filter(l => l.code === sel);
 });
 
-const fieldError = computed(() => props.errors?.[meta.value?.name] || 'This field is required');
+const fieldError = computed(() => props.errors?.[meta.value?.name] || t('bikmedia.components.dynamicField.thisFieldRequired'));
 
 const validationClass = computed(() => {
   if (!props.isSubmitted) return '';
@@ -229,7 +229,7 @@ const handleFileChange = (event) => {
     if (file.size > maxSize) {
       const maxSizeMB = meta.value?.config?.maxSize || 5;
       // You might want to emit an error or show a message here
-      console.error(`File size exceeds ${maxSizeMB}MB limit`);
+      console.error(t('bikmedia.components.dynamicField.fileSizeExceeds', { maxSize: maxSizeMB }));
       event.target.value = '';
       fileData.value = { file: null, url: fileData.value?.url || '' };
       return;

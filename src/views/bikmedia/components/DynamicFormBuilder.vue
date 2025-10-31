@@ -17,7 +17,7 @@
               <DynamicFieldRenderer
                 v-if="getFieldMeta(fieldName)"
                 :fieldConfig="getFieldMeta(fieldName)"
-                :entityConfig="entityConfig"
+                :entityConfig="entityConfig"  
                 :modelValue="modelValue"
                 :isSubmitted="isSubmitted"
                 :errors="errors"

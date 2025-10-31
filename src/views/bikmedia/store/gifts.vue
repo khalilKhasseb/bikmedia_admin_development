@@ -6,8 +6,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:;">Store</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Gifts</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:;" x-html="$t('bikmedia.navigation.breadcrumb.store')"></a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span x-html="$t('bikmedia.navigation.breadcrumb.gifts')"></span></li>
                             </ol>
                         </nav>
                     </div>
@@ -30,7 +30,7 @@
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
                                     <input type="text" v-model.trim="search_text" class="product-search form-control"
-                                        @input="onSearchInput" placeholder="Search Gifts..." />
+                                        @input="onSearchInput" :placeholder="$t('bikmedia.forms.placeholder.searchGifts')" />
                                 </div>
 
                             </form>
@@ -48,7 +48,7 @@
                                         <line x1="12" y1="8" x2="12" y2="16"></line>
                                         <line x1="8" y1="12" x2="16" y2="12"></line>
                                     </svg>
-                                    <span class="ms-1">New Gift</span>
+                                    <span class="ms-1">{{ $t('bikmedia.actions.new') }} {{ $t('bikmedia.store.gifts') }}</span>
                                 </button>
 
                                 <!-- Filters Dropdown -->
@@ -61,37 +61,37 @@
                                             class="feather feather-filter">
                                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                         </svg>
-                                        Filters
+                                        {{ $t('bikmedia.actions.filters') }}
                                     </button>
                                     <ul class="dropdown-menu" style="min-width: 250px; padding: 15px;">
                                         <li class="mb-3">
-                                            <label class="form-label">Gift Type</label>
+                                            <label class="form-label">{{ $t('bikmedia.filters.giftType') }}</label>
                                             <select class="form-select"
                                                 :value="filters.type === null ? '' : filters.type"
                                                 @change="onTypeFilterChange">
-                                                <option value="">All Types</option>
-                                                <option value="0">Default</option>
-                                                <option value="1">Standard</option>
-                                                <option value="2">Premium</option>
-                                                <option value="3">Video</option>
-                                                <option value="4">Special</option>
+                                                <option value="">{{ $t('bikmedia.filters.allTypes') }}</option>
+                                                <option value="0">{{ $t('bikmedia.types.gift.default') }}</option>
+                                                <option value="1">{{ $t('bikmedia.types.gift.standard') }}</option>
+                                                <option value="2">{{ $t('bikmedia.types.gift.premium') }}</option>
+                                                <option value="3">{{ $t('bikmedia.types.gift.video') }}</option>
+                                                <option value="4">{{ $t('bikmedia.types.gift.special') }}</option>
                                             </select>
                                         </li>
                                         <li class="mb-3">
-                                            <label class="form-label">Language</label>
+                                            <label class="form-label">{{ $t('bikmedia.forms.language') }}</label>
                                             <select class="form-select" v-model="filters.lang" @change="fetchGifts">
-                                                <option value="en">English</option>
-                                                <option value="ar">Arabic</option>
+                                                <option value="en">{{ $t('bikmedia.filters.english') }}</option>
+                                                <option value="ar">{{ $t('bikmedia.filters.arabic') }}</option>
                                             </select>
                                         </li>
                                         <li>
-                                            <label class="form-label">Items Per Page</label>
+                                            <label class="form-label">{{ $t('bikmedia.filters.itemsPerPage') }}</label>
                                             <select class="form-select" v-model.number="filters.limit"
                                                 @change="onLimitChange">
-                                                <option :value="10">10 items</option>
-                                                <option :value="25">25 items</option>
-                                                <option :value="50">50 items</option>
-                                                <option :value="100">100 items</option>
+                                                <option :value="10">10 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                                <option :value="25">25 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                                <option :value="50">50 {{ $t('bikmedia.table.pagination.items') }}</option>
+                                                <option :value="100">100 {{ $t('bikmedia.table.pagination.items') }}</option>
                                             </select>
                                         </li>
                                     </ul>
@@ -145,9 +145,9 @@
                     <!-- Loading State -->
                     <div v-if="loading" class="text-center py-5">
                         <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                            <span class="visually-hidden">{{ $t('bikmedia.messages.loading') }}</span>
                         </div>
-                        <p class="mt-2">Loading gifts...</p>
+                        <p class="mt-2">{{ $t('bikmedia.messages.loadingGifts') }}</p>
                     </div>
 
                     <!-- Empty State -->
@@ -160,27 +160,27 @@
                                 d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
                             </path>
                         </svg>
-                        <h5 class="mt-3">No gifts found</h5>
-                        <p class="text-muted">Try adjusting your search or filters</p>
+                        <h5 class="mt-3">{{ $t('bikmedia.table.empty.noGifts') }}</h5>
+                        <p class="text-muted">{{ $t('bikmedia.table.empty.tryAdjusting') }}</p>
                     </div>
 
                     <div v-else class="searchable-items" :class="[grid_type]">
                         <div class="items items-header-section">
                             <div class="item-content">
                                 <div class="">
-                                    <h4>Gift</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.gift') }}</h4>
                                 </div>
                                 <div class="user-email">
-                                    <h4>Coins</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.coins') }}</h4>
                                 </div>
                                 <div class="user-location">
-                                    <h4 style="margin-left: 0">Type</h4>
+                                    <h4 style="margin-left: 0">{{ $t('bikmedia.table.headers.type') }}</h4>
                                 </div>
                                 <div class="user-phone">
-                                    <h4 style="margin-left: 3px">Level</h4>
+                                    <h4 style="margin-left: 3px">{{ $t('bikmedia.forms.level') }}</h4>
                                 </div>
                                 <div class="action-btn">
-                                    <h4>Actions</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.actions') }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -206,26 +206,26 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <p class="user-work">ID: {{ gift.id }}</p>
+                                        <p class="user-work">{{ $t('bikmedia.table.headers.id') }}: {{ gift.id }}</p>
                                     </div>
                                 </div>
                                 <div class="user-email">
-                                    <p class="info-title">Coins:</p>
+                                    <p class="info-title">{{ $t('bikmedia.table.headers.coins') }}:</p>
                                     <p class="usr-email-addr">{{ formatNumber(gift.coin) }}</p>
                                 </div>
                                 <div class="user-location">
-                                    <p class="info-title">Type:</p>
+                                    <p class="info-title">{{ $t('bikmedia.table.headers.type') }}:</p>
                                     <p class="usr-location">
                                         <span class="badge" :class="getTypeBadgeClass(normalizeTypeValue(gift))">{{
                                             getTypeDisplay(gift) }}</span>
                                     </p>
                                 </div>
                                 <div class="user-phone">
-                                    <p class="info-title">Level:</p>
+                                    <p class="info-title">{{ $t('bikmedia.forms.level') }}:</p>
                                     <p class="usr-ph-no">{{ gift.lvl || 0 }}</p>
                                 </div>
                                 <div class="action-btn">
-                                    <a href="javascript:;" class="me-1" @click="handleView(gift)" title="View">
+                                    <a href="javascript:;" class="me-1" @click="handleView(gift)" :title="$t('bikmedia.table.actions.view')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
@@ -233,12 +233,24 @@
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
                                     </a>
-                                    <a href="javascript:;" class="me-1" @click="handleEdit(gift)" title="Edit">
+                                    <a href="javascript:;" class="me-1" @click="handleEdit(gift)" :title="$t('bikmedia.table.actions.edit')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
                                             class="feather feather-edit-2 edit">
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="javascript:;" class="me-1" @click="handleDelete(gift)" :title="$t('bikmedia.table.actions.delete')" 
+                                       :class="{ 'opacity-50': isDeleting && deletingItemId === gift.id }">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-trash-2 text-danger">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
                                         </svg>
                                     </a>
                                 </div>
@@ -252,7 +264,7 @@
                                     :is-visible="isExpanded(gift.id)" 
                                     :is-loading="subgiftsLoading[gift.id] || false"
                                     :has-error="subgiftsError[gift.id] || false"
-                                    error-message="Failed to load sub gifts"
+                                    :error-message="$t('bikmedia.components.carousel.errorLoading')"
                                     container-height="280px" 
                                     card-height="200px"
                                     @retry="retrySubGifts(gift.id)"
@@ -265,8 +277,8 @@
                     <div v-if="!loading && pagination.pages > 1"
                         class="d-flex justify-content-between align-items-center mt-4 px-3 pb-3">
                         <div class="text-muted">
-                            Showing {{ ((pagination.page - 1) * pagination.limit) + 1 }} to {{ Math.min(pagination.page
-                                * pagination.limit, pagination.total) }} of {{ pagination.total }} entries
+                            {{ $t('bikmedia.table.pagination.showing') }} {{ ((pagination.page - 1) * pagination.limit) + 1 }} {{ $t('bikmedia.table.pagination.to') }} {{ Math.min(pagination.page
+                                * pagination.limit, pagination.total) }} {{ $t('bikmedia.table.pagination.of') }} {{ pagination.total }} {{ $t('bikmedia.table.pagination.entries') }}
                         </div>
                         <nav>
                             <ul class="pagination mb-0">
@@ -321,6 +333,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import giftService from "@services/api/gift.service";
 import "/src/assets/sass/apps/contacts.scss";
 import { sanitizeInput, sanitizeObject } from '/src/utils/sanitize.js';
@@ -329,9 +342,11 @@ import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import SubGiftCarousel from '@/views/bikmedia/components/SubGiftCarousel.vue';
 
 import { useMeta } from "/src/composables/use-meta";
-useMeta({ title: "Gifts Management" });
+const { t } = useI18n();
+useMeta({ title: t('bikmedia.pages.gifts.title') });
 
 const router = useRouter();
+
 const gifts_list = ref([]);
 const filterd_gifts_list = ref([]);
 const search_text = ref("");
@@ -341,6 +356,8 @@ const expanded = ref({});
 const subgifts = ref({});
 const subgiftsLoading = ref({});
 const subgiftsError = ref({});
+const isDeleting = ref(false);
+const deletingItemId = ref(null);
 let searchTimeout = null;
 
 // Filters
@@ -442,7 +459,7 @@ const fetchGifts = async () => {
         console.log('Gifts loaded:', gifts_list.value.length, 'items, Total:', pagination.value.total);
     } catch (error) {
         console.error("Failed to fetch gifts:", error);
-        showMessage(error.message || "Failed to load gifts", "error");
+        showMessage(error.message || t('bikmedia.messages.errors.loadGifts'), "error");
         gifts_list.value = [];
         filterd_gifts_list.value = [];
     } finally {
@@ -560,7 +577,7 @@ const handleCreate = () => {
 
 const handleView = (gift) => {
     if (!gift || !gift.id) {
-        showMessage('Invalid gift ID', 'error');
+        showMessage(t('bikmedia.messages.errors.invalidGiftId'), 'error');
         return;
     }
     router.push({ name: 'gift-view', params: { id: gift.id } });
@@ -568,7 +585,7 @@ const handleView = (gift) => {
 
 const handleEdit = (gift) => {
     if (!gift || !gift.id) {
-        showMessage('Invalid gift ID', 'error');
+        showMessage(t('bikmedia.messages.errors.invalidGiftId'), 'error');
         return;
     }
     router.push({ name: 'gift-edit', params: { id: gift.id } });
@@ -612,6 +629,56 @@ const retrySubGifts = async (giftId) => {
     await fetchSubGifts(giftId);
 };
 
+// Delete functionality
+const handleDelete = async (gift) => {
+    if (!gift || !gift.id) {
+        showMessage(t('bikmedia.messages.errors.invalidGiftId'), 'error');
+        return;
+    }
+
+    const result = await window.Swal.fire({
+        title: t('bikmedia.messages.confirmations.deleteGift'),
+        html: `<div class="text-center"><h4 class="mb-3">${gift.name || 'Gift #' + gift.id}</h4><p class="text-muted">${t('bikmedia.messages.confirmations.cannotUndo')}</p></div>`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: t('bikmedia.actions.delete'),
+        confirmButtonColor: '#dc3545',
+        cancelButtonText: t('bikmedia.actions.cancel'),
+        reverseButtons: true
+    });
+
+    if (result.isConfirmed) {
+        await performDelete(gift.id);
+    }
+};
+
+const performDelete = async (itemId) => {
+    try {
+        isDeleting.value = true;
+        deletingItemId.value = itemId;
+        
+        const response = await giftService.delete(itemId);
+        
+        // Check for success based on API response structure
+        if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+            showMessage(t('bikmedia.messages.success.giftDeleted'), 'success');
+            // Refresh the list
+            await fetchGifts();
+        } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+            throw new Error(t('bikmedia.messages.errors.notFound'));
+        } else if (response.data?.err) {
+            throw new Error(response.data.err);
+        } else {
+            throw new Error(t('bikmedia.messages.errors.failedToDelete'));
+        }
+    } catch (error) {
+        console.error('Delete error:', error);
+        showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+    } finally {
+        isDeleting.value = false;
+        deletingItemId.value = null;
+    }
+};
 
 const showMessage = (msg = "", type = "success") => {
     const toast = window.Swal.mixin({

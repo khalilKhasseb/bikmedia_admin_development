@@ -10,9 +10,9 @@
             <line x1="9" y1="9" x2="15" y2="15"></line>
           </svg>
         </div>
-        <p class="error-message">{{ errorMessage }}</p>
+        <p class="error-message">{{ errorMessage || $t('bikmedia.components.subGiftCarousel.failedToLoad') }}</p>
         <button class="btn btn-sm btn-outline-primary retry-btn" @click="$emit('retry')">
-          Try Again
+          {{ $t('bikmedia.components.subGiftCarousel.tryAgain') }}
         </button>
       </div>
       
@@ -20,15 +20,15 @@
       <div v-else-if="isLoading" class="loading-state">
         <div class="loading-spinner">
           <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">{{ $t('bikmedia.components.subGiftCarousel.loading') }}</span>
           </div>
         </div>
-        <p class="loading-message">Loading sub gifts...</p>
+        <p class="loading-message">{{ $t('bikmedia.components.subGiftCarousel.loadingSubGifts') }}</p>
       </div>
       
       <!-- Empty state -->
       <div v-else-if="!subGifts || subGifts.length === 0" class="empty-state">
-        <p class="empty-message">No sub gifts</p>
+        <p class="empty-message">{{ $t('bikmedia.components.subGiftCarousel.noSubGifts') }}</p>
       </div>
       
       <!-- Carousel -->
@@ -70,20 +70,20 @@
             type="button" 
             :data-bs-target="`#${carouselId}`" 
             data-bs-slide="prev"
-            :aria-label="$t ? $t('carousel.previous') : 'Previous'"
+            :aria-label="$t('bikmedia.components.carousel.previous')"
           >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">{{ $t('bikmedia.components.carousel.previous') }}</span>
           </button>
           <button 
             class="carousel-control-next" 
             type="button" 
             :data-bs-target="`#${carouselId}`" 
             data-bs-slide="next"
-            :aria-label="$t ? $t('carousel.next') : 'Next'"
+            :aria-label="$t('bikmedia.components.carousel.next')"
           >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">{{ $t('bikmedia.components.carousel.next') }}</span>
           </button>
         </template>
       </div>
@@ -133,7 +133,7 @@ const props = defineProps({
   },
   errorMessage: {
     type: String,
-    default: 'Failed to load sub gifts'
+    default: ''
   }
 });
 

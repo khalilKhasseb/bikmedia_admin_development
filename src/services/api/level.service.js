@@ -38,7 +38,7 @@ import {
  * 
  * @see Postman API Documentation: POST /dashboard/levels (index)
  */
-class LevelService extends BaseService {
+class LevelService extends BaseService {  
   constructor() {
     super('/levels');
   }
@@ -151,6 +151,54 @@ class LevelService extends BaseService {
 
       // Transform and return single item response
       return transformSingleResponse(response);
+    } catch (error) {
+      // Normalize error and re-throw
+      const normalizedError = transformErrorResponse(error);
+      throw normalizedError;
+    }
+  }
+
+  /**
+   * Delete a level item
+   * 
+   * Deletes a level record by its ID. The API returns a structured response
+   * with success/error codes that need to be handled appropriately.
+   * 
+   * @param {number|string} itemId - Level ID to delete (required)
+   * @returns {Promise<Object>} Promise resolving to raw API response for success/error handling
+   * @returns {Object} returns.data - API response data
+   * @returns {number} returns.data.code - Response code (200 for success, 201 for errors)
+   * @returns {string|null} returns.data.err - Error message (null for success, "notFound" for missing item)
+   * @returns {Object} returns.data.data - Response payload (contains success: 1 for successful deletion)
+   * 
+   * @throws {Error} Normalized error object with message and details
+   * 
+   * @example
+   * // Delete a level
+   * try {
+   *   const response = await levelService.delete(5);
+   *   if (response.data?.code === 200 && response.data?.err === null) {
+   *     console.log('Level deleted successfully');
+   *   }
+   * } catch (error) {
+   *   console.error('Failed to delete level:', error.message);
+   * }
+   */
+  async delete(itemId) {
+    if (itemId === null || itemId === undefined || itemId === '') {
+      throw new Error('LevelService.delete requires a valid itemId.');
+    }
+
+    try {
+      // Create FormData with the item ID
+      const formData = new FormData();
+      formData.append('id', itemId);
+
+      // Make POST request to /dashboard/levels/delete with FormData payload
+      const response = await this.postFormData('/delete', formData);
+
+      // Return raw response for component-level success/error handling
+      return response;
     } catch (error) {
       // Normalize error and re-throw
       const normalizedError = transformErrorResponse(error);

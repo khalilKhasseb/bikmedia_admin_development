@@ -208,6 +208,55 @@ class GiftService extends BaseService {
     }
   }
 
+
+  /**
+   * Delete a gift item
+   * 
+   * Deletes a gift record by its ID. The API returns a structured response
+   * with success/error codes that need to be handled appropriately.
+   * 
+   * @param {number|string} itemId - Gift ID to delete (required)
+   * @returns {Promise<Object>} Promise resolving to raw API response for success/error handling
+   * @returns {Object} returns.data - API response data
+   * @returns {number} returns.data.code - Response code (200 for success, 201 for errors)
+   * @returns {string|null} returns.data.err - Error message (null for success, "notFound" for missing item)
+   * @returns {Object} returns.data.data - Response payload (contains success: 1 for successful deletion)
+   * 
+   * @throws {Error} Normalized error object with message and details
+   * 
+   * @example
+   * // Delete a gift
+   * try {
+   *   const response = await giftService.delete(42);
+   *   if (response.data?.code === 200 && response.data?.err === null) {
+   *     console.log('Gift deleted successfully');
+   *   }
+   * } catch (error) {
+   *   console.error('Failed to delete gift:', error.message);
+   * }
+   */
+  async delete(itemId) {
+    if (itemId === null || itemId === undefined || itemId === '') {
+      throw new Error('GiftService.delete requires a valid itemId.');
+    }
+
+    try {
+      // Create FormData with the item ID
+      const formData = new FormData();
+      formData.append('id', itemId);
+
+      // Make POST request to /dashboard/gifts/delete with FormData payload
+      const response = await this.postFormData('/delete', formData);
+
+      // Return raw response for component-level success/error handling
+      return response;
+    } catch (error) {
+      // Normalize error and re-throw
+      const normalizedError = transformErrorResponse(error);
+      throw normalizedError;
+    }
+  }
+
   /**
    * Update an existing gift
    * 

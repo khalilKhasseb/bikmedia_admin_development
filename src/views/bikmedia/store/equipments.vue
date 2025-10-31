@@ -6,8 +6,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:;">Store</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Equipments</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:;">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.equipment') }}</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -37,7 +37,7 @@
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                     </svg>
-                                    <input type="text" v-model.trim="search_text" class="product-search form-control" @input="onSearchInput" placeholder="Search Equipments..." />
+                                    <input type="text" v-model.trim="search_text" class="product-search form-control" @input="onSearchInput" :placeholder="$t('bikmedia.forms.placeholder.searchEquipment')" />
                                 </div>
                             </form>
                         </div>
@@ -51,7 +51,7 @@
                                         <line x1="12" y1="8" x2="12" y2="16"></line>
                                         <line x1="8" y1="12" x2="16" y2="12"></line>
                                     </svg>
-                                    <span class="ms-1">New Equipment</span>
+                                    <span class="ms-1">{{ $t('bikmedia.actions.new') }} {{ $t('bikmedia.store.equipment') }}</span>
                                 </button>
                                 
                                 <!-- Filters Dropdown -->
@@ -60,17 +60,17 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
                                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                         </svg>
-                                        Filters
+                                        {{ $t('bikmedia.actions.filters') }}
                                     </button>
                                     <ul class="dropdown-menu" style="min-width: 250px; padding: 15px;">
                                         <li class="mb-3">
-                                            <label class="form-label">Equipment Type</label>
+                                            <label class="form-label">{{ $t('bikmedia.filters.equipmentType') }}</label>
                                             <select class="form-select" :value="filters.type === null ? '' : filters.type" @change="onTypeFilterChange">
-                                                <option value="">All Types</option>
-                                                <option value="1">Frame</option>
-                                                <option value="2">Entry Effect</option>
-                                                <option value="3">Badge</option>
-                                                <option value="4">Theme</option>
+                                                <option value="">{{ $t('bikmedia.filters.allTypes') }}</option>
+                                                <option value="1">{{ $t('bikmedia.types.equipment.frame') }}</option>
+                                                <option value="2">{{ $t('bikmedia.types.equipment.entryEffect') }}</option>
+                                                <option value="3">{{ $t('bikmedia.types.equipment.badge') }}</option>
+                                                <option value="4">{{ $t('bikmedia.types.equipment.theme') }}</option>
                                             </select>
                                         </li>
                                     </ul>
@@ -127,9 +127,9 @@
                     <!-- Loading State -->
                     <div v-if="loading" class="text-center py-5">
                         <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                            <span class="visually-hidden">{{ $t('bikmedia.messages.loading') }}</span>
                         </div>
-                        <p class="mt-2">Loading equipments...</p>
+                        <p class="mt-2">{{ $t('bikmedia.messages.loadingEquipment') }}</p>
                     </div>
 
                     <!-- Empty State -->
@@ -138,27 +138,27 @@
                             <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
                             <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
                         </svg>
-                        <h5 class="mt-3">No equipments found</h5>
-                        <p class="text-muted">Try adjusting your search or filters</p>
+                        <h5 class="mt-3">{{ $t('bikmedia.table.empty.noEquipment') }}</h5>
+                        <p class="text-muted">{{ $t('bikmedia.table.empty.tryAdjusting') }}</p>
                     </div>
 
                     <div v-else class="searchable-items" :class="[grid_type]">
                         <div class="items items-header-section">
                             <div class="item-content">
                                 <div class="">
-                                    <h4>Equipment</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.equipment') }}</h4>
                                 </div>
                                 <div class="user-email">
-                                    <h4>Coins</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.coins') }}</h4>
                                 </div>
                                 <div class="user-location">
-                                    <h4 style="margin-left: 0">Type</h4>
+                                    <h4 style="margin-left: 0">{{ $t('bikmedia.table.headers.type') }}</h4>
                                 </div>
                                 <div class="user-phone">
-                                    <h4 style="margin-left: 3px">Days</h4>
+                                    <h4 style="margin-left: 3px">{{ $t('bikmedia.forms.days') }}</h4>
                                 </div>
                                 <div class="action-btn">
-                                    <h4>Actions</h4>
+                                    <h4>{{ $t('bikmedia.table.headers.actions') }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -169,31 +169,31 @@
                                     <img :src="equipment.icon || defaultAvatar" alt="equipment" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
                                     <div class="user-meta-info">
                                         <p class="user-name">{{ equipment.name || equipment.typeName || 'N/A' }}</p>
-                                        <p class="user-work">ID: {{ equipment.id }}</p>
+                                        <p class="user-work">{{ $t('bikmedia.table.headers.id') }}: {{ equipment.id }}</p>
                                     </div>
                                 </div>
                                 <div class="user-email">
-                                    <p class="info-title">Coins:</p>
+                                    <p class="info-title">{{ $t('bikmedia.table.headers.coins') }}:</p>
                                     <p class="usr-email-addr">{{ formatNumber(equipment.coin) }}</p>
                                 </div>
                                 <div class="user-location">
-                                    <p class="info-title">Type:</p>
+                                    <p class="info-title">{{ $t('bikmedia.table.headers.type') }}:</p>
                                     <p class="usr-location">
                                         <span class="badge" :class="getTypeBadgeClass(equipment.type)">{{ getTypeLabel(equipment.type) }}</span>
                                     </p>
                                 </div>
                                 <div class="user-phone">
-                                    <p class="info-title">Days:</p>
+                                    <p class="info-title">{{ $t('bikmedia.forms.days') }}:</p>
                                     <p class="usr-ph-no">{{ equipment.days || 0 }}</p>
                                 </div>
                                 <div class="action-btn">
-                                    <a href="javascript:;" class="me-1" @click="handleView(equipment)" title="View">
+                                    <a href="javascript:;" class="me-1" @click="handleView(equipment)" :title="$t('bikmedia.table.actions.view')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
                                     </a>
-                                    <a href="javascript:;" @click="handleEdit(equipment)" title="Edit">
+                                    <a href="javascript:;" class="me-1" @click="handleEdit(equipment)" :title="$t('bikmedia.table.actions.edit')">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24"
@@ -207,6 +207,18 @@
                                             class="feather feather-edit-2 edit"
                                         >
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="javascript:;" class="me-1" @click="handleDelete(equipment)" :title="$t('bikmedia.table.actions.delete')" 
+                                       :class="{ 'opacity-50': isDeleting && deletingItemId === equipment.id }">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-trash-2 text-danger">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
                                         </svg>
                                     </a>
                                 </div>
@@ -233,20 +245,26 @@
 <script setup>
     import { computed, onBeforeUnmount, onMounted, ref } from "vue";
     import { useRouter } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
     import equipmentService from "@services/api/equipment.service";
     import "/src/assets/sass/apps/contacts.scss";
     import { sanitizeInput, sanitizeObject } from '/src/utils/sanitize.js';
     import defaultAvatar from '/src/assets/images/profile-30.png';
+    import { bikMediaNotifications, showToast } from '@/utils/notification-handler.js';
 
     import { useMeta } from "/src/composables/use-meta";
-    useMeta({ title: "Equipments Management" });
+    // import { useI18n } from 'vue-i18n';
 
     const router = useRouter();
+    const { t } = useI18n();
+    useMeta({ title: t('bikmedia.pages.equipment.title') });
     const equipments_list = ref([]);
     const filterd_equipments_list = ref([]);
     const search_text = ref("");
     const grid_type = ref("list");
     const loading = ref(false);
+    const isDeleting = ref(false);
+    const deletingItemId = ref(null);
     let searchTimeout = null;
 
     // Filters
@@ -279,7 +297,7 @@
             console.log('Equipments loaded:', equipments_list.value.length, 'items');
         } catch (error) {
             console.error("Failed to fetch equipments:", error);
-            showMessage(error.message || "Failed to load equipments", "error");
+            bikMediaNotifications.equipment.loadError();
             equipments_list.value = [];
             filterd_equipments_list.value = [];
         } finally {
@@ -355,12 +373,12 @@
     // Helper function to get type label
     const getTypeLabel = (type) => {
         const typeLabels = {
-            1: 'Frame',
-            2: 'Entry Effect',
-            3: 'Badge',
-            4: 'Theme'
+            1: t('bikmedia.types.equipment.frame'),
+            2: t('bikmedia.types.equipment.entryEffect'),
+            3: t('bikmedia.types.equipment.badge'),
+            4: t('bikmedia.types.equipment.theme')
         };
-        return typeLabels[type] || `Type ${type}`;
+        return typeLabels[type] || `${t('bikmedia.table.headers.type')} ${type}`;
     };
 
     // Helper function to get badge class for type
@@ -387,7 +405,7 @@
 
     const handleView = (equipment) => {
         if (!equipment || !equipment.id) {
-            showMessage('Invalid equipment ID', 'error');
+            showMessage(t('bikmedia.messages.errors.invalidEquipmentId'), 'error');
             return;
         }
         router.push({ name: 'equipment-view', params: { id: equipment.id } });
@@ -395,23 +413,61 @@
 
     const handleEdit = (equipment) => {
         if (!equipment || !equipment.id) {
-            showMessage('Invalid equipment ID', 'error');
+            showMessage(t('bikmedia.messages.errors.invalidEquipmentId'), 'error');
             return;
         }
         router.push({ name: 'equipment-edit', params: { id: equipment.id } });
     };
 
+    // Delete functionality
+    const handleDelete = async (equipment) => {
+        if (!equipment || !equipment.id) {
+            showMessage(t('bikmedia.messages.errors.invalidEquipmentId'), 'error');
+            return;
+        }
+
+        const result = await bikMediaNotifications.equipment.confirmDelete(
+            equipment.name || equipment.typeName || `Equipment #${equipment.id}`
+        );
+
+        if (result.isConfirmed) {
+            await performDelete(equipment.id);
+        }
+    };
+
+    const performDelete = async (itemId) => {
+        try {
+            isDeleting.value = true;
+            deletingItemId.value = itemId;
+            
+            const response = await equipmentService.delete(itemId);
+            
+            // Check for success based on API response structure
+            if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+                bikMediaNotifications.equipment.deleted();
+                // Refresh the list
+                await fetchEquipments();
+            } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+                throw new Error(t('bikmedia.messages.errors.notFound'));
+            } else if (response.data?.err) {
+                throw new Error(response.data.err);
+            } else {
+                throw new Error(t('bikmedia.messages.errors.failedToDelete'));
+            }
+        } catch (error) {
+            console.error('Delete error:', error);
+            bikMediaNotifications.equipment.deleteError();
+        } finally {
+            isDeleting.value = false;
+            deletingItemId.value = null;
+        }
+    };
+
     const showMessage = (msg = "", type = "success") => {
-        const toast = window.Swal.mixin({
-            toast: true,
+        // Use the new localized notification system
+        return showToast(msg, type, {
             position: "top",
-            showConfirmButton: false,
-            timer: 3000,
-        });
-        toast.fire({
-            icon: type,
-            title: msg,
-            padding: "10px 20px",
+            padding: "10px 20px"
         });
     };
 </script>

@@ -7,10 +7,14 @@
           <div class="page-header">
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/')">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Store</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Equipments</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span>Edit</span></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/')">{{ $t('dashboard') }}</a>
+                </li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{
+                  $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{
+                  $t('bikmedia.navigation.breadcrumb.equipment') }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>{{
+                  $t('bikmedia.navigation.breadcrumb.edit') }}</span></li>
               </ol>
             </nav>
           </div>
@@ -21,22 +25,23 @@
     <!-- Loading State -->
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading equipment...</span>
+        <span class="visually-hidden">{{ $t('bikmedia.messages.loadingEquipment') }}</span>
       </div>
-      <p class="mt-2">Loading equipment data...</p>
+      <p class="mt-2">{{ $t('bikmedia.messages.loadingEquipment') }}</p>
     </div>
 
     <!-- Error State -->
     <div v-else-if="loadError" class="text-center py-5">
-      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-danger">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-danger">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="12"></line>
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
       </svg>
-      <h5 class="mt-3">Failed to load equipment</h5>
+      <h5 class="mt-3">{{ $t('bikmedia.messages.errors.failedToLoad') }}</h5>
       <p class="text-muted">{{ loadError }}</p>
       <button class="btn btn-primary" @click="router.push('/store/equipments')">
-        Back to List
+        {{ $t('bikmedia.table.actions.view') }}
       </button>
     </div>
 
@@ -51,41 +56,32 @@
               <div class="row mb-4">
                 <div class="col-12">
                   <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                    <h3>Edit Equipment</h3>
+                    <h3>{{ $t('bikmedia.pages.equipment.edit.title') }}</h3>
                     <div class="d-flex align-items-end gap-2">
                       <div class="locale-selector" style="width: 200px;">
-                        <label for="localeSelect" class="form-label mb-1">Language:</label>
-                        <select
-                          id="localeSelect"
-                          class="form-select"
-                          v-model="selectedLocale"
-                          @change="handleLocaleChange"
-                        >
-                          <option v-for="locale in equipmentConfig.supportedLocales" :key="locale.code" :value="locale.code">
+                        <label for="localeSelect" class="form-label mb-1">{{ $t('bikmedia.forms.language') }}:</label>
+                        <select id="localeSelect" class="form-select" v-model="selectedLocale"
+                          @change="handleLocaleChange">
+                          <option v-for="locale in equipmentConfig.supportedLocales" :key="locale.code"
+                            :value="locale.code">
                             {{ locale.label }}
                           </option>
                         </select>
                       </div>
                       <div class="form-check form-switch ms-2">
-                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales" @change="handleShowAllLocalesChange">
-                        <label class="form-check-label" for="toggleAllLocales">Edit all locales</label>
+                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales"
+                          @change="handleShowAllLocalesChange">
+                        <label class="form-check-label" for="toggleAllLocales">{{ $t('bikmedia.actions.edit') }} {{
+                          $t('bikmedia.forms.language') }}</label>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Fully Dynamic Form with Custom Panel Layout -->
-              <DynamicFormBuilder
-                :entityConfig="equipmentConfig"
-                v-model="formData"
-                :isSubmitted="isSubmitted"
-                :errors="validationErrors"
-                :existingData="equipment"
-                :selectedLocale="selectedLocale"
-                :showAllLocales="showAllLocales"
-                :layoutMode="'custom-panels'"
-                mode="edit"
-              />
+              <DynamicFormBuilder :entityConfig="equipmentConfig" v-model="formData" :isSubmitted="isSubmitted"
+                :errors="validationErrors" :existingData="equipment" :selectedLocale="selectedLocale"
+                :showAllLocales="showAllLocales" :layoutMode="'custom-panels'" mode="edit" />
             </div>
 
             <!-- Action Sidebar -->
@@ -94,26 +90,46 @@
                 <div class="invoice-action-btn">
                   <div class="row">
                     <div class="col-xl-12 col-md-6 col-sm-6">
-                      <button
-                        type="button"
-                        class="btn btn-secondary btn-block w-100 mb-3"
-                        @click="handleCancel"
-                        :disabled="isSubmitting"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        Cancel
+                      <button type="button" class="btn btn-danger btn-block w-100 mb-3" @click="handleDelete"
+                        :disabled="isDeleting || !equipment || !equipment.id">
+                        <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
+                        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" class="feather feather-trash-2 me-2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                          <path d="M10 11v6"></path>
+                          <path d="M14 11v6"></path>
+                        </svg>
+                        {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' +
+                          $t('bikmedia.store.equipment') }}
                       </button>
                     </div>
                     <div class="col-xl-12 col-md-6 col-sm-6">
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-block w-100 mb-3"
-                        @click="handleSubmit"
-                        :disabled="isSubmitting"
-                      >
+                      <button type="button" class="btn btn-secondary btn-block w-100 mb-3" @click="handleCancel"
+                        :disabled="isSubmitting">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-x me-2">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        {{ $t('bikmedia.actions.cancel') }}
+                      </button>
+                    </div>
+                    <div class="col-xl-12 col-md-6 col-sm-6">
+                      <button type="button" class="btn btn-primary btn-block w-100 mb-3" @click="handleSubmit"
+                        :disabled="isSubmitting">
                         <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save me-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                        {{ isSubmitting ? 'Updating...' : 'Update Equipment' }}
+                        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" class="feather feather-save me-2">
+                          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                          <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        {{ isSubmitting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.update') + ' ' +
+                          $t('bikmedia.store.equipment') }}
                       </button>
                     </div>
                   </div>
@@ -130,20 +146,31 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useMeta } from '@/composables/use-meta';
 import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
 import equipmentService from '@/services/api/equipment.service';
 import { equipmentConfig } from '@/config/entities/equipment.config';
 import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
 import { sanitizeObject } from '@/utils/sanitize';
-import Swal from 'sweetalert2';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showInfoToast,
+  showConfirmDialog,
+  bikMediaNotifications
+} from '@/utils/notification-handler.js';
+
+// i18n
+const { t } = useI18n();
 
 // Meta
-useMeta({ title: 'Edit Equipment' });
+useMeta({ title: t('bikmedia.pages.equipment.edit.title') });
 
 // Router
 const router = useRouter();
 const route = useRoute();
+
 
 // Reactive State
 const formData = ref(initializeFormData(equipmentConfig));
@@ -157,6 +184,7 @@ const validationErrors = ref({});
 const selectedLocale = ref('en');
 const showAllLocales = ref(false);
 const syncingTranslations = ref(false);
+const isDeleting = ref(false);
 
 // All form handling is now managed by DynamicFormBuilder
 
@@ -193,10 +221,10 @@ const backgroundPrefetchOtherLocales = async (activeLocale, equipmentId) => {
 const loadEquipment = async (lang = null) => {
   loading.value = true;
   loadError.value = null;
-  
+
   try {
     const equipmentId = route.params.id;
-    
+
     if (!equipmentId) {
       throw new Error('Equipment ID is required');
     }
@@ -247,10 +275,10 @@ const loadEquipment = async (lang = null) => {
 
     console.log('Equipment loaded:', foundEquipment);
     console.log('Form data populated:', formData.value);
-    
+
     // Background prefetch for other locales to populate hidden buffers
     backgroundPrefetchOtherLocales(selectedLocale.value, equipmentId);
-  
+
   } catch (error) {
     console.error('Failed to load equipment:', error);
     loadError.value = error.message || 'Failed to load equipment data';
@@ -263,13 +291,12 @@ const loadEquipment = async (lang = null) => {
 const handleLocaleChange = async () => {
   const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(equipmentConfig, equipment.value || {}));
   if (hasChanges && !showAllLocales.value) {
-    const result = await Swal.fire({
-      title: 'Switch language?',
-      text: 'Unsaved changes may be lost when switching language.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Switch',
-      cancelButtonText: 'Stay'
+    const result = await showConfirmDialog({
+      title: 'bikmedia.messages.confirmations.areYouSure',
+      text: 'bikmedia.messages.notifications.languageSwitchWarning',
+      options: {
+        icon: 'warning'
+      }
     });
     if (!result.isConfirmed) return;
   }
@@ -284,18 +311,52 @@ const handleShowAllLocalesChange = async () => {
 };
 
 // Event Handlers
+const handleDelete = async () => {
+  if (!equipment.value || !equipment.value.id) {
+    showMessage('No equipment selected for deletion', 'error');
+    return;
+  }
+
+  const result = await bikMediaNotifications.equipment.confirmDelete(
+    equipment.value.name || t('bikmedia.components.subGiftCard.unnamedGift')
+  );
+
+  if (result.isConfirmed) {
+    await performDelete(equipment.value.id);
+  }
+};
+
+const performDelete = async (itemId) => {
+  try {
+    isDeleting.value = true;
+    const response = await equipmentService.delete(itemId);
+
+    // Check for success based on API response structure
+    if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+      bikMediaNotifications.equipment.deleted();
+      // Navigate to list page
+      setTimeout(() => {
+        router.push('/store/equipments');
+      }, 1000);
+    } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+      throw new Error('Equipment not found');
+    } else if (response.data?.err) {
+      throw new Error(response.data.err);
+    } else {
+      throw new Error('Delete operation failed');
+    }
+  } catch (error) {
+    showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+  } finally {
+    isDeleting.value = false;
+  }
+};
+
 const handleCancel = () => {
   const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(equipmentConfig, equipment.value || {}));
 
   if (hasChanges) {
-    Swal.fire({
-      title: 'Discard changes?',
-      text: 'You have unsaved changes. Are you sure you want to leave?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, discard',
-      cancelButtonText: 'No, stay'
-    }).then((result) => {
+    bikMediaNotifications.general.unsavedChanges().then((result) => {
       if (result.isConfirmed) {
         router.push('/store/equipments');
       }
@@ -309,7 +370,7 @@ const handleSubmit = async () => {
   isSubmitted.value = true;
 
   if (!validateForm()) {
-    showMessage('Please fix validation errors', 'error');
+    showMessage(t('bikmedia.forms.validation.required'), 'error');
     return;
   }
 
@@ -335,7 +396,7 @@ const handleSubmit = async () => {
       (!isFormData && Object.keys(payload).length === 0) ||
       (isFormData && Array.from(payload.keys()).filter((key) => key !== 'id').length === 0)
     ) {
-      showMessage('No changes to update', 'info');
+      showInfoToast('bikmedia.messages.notifications.noChanges');
       isSubmitting.value = false;
       return;
     }
@@ -345,7 +406,7 @@ const handleSubmit = async () => {
       : await equipmentService.update(route.params.id, payload);
 
     // Show success message
-    showMessage('Equipment updated successfully', 'success');
+    bikMediaNotifications.equipment.updated();
 
     // Navigate to list page
     setTimeout(() => {
@@ -354,25 +415,33 @@ const handleSubmit = async () => {
 
   } catch (error) {
     console.error('Failed to update equipment:', error);
-    showMessage(error.message || 'Failed to update equipment', 'error');
+    showMessage(error.message || t('bikmedia.messages.errors.failedToUpdate'), 'error');
   } finally {
     isSubmitting.value = false;
   }
 };
 
+// Import the new notification handler
+// import { 
+//   showErrorToast, 
+//   showSuccessToast, 
+//   showInfoToast, 
+//   showConfirmDialog,
+//   bikMediaNotifications 
+// } from '@/utils/notification-handler.js';
+
 const showMessage = (msg, type = 'success') => {
-  const toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true
-  });
-  
-  toast.fire({
-    icon: type,
-    title: msg
-  });
+  // Use the new notification system
+  switch (type) {
+    case 'success':
+      return showSuccessToast(msg);
+    case 'error':
+      return showErrorToast(msg);
+    case 'info':
+      return showInfoToast(msg);
+    default:
+      return showSuccessToast(msg);
+  }
 };
 
 // All file handling is now managed by DynamicFormBuilder

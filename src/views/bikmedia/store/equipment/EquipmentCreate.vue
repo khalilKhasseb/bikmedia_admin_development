@@ -7,9 +7,9 @@
           <div class="page-header">
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Store</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Equipments</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span>Create</span></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{ $t('bikmedia.navigation.breadcrumb.equipment') }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.create') }}</span></li>
               </ol>
             </nav>
           </div>
@@ -28,7 +28,7 @@
               <div class="row mb-4">
                 <div class="col-12">
                   <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                    <h3>Create Equipment</h3>
+                    <h3>{{ $t('bikmedia.pages.equipment.create.title') }}</h3>
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                           </svg>
-                          Cancel
+                          {{ $t('bikmedia.actions.cancel') }}
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
@@ -78,7 +78,7 @@
                             <polyline points="17 21 17 13 7 13 7 21"></polyline>
                             <polyline points="7 3 7 8 15 8"></polyline>
                           </svg>
-                          {{ isSubmitting ? 'Creating...' : 'Create Equipment' }}
+                          {{ isSubmitting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.create') + ' ' + $t('bikmedia.store.equipment') }}
                         </button>
                       </div>
                     </div>
@@ -96,6 +96,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import equipmentConfig from '@/config/entities/equipment.config.js';
 import equipmentService from '@/services/api/equipment.service.js';
 import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
@@ -103,8 +104,11 @@ import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@
 import { useMeta } from '@/composables/use-meta';
 import { sanitizeObject } from '@/utils/sanitize.js';
 
+// i18n
+const { t } = useI18n();
+
 // Meta Setup
-useMeta({ title: 'Create Equipment' });
+useMeta({ title: t('bikmedia.pages.equipment.create.title') });
 
 // Router Setup
 const router = useRouter();
@@ -130,11 +134,11 @@ const handleCancel = () => {
   
   if (hasChanges) {
     window.Swal.fire({
-      title: 'Discard changes?',
+      title: t('bikmedia.messages.confirmations.areYouSure'),
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, discard',
-      cancelButtonText: 'No, stay'
+      confirmButtonText: t('bikmedia.actions.confirm'),
+      cancelButtonText: t('bikmedia.actions.cancel')
     }).then((result) => {
       if (result.isConfirmed) {
         router.push('/store/equipments');
@@ -151,7 +155,7 @@ const handleSubmit = async () => {
   
   // Validate form
   if (!validateForm()) {
-    showMessage('Please fix validation errors', 'error');
+    showMessage(t('bikmedia.forms.validation.required'), 'error');
     return;
   }
   
@@ -177,7 +181,7 @@ const handleSubmit = async () => {
     const response = await equipmentService.create(formDataToSend);
     
     // Show success message
-    showMessage('Equipment created successfully', 'success');
+    showMessage(t('bikmedia.messages.success.equipmentCreated'), 'success');
     
     // Navigate to list page after short delay
     setTimeout(() => {
@@ -186,7 +190,7 @@ const handleSubmit = async () => {
     
   } catch (error) {
     console.error('Failed to create equipment:', error);
-    showMessage(error.message || 'Failed to create equipment', 'error');
+    showMessage(error.message || t('bikmedia.messages.errors.failedToCreate'), 'error');
   } finally {
     isSubmitting.value = false;
   }

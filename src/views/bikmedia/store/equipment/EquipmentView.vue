@@ -7,9 +7,9 @@
           <div class="page-header">
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Store</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Equipments</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span>View</span></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">{{ $t('bikmedia.navigation.breadcrumb.equipment') }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.view') }}</span></li>
               </ol>
             </nav>
           </div>
@@ -25,9 +25,9 @@
             <!-- Loading State -->
             <div v-if="loading" class="text-center py-5">
               <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading equipment...</span>
+                <span class="visually-hidden">{{ $t('bikmedia.messages.loadingEquipment') }}</span>
               </div>
-              <p class="mt-2">Loading equipment data...</p>
+              <p class="mt-2">{{ $t('bikmedia.messages.loadingEquipment') }}</p>
             </div>
 
             <!-- Error State -->
@@ -37,10 +37,10 @@
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
-              <h5 class="mt-3">Equipment not found</h5>
+              <h5 class="mt-3">{{ $t('bikmedia.messages.errors.notFound') }}</h5>
               <p class="text-muted">{{ loadError }}</p>
               <button class="btn btn-primary" @click="router.push('/store/equipments')">
-                Back to List
+                {{ $t('bikmedia.table.actions.view') }}
               </button>
             </div>
 
@@ -51,9 +51,9 @@
                 <div class="row mb-4">
                   <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                      <h3>Equipment Details</h3>
+                      <h3>{{ $t('bikmedia.pages.equipment.view.title') }}</h3>
                       <div class="locale-selector" style="width: 200px;">
-                        <label for="localeSelect" class="form-label mb-1">Language:</label>
+                        <label for="localeSelect" class="form-label mb-1">{{ $t('bikmedia.forms.language') }}:</label>
                         <select
                           id="localeSelect"
                           class="form-select"
@@ -71,14 +71,14 @@
 
                 <!-- Section 1: Basic Information -->
                 <FormSection
-                  title="Basic Information"
-                  description="Equipment name"
+                  :title="$t('bikmedia.forms.name')"
+                  :description="$t('bikmedia.pages.equipment.view.subtitle')"
                 >
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
                         <label class="form-label text-muted">
-                          Name
+                          {{ $t('bikmedia.forms.name') }}
                           <span v-if="showNameFallback" class="badge bg-light text-muted ms-2" style="font-weight: normal;">Using default locale</span>
                         </label>
                         <div class="d-flex align-items-center">
@@ -122,25 +122,25 @@
 
                 <!-- Section 3: Settings -->
                 <FormSection
-                  title="Settings"
+                  :title="$t('bikmedia.forms.status')"
                   description="Equipment properties and requirements"
                 >
                   <div class="row">
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Coins</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.coins') }}</label>
                         <p class="form-control-plaintext">{{ formatNumber(equipment?.coin) }}</p>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Days</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.days') }}</label>
                         <p class="form-control-plaintext">{{ equipment?.days || 0 }}</p>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Type</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.type') }}</label>
                         <p class="form-control-plaintext">
                           <span class="badge" :class="getTypeBadgeClass(equipment?.type)">
                             {{ getTypeLabel(equipment?.type) }}
@@ -152,7 +152,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Level</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.level') }}</label>
                         <p class="form-control-plaintext">{{ equipment?.lvl || 0 }}</p>
                       </div>
                     </div>
@@ -188,7 +188,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Icon</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.icon') }}</label>
                         <div v-if="equipment?.icon" class="file-preview">
                           <img
                             :src="equipment.icon"
@@ -198,7 +198,7 @@
                           />
                           <p class="text-muted small mt-2">{{ equipment.icon }}</p>
                         </div>
-                        <p v-else class="form-control-plaintext text-muted">No icon uploaded</p>
+                        <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -242,7 +242,7 @@
                             </a>
                           </p>
                         </div>
-                        <p v-else class="form-control-plaintext text-muted">No animation uploaded</p>
+                        <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
                     </div>
                   </div>
@@ -264,7 +264,7 @@
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                           </svg>
-                          Copy Link
+                          {{ $t('bikmedia.actions.copy') }}
                         </button>
                       </div>
 
@@ -277,7 +277,29 @@
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-2">
                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                           </svg>
-                          Edit Equipment
+                          {{ $t('bikmedia.actions.edit') + ' ' + $t('bikmedia.store.equipment') }}
+                        </button>
+                      </div>
+
+                      <!-- Delete Button -->
+                      <div class="col-xl-12 col-md-4 col-sm-6">
+                        <button 
+                          class="btn btn-danger btn-block w-100 mb-3" 
+                          @click="handleDelete"
+                          :disabled="isDeleting"
+                        >
+                          <div v-if="isDeleting" class="spinner-border spinner-border-sm me-2" role="status">
+                            <span class="visually-hidden">Deleting...</span>
+                          </div>
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-trash-2 me-2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                          {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' + $t('bikmedia.store.equipment') }}
                         </button>
                       </div>
 
@@ -291,7 +313,7 @@
                             <line x1="19" y1="12" x2="5" y2="12"></line>
                             <polyline points="12 19 5 12 12 5"></polyline>
                           </svg>
-                          Back to List
+                          {{ $t('bikmedia.table.actions.view') }}
                         </button>
                       </div>
                     </div>
@@ -309,6 +331,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import equipmentConfig from '@/config/entities/equipment.config.js';
 import equipmentService from '@/services/api/equipment.service.js';
 import FormSection from '@/components/forms/FormSection.vue';
@@ -316,8 +339,11 @@ import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { useMeta } from '@/composables/use-meta';
 import useClipboard from 'vue-clipboard3';
 
+// i18n
+const { t } = useI18n();
+
 // Meta setup
-useMeta({ title: 'View Equipment' });
+useMeta({ title: t('bikmedia.pages.equipment.view.title') });
 
 // Router setup
 const router = useRouter();
@@ -331,6 +357,7 @@ const equipment = ref(null);
 const loading = ref(true);
 const loadError = ref(null);
 const selectedLocale = ref('en');
+const isDeleting = ref(false);
 
 // Computed helpers for localized fields
 const getLocalizedField = (baseField) => {
@@ -532,6 +559,58 @@ const getTypeBadgeClass = (type) => {
     4: 'bg-info text-dark'
   };
   return badgeClasses[type] || 'bg-secondary';
+};
+
+// Handle delete
+const handleDelete = async () => {
+  if (!equipment.value) return;
+
+  // Show confirmation dialog with item name prominently displayed
+  const result = await window.Swal.fire({
+    title: t('bikmedia.messages.confirmations.deleteEquipment'),
+    html: `<div class="text-center mb-3">
+             <h4 class="text-danger mb-2">${equipment.value.name || displayName.value || t('bikmedia.components.subGiftCard.unnamedGift')}</h4>
+             <p class="text-muted">${t('bikmedia.messages.confirmations.cannotUndo')}</p>
+           </div>`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: t('bikmedia.actions.delete'),
+    confirmButtonColor: '#dc3545',
+    cancelButtonText: t('bikmedia.actions.cancel'),
+    cancelButtonColor: '#6c757d',
+    reverseButtons: true
+  });
+
+  if (!result.isConfirmed) return;
+
+  // Perform deletion
+  await performDelete();
+};
+
+const performDelete = async () => {
+  try {
+    isDeleting.value = true;
+    const equipmentId = route.params.id;
+    const response = await equipmentService.delete(equipmentId);
+    
+    // Check for success based on API response structure
+    if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+      showMessage(t('bikmedia.messages.success.equipmentDeleted'), 'success');
+      // Navigate to list page after successful deletion
+      router.push('/store/equipments');
+    } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+      throw new Error('Equipment not found');
+    } else if (response.data?.err) {
+      throw new Error(response.data.err);
+    } else {
+      throw new Error('Delete operation failed');
+    }
+  } catch (error) {
+    console.error('Failed to delete equipment:', error);
+    showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+  } finally {
+    isDeleting.value = false;
+  }
 };
 
 // Show message

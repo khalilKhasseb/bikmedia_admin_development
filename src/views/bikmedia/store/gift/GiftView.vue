@@ -5,12 +5,17 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="javascript:;" @click="router.push('/')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-home">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
           </a>
         </li>
-        <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">Store</a></li>
-        <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">Gifts</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><span>View</span></li>
+        <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+        <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.gifts') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.view') }}</span></li>
       </ol>
     </nav>
 
@@ -22,22 +27,24 @@
             <!-- Loading State -->
             <div v-if="loading" class="text-center py-5">
               <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading gift...</span>
+                <span class="visually-hidden">{{ $t('bikmedia.messages.loadingGifts') }}</span>
               </div>
-              <p class="mt-2">Loading gift data...</p>
+              <p class="mt-2">{{ $t('bikmedia.messages.loadingGifts') }}</p>
             </div>
 
             <!-- Error State -->
             <div v-else-if="loadError" class="text-center py-5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle text-danger">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-alert-circle text-danger">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
-              <h5 class="mt-3">Gift not found</h5>
+              <h5 class="mt-3">{{ $t('bikmedia.messages.errors.notFound') }}</h5>
               <p class="text-muted">{{ loadError }}</p>
               <button class="btn btn-primary" @click="router.push('/store/gifts')">
-                Back to List
+                {{ $t('bikmedia.table.actions.view') }}
               </button>
             </div>
 
@@ -49,15 +56,11 @@
                 <div class="row mb-4">
                   <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center page-header-responsive">
-                      <h3>Gift Details</h3>
+                      <h3>{{ $t('bikmedia.pages.gifts.view.title') }}</h3>
                       <div class="locale-selector" style="width: 200px;">
-                        <label for="localeSelect" class="form-label mb-1">Language:</label>
-                        <select
-                          id="localeSelect"
-                          class="form-select"
-                          v-model="selectedLocale"
-                          @change="handleLocaleChange"
-                        >
+                        <label for="localeSelect" class="form-label mb-1">{{ $t('bikmedia.forms.language') }}:</label>
+                        <select id="localeSelect" class="form-select" v-model="selectedLocale"
+                          @change="handleLocaleChange">
                           <option v-for="locale in giftConfig.supportedLocales" :key="locale.code" :value="locale.code">
                             {{ locale.label }}
                           </option>
@@ -68,28 +71,19 @@
                 </div>
 
                 <!-- Section 1: Basic Information (Name) -->
-                <FormSection
-                  title="Basic Information"
-                  description="Gift name and identification"
-                >
+                <FormSection :title="$t('bikmedia.forms.name')" :description="$t('bikmedia.pages.gifts.view.subtitle')">
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
                         <label class="form-label text-muted">
-                          Name
-                          <span v-if="showNameFallback" class="badge bg-light text-muted ms-2" style="font-weight: normal;">Using default locale</span>
+                          {{ $t('bikmedia.forms.name') }}
+                          <span v-if="showNameFallback" class="badge bg-light text-muted ms-2"
+                            style="font-weight: normal;">Using default locale</span>
                         </label>
                         <div class="d-flex align-items-center">
-                          <SmartIcon
-                            v-if="gift?.icon || gift?.img"
-                            :src="gift.icon || gift.img"
-                            alt="Gift Icon"
-                            width="48px"
-                            height="48px"
-                            class="me-3"
-                            style="border-radius: 8px; border: 1px solid #e0e6ed;"
-                            @error="handleImageError"
-                          />
+                          <SmartIcon v-if="gift?.icon || gift?.img" :src="gift.icon || gift.img" alt="Gift Icon"
+                            width="48px" height="48px" class="me-3"
+                            style="border-radius: 8px; border: 1px solid #e0e6ed;" @error="handleImageError" />
                           <p class="form-control-plaintext mb-0" :dir="isRTL ? 'rtl' : 'ltr'">
                             {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
                           </p>
@@ -100,16 +94,14 @@
                 </FormSection>
 
                 <!-- Section 2: Description -->
-                <FormSection
-                  title="Description"
-                  description="Detailed description"
-                >
+                <FormSection :title="$t('bikmedia.forms.description')" :description="$t('bikmedia.forms.description')">
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
                         <label class="form-label text-muted">
-                          Description
-                          <span v-if="showDescriptionFallback" class="badge bg-light text-muted ms-2" style="font-weight: normal;">Using default locale</span>
+                          {{ $t('bikmedia.forms.description') }}
+                          <span v-if="showDescriptionFallback" class="badge bg-light text-muted ms-2"
+                            style="font-weight: normal;">Using default locale</span>
                         </label>
                         <p class="form-control-plaintext" :dir="isRTL ? 'rtl' : 'ltr'">
                           {{ displayDescription || (isRTL ? '(غير متوفر)' : '(Not available)') }}
@@ -120,21 +112,18 @@
                 </FormSection>
 
                 <!-- Section 3: Settings (Non-Translatable Fields) -->
-                <FormSection
-                  title="Settings"
-                  description="Gift properties and requirements"
-                >
+                <FormSection :title="$t('bikmedia.forms.status')" description="Gift properties and requirements">
                   <!-- Row 1: Coin + Type + Level -->
                   <div class="row">
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Coins</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.coins') }}</label>
                         <p class="form-control-plaintext">{{ formatNumber(gift?.coin) }}</p>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Type</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.type') }}</label>
                         <p class="form-control-plaintext">
                           <span class="badge" :class="getTypeBadgeClass(normalizeTypeValue(gift))">
                             {{ getTypeDisplay(gift) }}
@@ -144,7 +133,7 @@
                     </div>
                     <div class="col-md-4">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Level</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.level') }}</label>
                         <p class="form-control-plaintext">{{ gift?.lvl || 0 }}</p>
                       </div>
                     </div>
@@ -190,25 +179,17 @@
                 </FormSection>
 
                 <!-- Section 4: Media (File Upload Fields) -->
-                <FormSection
-                  title="Media"
-                  description="Icon and animation files"
-                  class="media-section"
-                >
+                <FormSection title="Media" description="Icon and animation files" class="media-section">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label class="form-label text-muted">Icon</label>
+                        <label class="form-label text-muted">{{ $t('bikmedia.forms.icon') }}</label>
                         <div v-if="gift?.icon || gift?.img" class="file-preview">
-                          <img
-                            :src="gift.icon || gift.img"
-                            alt="Gift Icon"
-                            class="preview-image"
-                            @error="handleImageError"
-                          />
+                          <img :src="gift.icon || gift.img" alt="Gift Icon" class="preview-image"
+                            @error="handleImageError" />
                           <p class="text-muted small mt-2">{{ gift.icon || gift.img }}</p>
                         </div>
-                        <p v-else class="form-control-plaintext text-muted">No icon uploaded</p>
+                        <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -216,26 +197,13 @@
                         <label class="form-label text-muted">Animation</label>
                         <div v-if="hasAnimation" class="file-preview">
                           <template v-if="isAnimationImage">
-                            <img
-                              :src="animationUrl"
-                              alt="Gift Animation"
-                              class="preview-image"
-                              @error="handleImageError"
-                            />
+                            <img :src="animationUrl" alt="Gift Animation" class="preview-image"
+                              @error="handleImageError" />
                           </template>
                           <template v-else>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="48"
-                              height="48"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-file"
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="feather feather-file">
                               <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                               <polyline points="13 2 13 9 20 9" />
                             </svg>
@@ -247,14 +215,14 @@
                             </a>
                           </p>
                         </div>
-                        <p v-else class="form-control-plaintext text-muted">No animation uploaded</p>
+                        <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
                     </div>
                   </div>
                 </FormSection>
 
                 <!-- Sub Gifts Section -->
-                <FormSection title="Sub Gifts" v-if="gift && gift.icons && gift.icons.length" class="sub-gifts-grid">
+                <FormSection :title="$t('bikmedia.modals.subGift.title')" v-if="gift && gift.icons && gift.icons.length" class="sub-gifts-grid">
                   <div class="row g-3">
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" v-for="(sg, idx) in gift.icons" :key="idx">
                       <div class="card h-100">
@@ -277,42 +245,60 @@
                     <div class="row">
                       <!-- Copy Link Button -->
                       <div class="col-xl-12 col-md-4 col-sm-6">
-                        <button
-                          class="btn btn-primary btn-block w-100 mb-3"
-                          @click="handleCopyLink"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
+                        <button class="btn btn-primary btn-block w-100 mb-3" @click="handleCopyLink">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-copy">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                           </svg>
-                          Copy Link
+                          {{ $t('bikmedia.actions.copy') }}
                         </button>
                       </div>
 
                       <!-- Edit Button -->
                       <div class="col-xl-12 col-md-4 col-sm-6">
-                        <button
-                          class="btn btn-dark btn-block w-100 mb-3"
-                          @click="handleEdit"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                        <button class="btn btn-dark btn-block w-100 mb-3" @click="handleEdit">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-edit-2">
                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                           </svg>
-                          Edit Gift
+                          {{ $t('bikmedia.actions.edit') + ' ' + $t('bikmedia.store.gifts') }}
                         </button>
                       </div>
 
+                      <!-- Delete Button-->
+                      <div class="col-xl-12 col-md-4 col-sm-6">
+                        <button 
+                          class="btn btn-danger btn-block w-100 mb-3" 
+                          @click="handleDelete"
+                          :disabled="isDeleting"
+                        >
+                          <div v-if="isDeleting" class="spinner-border spinner-border-sm me-2" role="status">
+                            <span class="visually-hidden">Deleting...</span>
+                          </div>
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-trash-2 me-2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                          </svg>
+                          {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' + $t('bikmedia.store.gifts') }}
+                        </button>
+                      </div>
                       <!-- Back to List Button -->
                       <div class="col-xl-12 col-md-4 col-sm-6">
-                        <button
-                          class="btn btn-secondary btn-block w-100 mb-3"
-                          @click="router.push('/store/gifts')"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+                        <button class="btn btn-secondary btn-block w-100 mb-3" @click="router.push('/store/gifts')">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-arrow-left">
                             <line x1="19" y1="12" x2="5" y2="12"></line>
                             <polyline points="12 19 5 12 12 5"></polyline>
                           </svg>
-                          Back to List
+                          {{ $t('bikmedia.table.actions.view') }}
                         </button>
                       </div>
                     </div>
@@ -330,6 +316,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import giftService from '@services/api/gift.service';
 import FormSection from '@/components/forms/FormSection.vue';
 import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
@@ -337,8 +324,11 @@ import { useMeta } from '@/composables/use-meta';
 import useClipboard from 'vue-clipboard3';
 import giftConfig from '@/config/entities/gift.config';
 
+// i18n
+const { t } = useI18n();
+
 // Meta
-useMeta({ title: 'View Gift' });
+useMeta({ title: t('bikmedia.pages.gifts.view.title') });
 
 // Router
 const router = useRouter();
@@ -353,26 +343,27 @@ const loading = ref(true);
 const loadError = ref(null);
 const selectedLocale = ref('en');
 const currentDataLocale = ref('en');
+const isDeleting = ref(false);
 
 // Computed Helpers for Localized Fields
 const getLocalizedField = (baseField) => {
   if (!gift.value) return null;
-  
+
   // If current data locale matches selected locale, return base field
   if (currentDataLocale.value === selectedLocale.value) {
     return gift.value[baseField];
   }
-  
+
   const suffix = selectedLocale.value === 'ar' ? 'AR' : 'EN';
   const localizedFieldName = `${baseField}${suffix}`;
-  
+
   return gift.value[localizedFieldName];
 };
 
 const getFieldWithFallback = (baseField) => {
   const localizedValue = getLocalizedField(baseField);
   if (localizedValue) return localizedValue;
-  
+
   // Fallback to default locale (EN) or base field
   const fallbackValue = gift.value?.[`${baseField}EN`] || gift.value?.[baseField];
   return fallbackValue;
@@ -383,10 +374,10 @@ const isUsingFallback = (baseField) => {
   if (currentDataLocale.value === selectedLocale.value && gift.value?.[baseField]) {
     return false;
   }
-  
+
   const localizedValue = getLocalizedField(baseField);
   const fallbackValue = gift.value?.[`${baseField}EN`] || gift.value?.[baseField];
-  
+
   // Return true if we're using fallback (localized is empty but fallback exists)
   return !localizedValue && !!fallbackValue && selectedLocale.value !== 'en';
 };
@@ -462,19 +453,19 @@ const loadGift = async (lang = null) => {
     try {
       // Attempt locale-driven fetch when API supports it
       const response = await giftService.getById(giftId, locale);
-      
+
       // Verify response shape to ensure fallback triggers if invalid
       if (!response || !response.item) {
         throw new Error('Invalid getById() response');
       }
-      
+
       gift.value = response.item.list.find(g => g.id === Number(giftId));
       currentDataLocale.value = locale;
       console.log('Gift loaded for view:', response.item);
     } catch (getByIdError) {
       // TODO: Replace fallback with giftService.getById(id, lang) when available
       // This workaround will be replaced in subsequent phase "Extend API Services with Missing CRUD Methods"
-      
+
       // Fallback to getAll() and filter by ID if getById not available
       console.warn('getById not available, falling back to getAll():', getByIdError.message);
       const response = await giftService.getAll({ lang: locale });
@@ -528,6 +519,56 @@ const handleEdit = () => {
   router.push(`/store/gift/${giftId}/edit`);
 };
 
+const handleDelete = async () => {
+  if (!gift.value) return;
+
+  // Show confirmation dialog with item name prominently displayed
+  const result = await window.Swal.fire({
+    title: t('bikmedia.messages.confirmations.deleteGift'),
+    html: `<div class="text-center mb-3">
+             <h4 class="text-danger mb-2">${gift.value.name || displayName.value || t('bikmedia.components.subGiftCard.unnamedGift')}</h4>
+             <p class="text-muted">${t('bikmedia.messages.confirmations.cannotUndo')}</p>
+           </div>`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: t('bikmedia.actions.delete'),
+    confirmButtonColor: '#dc3545',
+    cancelButtonText: t('bikmedia.actions.cancel'),
+    cancelButtonColor: '#6c757d',
+    reverseButtons: true
+  });
+
+  if (!result.isConfirmed) return;
+
+  // Perform deletion
+  await performDelete();
+};
+
+const performDelete = async () => {
+  try {
+    isDeleting.value = true;
+    const giftId = route.params.id;
+    const response = await giftService.delete(giftId);
+    
+    // Check for success based on API response structure
+    if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
+      showMessage(t('bikmedia.messages.success.giftDeleted'), 'success');
+      // Navigate to list page after successful deletion
+      router.push('/store/gifts');
+    } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
+      throw new Error('Gift not found');
+    } else if (response.data?.err) {
+      throw new Error(response.data.err);
+    } else {
+      throw new Error('Delete operation failed');
+    }
+  } catch (error) {
+    console.error('Failed to delete gift:', error);
+    showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+  } finally {
+    isDeleting.value = false;
+  }
+};
 const handleImageError = (event) => {
   event.target.src = '/src/assets/images/profile-30.png';
   event.target.alt = 'Image not available';

@@ -322,6 +322,65 @@
   }
 }
 
+// RTL Support for Arabic Language
+[dir="rtl"] {
+  .sub-gift-carousel {
+    // Navigation controls positioning for RTL
+    .carousel-control-prev {
+      right: -20px;
+      left: auto;
+    }
+    
+    .carousel-control-next {
+      left: -20px;
+      right: auto;
+    }
+    
+    // Mobile RTL adjustments
+    @media (max-width: 991px) {
+      .carousel-control-prev {
+        right: -15px;
+        left: auto;
+      }
+      
+      .carousel-control-next {
+        left: -15px;
+        right: auto;
+      }
+    }
+    
+    // Extra small screens RTL adjustments
+    @media (max-width: 576px) {
+      .carousel-control-prev {
+        right: 5px;
+        left: auto;
+      }
+      
+      .carousel-control-next {
+        left: 5px;
+        right: auto;
+      }
+    }
+  }
+  
+  // Sub-gift card RTL adjustments
+  .sub-gift-card {
+    .card-content {
+      .card-title {
+        text-align: right;
+      }
+    }
+  }
+  
+  // Empty state RTL adjustments
+  .sub-gift-empty-state {
+    .empty-icon {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+  }
+}
+
 // Empty state styling
 .sub-gift-empty-state {
   display: flex;

@@ -11,12 +11,12 @@
             <circle cx="8.5" cy="8.5" r="1.5"></circle>
             <polyline points="21,15 16,10 5,21"></polyline>
           </svg>
-          <span class="error-text">Image not available</span>
+          <span class="error-text">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</span>
         </div>
         <SmartIcon 
           v-else
           :src="processedIconUrl" 
-          :alt="subGift?.name || 'Sub Gift'" 
+          :alt="subGift?.name || $t('bikmedia.components.subGiftCard.subGift')" 
           width="100%" 
           height="100%" 
           fit="contain"
@@ -27,9 +27,9 @@
         />
       </div>
       <div class="card-content">
-        <h6 class="card-title" :title="subGift?.name || 'Unnamed Gift'">
+        <h6 class="card-title" :title="subGift?.name || $t('bikmedia.components.subGiftCard.unnamedGift')">
           <span v-if="isLoading" class="loading-text"></span>
-          <span v-else>{{ subGift?.name || 'Unnamed Gift' }}</span>
+          <span v-else>{{ subGift?.name || $t('bikmedia.components.subGiftCard.unnamedGift') }}</span>
         </h6>
       </div>
     </div>

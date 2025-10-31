@@ -1,0 +1,1244 @@
+{
+  "generatedAt": "2025-10-30T17:22:31.044Z",
+  "supportedLocales": [
+    "en",
+    "ar"
+  ],
+  "summary": {
+    "totalKeys": 287,
+    "bikmediaKeys": 263,
+    "validKeys": 287,
+    "invalidKeys": 0
+  },
+  "localeCompleteness": {
+    "en": {
+      "total": 287,
+      "present": 287,
+      "missing": [],
+      "percentage": 100,
+      "keysByNamespace": {
+        "dashboard": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "sales": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "analytics": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "apps": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "components": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "elements": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "font_icons": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "widgets": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "tables": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "datatables": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "forms": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "users": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "pages": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "authentication": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "drag_and_drop": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "maps": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "charts": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "starter_kit": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "documentation": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "ui_kit": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "more": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "store": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "gifts": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "equipments": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "bikmedia": {
+          "total": 263,
+          "present": 263,
+          "missing": [],
+          "percentage": 100
+        }
+      }
+    },
+    "ar": {
+      "total": 287,
+      "present": 287,
+      "missing": [],
+      "percentage": 100,
+      "keysByNamespace": {
+        "dashboard": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "sales": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "analytics": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "apps": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "components": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "elements": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "font_icons": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "widgets": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "tables": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "datatables": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "forms": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "users": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "pages": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "authentication": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "drag_and_drop": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "maps": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "charts": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "starter_kit": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "documentation": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "ui_kit": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "more": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "store": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "gifts": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "equipments": {
+          "total": 1,
+          "present": 1,
+          "missing": [],
+          "percentage": 100
+        },
+        "bikmedia": {
+          "total": 263,
+          "present": 263,
+          "missing": [],
+          "percentage": 100
+        }
+      }
+    }
+  },
+  "missingTranslations": [],
+  "bikmediaReport": {
+    "totalKeys": 263,
+    "validKeys": 263,
+    "invalidKeys": 0,
+    "missingTranslations": [],
+    "localeCompleteness": {
+      "en": {
+        "total": 263,
+        "present": 263,
+        "missing": [],
+        "percentage": 100
+      },
+      "ar": {
+        "total": 263,
+        "present": 263,
+        "missing": [],
+        "percentage": 100
+      }
+    },
+    "categories": {
+      "store": {
+        "keys": [
+          "bikmedia.store.gifts",
+          "bikmedia.store.equipment",
+          "bikmedia.store.levels",
+          "bikmedia.store.title"
+        ],
+        "missing": []
+      },
+      "actions": {
+        "keys": [
+          "bikmedia.actions.create",
+          "bikmedia.actions.edit",
+          "bikmedia.actions.delete",
+          "bikmedia.actions.save",
+          "bikmedia.actions.cancel",
+          "bikmedia.actions.view",
+          "bikmedia.actions.search",
+          "bikmedia.actions.filter",
+          "bikmedia.actions.filters",
+          "bikmedia.actions.new",
+          "bikmedia.actions.add",
+          "bikmedia.actions.update",
+          "bikmedia.actions.remove",
+          "bikmedia.actions.confirm",
+          "bikmedia.actions.close",
+          "bikmedia.actions.submit",
+          "bikmedia.actions.reset",
+          "bikmedia.actions.clear",
+          "bikmedia.actions.refresh",
+          "bikmedia.actions.reload",
+          "bikmedia.actions.retry",
+          "bikmedia.actions.copy"
+        ],
+        "missing": []
+      },
+      "forms": {
+        "keys": [
+          "bikmedia.forms.name",
+          "bikmedia.forms.description",
+          "bikmedia.forms.type",
+          "bikmedia.forms.status",
+          "bikmedia.forms.level",
+          "bikmedia.forms.coins",
+          "bikmedia.forms.price",
+          "bikmedia.forms.image",
+          "bikmedia.forms.icon",
+          "bikmedia.forms.category",
+          "bikmedia.forms.language",
+          "bikmedia.forms.days",
+          "bikmedia.forms.levelId",
+          "bikmedia.forms.target",
+          "bikmedia.forms.activeIcon",
+          "bikmedia.forms.disabledIcon",
+          "bikmedia.forms.animatedIcon",
+          "bikmedia.forms.required",
+          "bikmedia.forms.optional",
+          "bikmedia.forms.placeholder.search",
+          "bikmedia.forms.placeholder.searchGifts",
+          "bikmedia.forms.placeholder.searchEquipment",
+          "bikmedia.forms.placeholder.searchLevels",
+          "bikmedia.forms.placeholder.enterName",
+          "bikmedia.forms.placeholder.enterDescription",
+          "bikmedia.forms.placeholder.selectType",
+          "bikmedia.forms.placeholder.selectLevel",
+          "bikmedia.forms.placeholder.selectLanguage",
+          "bikmedia.forms.validation.required",
+          "bikmedia.forms.validation.invalid",
+          "bikmedia.forms.validation.minLength",
+          "bikmedia.forms.validation.maxLength",
+          "bikmedia.forms.validation.email",
+          "bikmedia.forms.validation.number",
+          "bikmedia.forms.validation.positive",
+          "bikmedia.forms.validation.url"
+        ],
+        "missing": []
+      },
+      "messages": {
+        "keys": [
+          "bikmedia.messages.loading",
+          "bikmedia.messages.loadingGifts",
+          "bikmedia.messages.loadingEquipment",
+          "bikmedia.messages.loadingLevels",
+          "bikmedia.messages.success.created",
+          "bikmedia.messages.success.updated",
+          "bikmedia.messages.success.deleted",
+          "bikmedia.messages.success.saved",
+          "bikmedia.messages.success.giftCreated",
+          "bikmedia.messages.success.giftUpdated",
+          "bikmedia.messages.success.giftDeleted",
+          "bikmedia.messages.success.equipmentCreated",
+          "bikmedia.messages.success.equipmentUpdated",
+          "bikmedia.messages.success.equipmentDeleted",
+          "bikmedia.messages.success.levelCreated",
+          "bikmedia.messages.success.levelUpdated",
+          "bikmedia.messages.success.levelDeleted",
+          "bikmedia.messages.errors.required",
+          "bikmedia.messages.errors.invalid",
+          "bikmedia.messages.errors.network",
+          "bikmedia.messages.errors.server",
+          "bikmedia.messages.errors.notFound",
+          "bikmedia.messages.errors.unauthorized",
+          "bikmedia.messages.errors.forbidden",
+          "bikmedia.messages.errors.timeout",
+          "bikmedia.messages.errors.unknown",
+          "bikmedia.messages.errors.failedToLoad",
+          "bikmedia.messages.errors.failedToSave",
+          "bikmedia.messages.errors.failedToDelete",
+          "bikmedia.messages.errors.failedToCreate",
+          "bikmedia.messages.errors.failedToUpdate",
+          "bikmedia.messages.errors.invalidGiftId",
+          "bikmedia.messages.errors.invalidEquipmentId",
+          "bikmedia.messages.errors.invalidLevelId",
+          "bikmedia.messages.errors.loadGifts",
+          "bikmedia.messages.errors.loadEquipment",
+          "bikmedia.messages.errors.loadLevels",
+          "bikmedia.messages.errors.api.400",
+          "bikmedia.messages.errors.api.401",
+          "bikmedia.messages.errors.api.403",
+          "bikmedia.messages.errors.api.404",
+          "bikmedia.messages.errors.api.408",
+          "bikmedia.messages.errors.api.409",
+          "bikmedia.messages.errors.api.422",
+          "bikmedia.messages.errors.api.429",
+          "bikmedia.messages.errors.api.500",
+          "bikmedia.messages.errors.api.502",
+          "bikmedia.messages.errors.api.503",
+          "bikmedia.messages.errors.api.504",
+          "bikmedia.messages.errors.api.networkError",
+          "bikmedia.messages.errors.api.requestFailed",
+          "bikmedia.messages.errors.api.connectionLost",
+          "bikmedia.messages.errors.api.serverUnavailable",
+          "bikmedia.messages.confirmations.delete",
+          "bikmedia.messages.confirmations.deleteGift",
+          "bikmedia.messages.confirmations.deleteEquipment",
+          "bikmedia.messages.confirmations.deleteLevel",
+          "bikmedia.messages.confirmations.cannotUndo",
+          "bikmedia.messages.confirmations.areYouSure",
+          "bikmedia.messages.confirmations.confirmDelete",
+          "bikmedia.messages.confirmations.confirmAction",
+          "bikmedia.messages.notifications.noChanges",
+          "bikmedia.messages.notifications.copySuccess",
+          "bikmedia.messages.notifications.copyError",
+          "bikmedia.messages.notifications.unsavedChanges",
+          "bikmedia.messages.notifications.languageSwitchWarning"
+        ],
+        "missing": []
+      },
+      "navigation": {
+        "keys": [
+          "bikmedia.navigation.menu.store",
+          "bikmedia.navigation.menu.gifts",
+          "bikmedia.navigation.menu.equipment",
+          "bikmedia.navigation.menu.levels",
+          "bikmedia.navigation.breadcrumb.store",
+          "bikmedia.navigation.breadcrumb.gifts",
+          "bikmedia.navigation.breadcrumb.equipment",
+          "bikmedia.navigation.breadcrumb.levels",
+          "bikmedia.navigation.breadcrumb.create",
+          "bikmedia.navigation.breadcrumb.edit",
+          "bikmedia.navigation.breadcrumb.view"
+        ],
+        "missing": []
+      },
+      "components": {
+        "keys": [
+          "bikmedia.components.dynamicField.selectOption",
+          "bikmedia.components.dynamicField.enterValue",
+          "bikmedia.components.dynamicField.uploadFile",
+          "bikmedia.components.dynamicField.selectFile",
+          "bikmedia.components.dynamicField.looksGood",
+          "bikmedia.components.dynamicField.thisFieldRequired",
+          "bikmedia.components.dynamicField.current",
+          "bikmedia.components.dynamicField.choose",
+          "bikmedia.components.dynamicField.file",
+          "bikmedia.components.dynamicField.max",
+          "bikmedia.components.dynamicField.allowed",
+          "bikmedia.components.dynamicField.orEnter",
+          "bikmedia.components.dynamicField.url",
+          "bikmedia.components.dynamicField.enter",
+          "bikmedia.components.dynamicField.note",
+          "bikmedia.components.dynamicField.fileSizeExceeds",
+          "bikmedia.components.carousel.noItems",
+          "bikmedia.components.carousel.loadingItems",
+          "bikmedia.components.carousel.errorLoading",
+          "bikmedia.components.carousel.retryLoading",
+          "bikmedia.components.carousel.previous",
+          "bikmedia.components.carousel.next",
+          "bikmedia.components.subGiftCard.imageNotAvailable",
+          "bikmedia.components.subGiftCard.unnamedGift",
+          "bikmedia.components.subGiftCard.subGift",
+          "bikmedia.components.subGiftCarousel.loading",
+          "bikmedia.components.subGiftCarousel.loadingSubGifts",
+          "bikmedia.components.subGiftCarousel.failedToLoad",
+          "bikmedia.components.subGiftCarousel.noSubGifts",
+          "bikmedia.components.subGiftCarousel.tryAgain",
+          "bikmedia.components.translationInput.looksGood",
+          "bikmedia.components.translationInput.pleaseFill"
+        ],
+        "missing": []
+      },
+      "pages": {
+        "keys": [
+          "bikmedia.pages.gifts.title",
+          "bikmedia.pages.gifts.subtitle",
+          "bikmedia.pages.gifts.create.title",
+          "bikmedia.pages.gifts.create.subtitle",
+          "bikmedia.pages.gifts.edit.title",
+          "bikmedia.pages.gifts.edit.subtitle",
+          "bikmedia.pages.gifts.view.title",
+          "bikmedia.pages.gifts.view.subtitle",
+          "bikmedia.pages.equipment.title",
+          "bikmedia.pages.equipment.subtitle",
+          "bikmedia.pages.equipment.create.title",
+          "bikmedia.pages.equipment.create.subtitle",
+          "bikmedia.pages.equipment.edit.title",
+          "bikmedia.pages.equipment.edit.subtitle",
+          "bikmedia.pages.equipment.view.title",
+          "bikmedia.pages.equipment.view.subtitle",
+          "bikmedia.pages.levels.title",
+          "bikmedia.pages.levels.subtitle",
+          "bikmedia.pages.levels.create.title",
+          "bikmedia.pages.levels.create.subtitle",
+          "bikmedia.pages.levels.edit.title",
+          "bikmedia.pages.levels.edit.subtitle",
+          "bikmedia.pages.levels.view.title",
+          "bikmedia.pages.levels.view.subtitle"
+        ],
+        "missing": []
+      }
+    }
+  },
+  "keyAnalysis": {
+    "byNamespace": {
+      "dashboard": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "sales": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "analytics": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "apps": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "components": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "elements": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "font_icons": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "widgets": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "tables": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "datatables": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "forms": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "users": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "pages": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "authentication": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "drag_and_drop": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "maps": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "charts": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "starter_kit": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "documentation": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "ui_kit": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "more": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "store": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "gifts": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "equipments": {
+        "total": 1,
+        "complete": 1,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      },
+      "bikmedia": {
+        "total": 263,
+        "complete": 263,
+        "incomplete": 0,
+        "missingInLocales": {
+          "en": [],
+          "ar": []
+        }
+      }
+    },
+    "orphanedKeys": [],
+    "duplicateValues": [
+      {
+        "locale": "en",
+        "value": "Store",
+        "keys": [
+          "store",
+          "bikmedia.navigation.menu.store",
+          "bikmedia.navigation.breadcrumb.store"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Gifts",
+        "keys": [
+          "gifts",
+          "bikmedia.store.gifts",
+          "bikmedia.navigation.menu.gifts",
+          "bikmedia.navigation.breadcrumb.gifts"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Equipment",
+        "keys": [
+          "bikmedia.store.equipment",
+          "bikmedia.navigation.menu.equipment",
+          "bikmedia.navigation.breadcrumb.equipment",
+          "bikmedia.table.headers.equipment"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Levels",
+        "keys": [
+          "bikmedia.store.levels",
+          "bikmedia.navigation.menu.levels",
+          "bikmedia.navigation.breadcrumb.levels"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Create",
+        "keys": [
+          "bikmedia.actions.create",
+          "bikmedia.navigation.breadcrumb.create"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Edit",
+        "keys": [
+          "bikmedia.actions.edit",
+          "bikmedia.navigation.breadcrumb.edit",
+          "bikmedia.table.actions.edit"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Delete",
+        "keys": [
+          "bikmedia.actions.delete",
+          "bikmedia.table.actions.delete"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "View",
+        "keys": [
+          "bikmedia.actions.view",
+          "bikmedia.navigation.breadcrumb.view",
+          "bikmedia.table.actions.view"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Retry",
+        "keys": [
+          "bikmedia.actions.retry",
+          "bikmedia.components.carousel.retryLoading"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Name",
+        "keys": [
+          "bikmedia.forms.name",
+          "bikmedia.table.headers.name"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Description",
+        "keys": [
+          "bikmedia.forms.description",
+          "bikmedia.table.headers.description"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Type",
+        "keys": [
+          "bikmedia.forms.type",
+          "bikmedia.table.headers.type"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Status",
+        "keys": [
+          "bikmedia.forms.status",
+          "bikmedia.table.headers.status"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Level",
+        "keys": [
+          "bikmedia.forms.level",
+          "bikmedia.table.headers.level"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Coins",
+        "keys": [
+          "bikmedia.forms.coins",
+          "bikmedia.table.headers.coins"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Price",
+        "keys": [
+          "bikmedia.forms.price",
+          "bikmedia.table.headers.price"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Category",
+        "keys": [
+          "bikmedia.forms.category",
+          "bikmedia.table.headers.category"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Language",
+        "keys": [
+          "bikmedia.forms.language",
+          "bikmedia.filters.language"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "This field is required",
+        "keys": [
+          "bikmedia.forms.validation.required",
+          "bikmedia.messages.errors.required",
+          "bikmedia.components.dynamicField.thisFieldRequired"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Invalid input",
+        "keys": [
+          "bikmedia.forms.validation.invalid",
+          "bikmedia.messages.errors.invalid"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Previous",
+        "keys": [
+          "bikmedia.table.pagination.previous",
+          "bikmedia.components.carousel.previous"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Next",
+        "keys": [
+          "bikmedia.table.pagination.next",
+          "bikmedia.components.carousel.next"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Loading...",
+        "keys": [
+          "bikmedia.messages.loading",
+          "bikmedia.components.subGiftCarousel.loading"
+        ]
+      },
+      {
+        "locale": "en",
+        "value": "Looks good!",
+        "keys": [
+          "bikmedia.components.dynamicField.looksGood",
+          "bikmedia.components.translationInput.looksGood"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "المتجر",
+        "keys": [
+          "store",
+          "bikmedia.navigation.menu.store",
+          "bikmedia.navigation.breadcrumb.store"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "الهدايا",
+        "keys": [
+          "gifts",
+          "bikmedia.store.gifts",
+          "bikmedia.navigation.menu.gifts",
+          "bikmedia.navigation.breadcrumb.gifts"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "المعدات",
+        "keys": [
+          "equipments",
+          "bikmedia.store.equipment",
+          "bikmedia.navigation.menu.equipment",
+          "bikmedia.navigation.breadcrumb.equipment",
+          "bikmedia.table.headers.equipment"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "المستويات",
+        "keys": [
+          "bikmedia.store.levels",
+          "bikmedia.navigation.menu.levels",
+          "bikmedia.navigation.breadcrumb.levels"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "إنشاء",
+        "keys": [
+          "bikmedia.actions.create",
+          "bikmedia.navigation.breadcrumb.create"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "تعديل",
+        "keys": [
+          "bikmedia.actions.edit",
+          "bikmedia.navigation.breadcrumb.edit",
+          "bikmedia.table.actions.edit"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "حذف",
+        "keys": [
+          "bikmedia.actions.delete",
+          "bikmedia.table.actions.delete"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "عرض",
+        "keys": [
+          "bikmedia.actions.view",
+          "bikmedia.navigation.breadcrumb.view",
+          "bikmedia.table.actions.view",
+          "bikmedia.table.pagination.showing"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "تحديث",
+        "keys": [
+          "bikmedia.actions.update",
+          "bikmedia.actions.refresh"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "إعادة المحاولة",
+        "keys": [
+          "bikmedia.actions.retry",
+          "bikmedia.components.carousel.retryLoading"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "الاسم",
+        "keys": [
+          "bikmedia.forms.name",
+          "bikmedia.table.headers.name"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "الوصف",
+        "keys": [
+          "bikmedia.forms.description",
+          "bikmedia.table.headers.description"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "النوع",
+        "keys": [
+          "bikmedia.forms.type",
+          "bikmedia.table.headers.type"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "الحالة",
+        "keys": [
+          "bikmedia.forms.status",
+          "bikmedia.table.headers.status"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "المستوى",
+        "keys": [
+          "bikmedia.forms.level",
+          "bikmedia.table.headers.level"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "العملات",
+        "keys": [
+          "bikmedia.forms.coins",
+          "bikmedia.table.headers.coins"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "السعر",
+        "keys": [
+          "bikmedia.forms.price",
+          "bikmedia.table.headers.price"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "الفئة",
+        "keys": [
+          "bikmedia.forms.category",
+          "bikmedia.table.headers.category"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "اللغة",
+        "keys": [
+          "bikmedia.forms.language",
+          "bikmedia.filters.language"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "هذا الحقل مطلوب",
+        "keys": [
+          "bikmedia.forms.validation.required",
+          "bikmedia.messages.errors.required",
+          "bikmedia.components.dynamicField.thisFieldRequired"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "إدخال غير صحيح",
+        "keys": [
+          "bikmedia.forms.validation.invalid",
+          "bikmedia.messages.errors.invalid"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "عناصر لكل صفحة",
+        "keys": [
+          "bikmedia.table.pagination.itemsPerPage",
+          "bikmedia.filters.itemsPerPage"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "السابق",
+        "keys": [
+          "bikmedia.table.pagination.previous",
+          "bikmedia.components.carousel.previous"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "التالي",
+        "keys": [
+          "bikmedia.table.pagination.next",
+          "bikmedia.components.carousel.next"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "جاري التحميل...",
+        "keys": [
+          "bikmedia.messages.loading",
+          "bikmedia.components.subGiftCarousel.loading"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "لا توجد هدايا فرعية",
+        "keys": [
+          "bikmedia.modals.subGift.noSubGifts",
+          "bikmedia.components.subGiftCarousel.noSubGifts"
+        ]
+      },
+      {
+        "locale": "ar",
+        "value": "يبدو جيداً!",
+        "keys": [
+          "bikmedia.components.dynamicField.looksGood",
+          "bikmedia.components.translationInput.looksGood"
+        ]
+      }
+    ]
+  }
+}

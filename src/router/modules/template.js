@@ -178,12 +178,12 @@ export default [
         component: () => import(/* webpackChunkName: "auth-pass-recovery-boxed" */ '../../views/auth/pass_recovery_boxed.vue'),
         meta: { layout: 'auth' },
     },
-    {
-        path: '/auth/login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "auth-login" */ '../../views/auth/login.vue'),
-        meta: { layout: 'auth' },
-    },
+    // {
+    //     path: '/auth/login',
+    //     name: 'login',
+    //     component: () => import(/* webpackChunkName: "auth-login" */ '../../views/auth/login.vue'),
+    //     meta: { layout: 'auth' },
+    // },
     {
         path: '/auth/register',
         name: 'register',
@@ -303,11 +303,11 @@ export default [
     },
 
     //users
-    {
-        path: '/users/profile',
-        name: 'profile',
-        component: () => import(/* webpackChunkName: "users-profile" */ '../../views/users/profile.vue'),
-    },
+    // {
+    //     path: '/users/profile',
+    //     name: 'profile',
+    //     component: () => import(/* webpackChunkName: "users-profile" */ '../../views/users/profile.vue'),
+    // },
     {
         path: '/users/account-setting',
         name: 'account-setting',

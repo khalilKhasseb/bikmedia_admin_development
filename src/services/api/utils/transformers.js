@@ -41,6 +41,15 @@ export function transformPaginatedResponse(response) {
   };
 }
 
+export function transformDeleteResponse(response) { 
+  const data = response.data  || {} ; 
+
+  return { 
+    status:data
+  }
+ 
+}
+
 /**
  * Transforms an API error into a normalized error structure
  * 

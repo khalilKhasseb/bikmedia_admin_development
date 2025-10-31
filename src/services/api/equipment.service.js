@@ -274,6 +274,54 @@ class EquipmentService extends BaseService {
       throw normalizedError;
     }
   }
+
+  /**
+   * Delete an equipment item
+   * 
+   * Deletes an equipment record by its ID. The API returns a structured response
+   * with success/error codes that need to be handled appropriately.
+   * 
+   * @param {number|string} itemId - Equipment ID to delete (required)
+   * @returns {Promise<Object>} Promise resolving to raw API response for success/error handling
+   * @returns {Object} returns.data - API response data
+   * @returns {number} returns.data.code - Response code (200 for success, 201 for errors)
+   * @returns {string|null} returns.data.err - Error message (null for success, "notFound" for missing item)
+   * @returns {Object} returns.data.data - Response payload (contains success: 1 for successful deletion)
+   * 
+   * @throws {Error} Normalized error object with message and details
+   * 
+   * @example
+   * // Delete an equipment item
+   * try {
+   *   const response = await equipmentService.delete(123);
+   *   if (response.data?.code === 200 && response.data?.err === null) {
+   *     console.log('Equipment deleted successfully');
+   *   }
+   * } catch (error) {
+   *   console.error('Failed to delete equipment:', error.message);
+   * }
+   */
+  async delete(itemId) {
+    if (itemId === null || itemId === undefined || itemId === '') {
+      throw new Error('EquipmentService.delete requires a valid itemId.');
+    }
+
+    try {
+      // Create FormData with the item ID
+      const formData = new FormData();
+      formData.append('id', itemId);
+
+      // Make POST request to /dashboard/equipment/delete with FormData payload
+      const response = await this.postFormData('/delete', formData);
+
+      // Return raw response for component-level success/error handling
+      return response;
+    } catch (error) {
+      // Normalize error and re-throw
+      const normalizedError = transformErrorResponse(error);
+      throw normalizedError;
+    }
+  }
 }
 
 // Export singleton instance
