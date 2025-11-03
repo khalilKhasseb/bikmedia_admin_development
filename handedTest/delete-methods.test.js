@@ -11,10 +11,10 @@
  * 3. Verify the expected behavior and error handling
  */
 
-import giftService from './gift.service.js';
-import equipmentService from './equipment.service.js';
-import levelService from './level.service.js';
-import userService from './user.service.js';
+import giftService from '../src/services/api/gift.service.js';
+import equipmentService from '../src/services/api/equipment.service.js';
+import levelService from '../src/services/api/level.service.js';
+import userService from '../src/services/api/user.service.js';
 
 // Test data for service delete methods
 export const deleteTestData = {

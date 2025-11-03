@@ -61,7 +61,8 @@
                 "store": "Store",
                 "gifts": "Gifts",
                 "equipment": "Equipment",
-                "levels": "Levels"
+                "levels": "Levels",
+                "vipopt" : "VIP Options"
             },
             "breadcrumb": {
                 "store": "Store",
@@ -128,7 +129,8 @@
                 "id": "ID",
                 "description": "Description",
                 "price": "Price",
-                "category": "Category"
+                "category": "Category",
+                "goallserver":"Go Live All Server"
             },
             "actions": {
                 "view": "View",
@@ -224,6 +226,15 @@
                 "loadGifts": "Failed to load gifts",
                 "loadEquipment": "Failed to load equipment",
                 "loadLevels": "Failed to load levels",
+                "failedToLoadVipPackages": "Failed to load VIP packages",
+                "failedToUpdatePrivilege": "Failed to update privilege",
+                "vipPackageNotFound": "VIP package not found",
+                "privilegeNotFound": "Privilege not found",
+                "invalidVipId": "Invalid VIP package ID",
+                "invalidPrivilegeId": "Invalid privilege ID",
+                "privilegeAlreadyActive": "Privilege is already active",
+                "privilegeAlreadyInactive": "Privilege is already inactive",
+                "vipServiceUnavailable": "VIP service is temporarily unavailable",
                 "operationNotSupported": "Operation Not Supported",
                 "levelCreateNotSupported": "Level creation is not supported by the API. Levels are managed by the system.",
                 "levelEditNotSupported": "Level editing is not currently supported by the API. This feature will be available when the backend supports it.",

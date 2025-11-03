@@ -1,6 +1,7 @@
 import BaseService from './base.service.js';
 import {
   transformListResponse,
+  transformPaginatedResponse,
   transformSingleResponse,
   transformErrorResponse,
   buildQueryParams
@@ -44,52 +45,66 @@ class LevelService extends BaseService {
   }
 
   /**
-   * Get all levels
+   * Get all levels with pagination support
    * 
-   * Fetches the complete list of levels from the API.
-   * Currently, the API accepts an empty body, but this method supports
-   * optional filter parameters for future extensibility.
+   * Fetches levels from the API with pagination and filter support.
+   * The API returns paginated data with metadata including total count,
+   * current page, items per page, and total pages.
    * 
-   * @param {Object} [filters={}] - Optional filter parameters for future use
-   * @returns {Promise<Object>} Promise resolving to normalized response with items array
-   * @returns {Array} returns.items - Array of level objects
+   * @param {Object} [params={}] - Request parameters
+   * @param {number} [params.p=1] - Page number (starts from 1)
+   * @param {number} [params.limit=20] - Items per page
+   * @param {string} [params.search] - Search term for filtering
+   * @param {string} [params.levelRange] - Level range filter (e.g., "1-10")
+   * @returns {Promise<Object>} Promise resolving to normalized paginated response
+   * @returns {Array} returns.items - Array of level objects for current page
+   * @returns {Object} returns.pagination - Pagination metadata
+   * @returns {number} returns.pagination.total - Total number of items
+   * @returns {number} returns.pagination.page - Current page number
+   * @returns {number} returns.pagination.limit - Items per page
+   * @returns {number} returns.pagination.pages - Total number of pages
    * @returns {Object} returns.raw - Raw API response data
    * 
    * @throws {Error} Normalized error object with message and details
    * 
    * @example
-   * // Fetch all levels
-   * const { items } = await levelService.getAll();
-   * console.log('Total levels:', items.length);
+   * // Fetch first page with default limit
+   * const { items, pagination } = await levelService.getAll();
+   * console.log(`Page ${pagination.page} of ${pagination.pages}`);
    * 
    * @example
-   * // Fetch with potential future filters
-   * const { items } = await levelService.getAll({
-   *   minLevel: 10,
-   *   maxLevel: 50
+   * // Fetch specific page with custom limit
+   * const { items, pagination } = await levelService.getAll({
+   *   p: 2,
+   *   limit: 50
    * });
    * 
    * @example
-   * // Use in component
-   * async mounted() {
-   *   try {
-   *     const { items } = await this.$store.dispatch('levels/fetchLevels');
-   *     this.levels = items;
-   *   } catch (error) {
-   *     this.$notify.error('Failed to load levels');
-   *   }
-   * }
+   * // Fetch with search and filters
+   * const { items, pagination } = await levelService.getAll({
+   *   p: 1,
+   *   limit: 25,
+   *   search: 'warrior',
+   *   levelRange: '10-20'
+   * });
    */
-  async getAll(filters = {}) {
+  async getAll(params = {}) {
     try {
+      // Set default pagination parameters
+      const defaultParams = {
+        p: 1,
+        limit: 20,
+        ...params
+      };
+      
       // Clean parameters (remove null/undefined values)
-      const cleanedParams = buildQueryParams(filters || {});
+      const cleanedParams = buildQueryParams(defaultParams);
       
       // Make POST request to /dashboard/levels
       const response = await this.post('', cleanedParams);
       
-      // Transform and return list response
-      return transformListResponse(response);
+      // Transform and return paginated response
+      return transformPaginatedResponse(response);
     } catch (error) {
       // Normalize error and re-throw
       const normalizedError = transformErrorResponse(error);

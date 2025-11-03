@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import i18n from "../i18n";
 import auth from "./modules/auth";
+import vipopt from "./modules/vipopt";
 export default new createStore({
     state: {
         layout: "app",
@@ -85,6 +86,7 @@ export default new createStore({
     actions: {},
     modules: {
         auth,
+        vipopt
     },
 
     

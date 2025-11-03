@@ -7,9 +7,12 @@
           <div class="page-header">
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
-                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{ $t('bikmedia.navigation.breadcrumb.gifts') }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span>{{ $t('bikmedia.navigation.breadcrumb.edit') }}</span></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{
+                  $t('bikmedia.navigation.breadcrumb.store') }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/gifts')">{{
+                  $t('bikmedia.navigation.breadcrumb.gifts') }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>{{
+                  $t('bikmedia.navigation.breadcrumb.edit') }}</span></li>
               </ol>
             </nav>
           </div>
@@ -27,7 +30,8 @@
 
     <!-- Error State -->
     <div v-else-if="loadError" class="text-center py-5">
-      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-danger">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-danger">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="12"></line>
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -54,37 +58,27 @@
                     <div class="d-flex align-items-end gap-2">
                       <div class="locale-selector" style="width: 200px;">
                         <label for="localeSelect" class="form-label mb-1">{{ $t('bikmedia.forms.language') }}:</label>
-                        <select
-                          id="localeSelect"
-                          class="form-select"
-                          v-model="selectedLocale"
-                          @change="handleLocaleChange"
-                        >
+                        <select id="localeSelect" class="form-select" v-model="selectedLocale"
+                          @change="handleLocaleChange">
                           <option v-for="locale in giftConfig.supportedLocales" :key="locale.code" :value="locale.code">
                             {{ locale.label }}
                           </option>
                         </select>
                       </div>
                       <div class="form-check form-switch ms-2">
-                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales" @change="handleShowAllLocalesChange">
-                        <label class="form-check-label" for="toggleAllLocales">{{ $t('bikmedia.actions.edit') }} {{ $t('bikmedia.forms.language') }}</label>
+                        <input class="form-check-input" type="checkbox" id="toggleAllLocales" v-model="showAllLocales"
+                          @change="handleShowAllLocalesChange">
+                        <label class="form-check-label" for="toggleAllLocales">{{ $t('bikmedia.actions.edit') }} {{
+                          $t('bikmedia.forms.language') }}</label>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Fully Dynamic Form with Custom Panel Layout -->
-              <DynamicFormBuilder
-                :entityConfig="giftConfig"
-                v-model="formData"
-                :isSubmitted="isSubmitted"
-                :errors="validationErrors"
-                :existingData="gift"
-                :selectedLocale="selectedLocale"
-                :showAllLocales="showAllLocales"
-                :layoutMode="'custom-panels'"
-                mode="edit"
-              />
+              <DynamicFormBuilder :entityConfig="giftConfig" v-model="formData" :isSubmitted="isSubmitted"
+                :errors="validationErrors" :existingData="gift" :selectedLocale="selectedLocale"
+                :showAllLocales="showAllLocales" :layoutMode="'custom-panels'" mode="edit" />
 
               <!-- Sub Gifts Section -->
               <div class="row mt-4 sub-gifts-grid" v-if="gift && gift.id">
@@ -92,7 +86,9 @@
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <h5 class="mb-0">{{ $t('bikmedia.modals.subGift.title') }}</h5>
                     <button type="button" class="btn btn-sm btn-primary" @click="openSubGiftModal">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="me-1">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="8" x2="12" y2="16"></line>
                         <line x1="8" y1="12" x2="16" y2="12"></line>
@@ -110,8 +106,11 @@
                         <div class="card-body p-2">
                           <div class="d-flex justify-content-between align-items-center">
                             <div class="text-truncate" :title="sg.name">{{ sg.name }}</div>
-                            <button type="button" class="btn btn-sm btn-outline-danger" disabled title="Delete coming soon">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button type="button" class="btn btn-sm btn-outline-danger" disabled
+                              title="Delete coming soon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
                                 <path d="M10 11v6"></path>
@@ -128,7 +127,8 @@
               </div>
 
               <!-- SubGift Modal Mount -->
-              <SubGiftModal v-if="gift && gift.id" :giftId="gift.id" :show="showSubGiftModal" @close="showSubGiftModal = false" @success="handleSubGiftAdded" />
+              <SubGiftModal v-if="gift && gift.id" :giftId="gift.id" :show="showSubGiftModal"
+                @close="showSubGiftModal = false" @success="handleSubGiftAdded" />
             </div>
 
             <!-- Action Sidebar -->
@@ -138,14 +138,11 @@
                   <div class="invoice-action-btn">
                     <div class="row">
                       <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-info btn-block w-100 mb-3"
-                          @click="openSubGiftModal"
-                          :disabled="!gift || !gift.id"
-                          v-if="gift && gift.id"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                        <button type="button" class="btn btn-info btn-block w-100 mb-3" @click="openSubGiftModal"
+                          :disabled="!gift || !gift.id" v-if="gift && gift.id">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="me-1">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="12" y1="8" x2="12" y2="16"></line>
                             <line x1="8" y1="12" x2="16" y2="12"></line>
@@ -154,30 +151,27 @@
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-danger btn-block w-100 mb-3"
-                          @click="handleDelete"
-                          :disabled="isDeleting || !gift || !gift.id"
-                        >
+                        <button type="button" class="btn btn-danger btn-block w-100 mb-3" @click="handleDelete"
+                          :disabled="isDeleting || !gift || !gift.id">
                           <span v-if="isDeleting" class="spinner-border spinner-border-sm me-2"></span>
-                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="me-1">
                             <polyline points="3 6 5 6 21 6"></polyline>
                             <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
                             <path d="M10 11v6"></path>
                             <path d="M14 11v6"></path>
                           </svg>
-                          {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' + $t('bikmedia.store.gifts') }}
+                          {{ isDeleting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.delete') + ' ' +
+                            $t('bikmedia.store.gifts') }}
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-secondary btn-block w-100 mb-3"
-                          @click="handleCancel"
-                          :disabled="isSubmitting"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                        <button type="button" class="btn btn-secondary btn-block w-100 mb-3" @click="handleCancel"
+                          :disabled="isSubmitting">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="me-1">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                           </svg>
@@ -185,19 +179,18 @@
                         </button>
                       </div>
                       <div class="col-xl-12 col-md-6 col-sm-6">
-                        <button
-                          type="button"
-                          class="btn btn-primary btn-block w-100 mb-3"
-                          @click="handleSubmit"
-                          :disabled="isSubmitting"
-                        >
+                        <button type="button" class="btn btn-primary btn-block w-100 mb-3" @click="handleSubmit"
+                          :disabled="isSubmitting">
                           <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="me-1">
                             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
                             <polyline points="17 21 17 13 7 13 7 21"></polyline>
                             <polyline points="7 3 7 8 15 8"></polyline>
                           </svg>
-                          {{ isSubmitting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.update') + ' ' + $t('bikmedia.store.gifts') }}
+                          {{ isSubmitting ? $t('bikmedia.messages.loading') : $t('bikmedia.actions.update') + ' ' +
+                            $t('bikmedia.store.gifts') }}
                         </button>
                       </div>
                     </div>
@@ -224,7 +217,7 @@ import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import { giftConfig } from '@/config/entities/gift.config';
 import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
 import { sanitizeObject } from '@/utils/sanitize';
-
+import { bikMediaNotifications } from '@/utils/notification-handler';
 // i18n
 const { t } = useI18n();
 
@@ -232,7 +225,7 @@ const { t } = useI18n();
 useMeta({ title: t('bikmedia.pages.gifts.edit.title') });
 
 // Router Setup
-const router = useRouter(); 
+const router = useRouter();
 const route = useRoute();
 
 // Reactive State
@@ -264,10 +257,10 @@ const validateForm = () => {
 const loadGift = async (lang = null) => {
   loading.value = true;
   loadError.value = null;
-  
+
   try {
     const giftId = route.params.id;
-    
+
     if (!giftId) {
       throw new Error('Gift ID is required');
     }
@@ -296,10 +289,10 @@ const loadGift = async (lang = null) => {
 
     // Initialize form data for DynamicFormBuilder
     formData.value = initializeFormData(giftConfig, gift.value);
-    
+
     console.log('Gift loaded:', gift.value);
     console.log('Form data populated:', formData.value);
-  
+
   } catch (error) {
     console.error('Failed to load gift:', error);
     loadError.value = error.message || 'Failed to load gift data';
@@ -347,16 +340,7 @@ const handleDelete = async () => {
     showMessage('No gift selected for deletion', 'error');
     return;
   }
-
-  const result = await Swal.fire({
-    title: t('bikmedia.messages.confirmations.deleteGift'),
-    html: `<div class="text-center"><h4>${gift.value.name || t('bikmedia.components.subGiftCard.unnamedGift')}</h4></div>`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: t('bikmedia.actions.delete'),
-    confirmButtonColor: '#dc3545',
-    cancelButtonText: t('bikmedia.actions.cancel')
-  });
+  const result = await bikMediaNotifications.gift.confirmDelete(gift.value.name)
 
   if (result.isConfirmed) {
     await performDelete(gift.value.id);
@@ -367,10 +351,10 @@ const performDelete = async (itemId) => {
   try {
     isDeleting.value = true;
     const response = await giftService.delete(itemId);
-    
+
     // Check for success based on API response structure
     if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
-      showMessage(t('bikmedia.messages.success.giftDeleted'), 'success');
+      bikMediaNotifications.gift.deleted()
       // Navigate to list page
       setTimeout(() => {
         router.push('/store/gifts');
@@ -383,28 +367,26 @@ const performDelete = async (itemId) => {
       throw new Error('Delete operation failed');
     }
   } catch (error) {
-    showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+    // showMessage(error.message || t('bikmedia.messages.errors.failedToDelete'), 'error');
+    bikMediaNotifications.gift.deleteError()
   } finally {
     isDeleting.value = false;
   }
 };
 
-const handleCancel = () => {
+const handleCancel = async () => {
   const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initializeFormData(giftConfig, gift.value || {}));
-  
+
+
+
+
   if (hasChanges) {
-    Swal.fire({
-      title: t('bikmedia.messages.confirmations.areYouSure'),
-      text: 'You have unsaved changes. Are you sure you want to leave?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: t('bikmedia.actions.confirm'),
-      cancelButtonText: t('bikmedia.actions.cancel')
-    }).then((result) => {
-      if (result.isConfirmed) {
-        router.push('/store/gifts');
-      }
-    });
+    const result = await bikMediaNotifications.general.unsavedChanges()
+
+    if (result.isConfirmed) {
+      router.push('/store/gifts');
+    }
+   
   } else {
     router.push('/store/gifts');
   }
@@ -412,15 +394,15 @@ const handleCancel = () => {
 
 const handleSubmit = async () => {
   isSubmitted.value = true;
-  
+
   if (!validateForm()) {
     showMessage(t('bikmedia.forms.validation.required'), 'error');
     return;
   }
-  
+
   try {
     isSubmitting.value = true;
-    
+
     // Sanitize string fields only
     const cleaned = sanitizeObject({ ...formData.value }, Object.keys(formData.value).filter(k => typeof formData.value[k] === 'string'));
     formData.value = cleaned;
@@ -447,15 +429,15 @@ const handleSubmit = async () => {
     const response = isFormData
       ? await giftService.postFormData('/edit', payload)
       : await giftService.update(route.params.id, payload);
-    
+
     // Show success message
     showMessage(t('bikmedia.messages.success.giftUpdated'), 'success');
-    
+
     // Navigate to list page
     setTimeout(() => {
       router.push('/store/gifts');
     }, 1000);
-    
+
   } catch (error) {
     console.error('Failed to update gift:', error);
     showMessage(error.message || t('bikmedia.messages.errors.failedToUpdate'), 'error');
@@ -491,9 +473,10 @@ onMounted(() => {
 /* Sticky sidebar */
 .sticky-sidebar {
   position: sticky;
-  top: 160px; /* Increased margin to avoid header overlap */
+  top: 160px;
+  /* Increased margin to avoid header overlap */
   z-index: 10;
-  
+
 }
 
 /* Media upload boxes */
@@ -566,23 +549,27 @@ onMounted(() => {
   margin-bottom: 0.5rem;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border: 1px solid #e0e6ed;
   border-radius: 6px;
   padding: 0.75rem 1rem;
   transition: all 0.3s ease;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.form-control.is-valid, .form-select.is-valid {
+.form-control.is-valid,
+.form-select.is-valid {
   border-color: #28a745;
 }
 
-.form-control.is-invalid, .form-select.is-invalid {
+.form-control.is-invalid,
+.form-select.is-invalid {
   border-color: #dc3545;
 }
 
@@ -594,4 +581,3 @@ onMounted(() => {
   }
 }
 </style>
-

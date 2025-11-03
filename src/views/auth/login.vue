@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="form full-form auth-cover">
         <div class="form-container">
             <div class="form-form">

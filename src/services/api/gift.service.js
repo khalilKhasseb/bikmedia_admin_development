@@ -378,6 +378,11 @@ class GiftService extends BaseService {
       throw normalizedError;
     }
   }
+
+  async updateGoAllServer(id , data) { 
+
+     this.post('/edit' , data);
+  }
 }
 
 // Export singleton instance

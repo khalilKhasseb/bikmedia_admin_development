@@ -23,6 +23,7 @@
 import equipmentConfig from './equipment.config.js';
 import giftConfig from './gift.config.js';
 import levelConfig from './level.config.js';
+import vipOptionConfig from './vip-option.config.js';
 
 /**
  * Entity configuration registry
@@ -33,7 +34,8 @@ import levelConfig from './level.config.js';
 const entityConfigRegistry = {
   equipment: equipmentConfig,
   gift: giftConfig,
-  level: levelConfig
+  level: levelConfig,
+  vipOption: vipOptionConfig
 };
 
 /**
@@ -82,7 +84,7 @@ export function hasEntity(entityName) {
 }
 
 // Named exports for individual configs
-export { equipmentConfig, giftConfig, levelConfig };
+export { equipmentConfig, giftConfig, levelConfig, vipOptionConfig };
 
 // Default export for registry
 export default entityConfigRegistry;

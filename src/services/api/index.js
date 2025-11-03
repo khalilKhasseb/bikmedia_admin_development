@@ -34,9 +34,7 @@ import {
 import giftService from './gift.service.js';
 import equipmentService from './equipment.service.js';
 import levelService from './level.service.js';
-// import categoryService from './category.service.js';
-// import roomService from './room.service.js';
-// import storeService from './store.service.js';
+import vipService from "./vip.service.js";
 
 /**
  * Default export containing all resource service instances
@@ -53,7 +51,8 @@ export default {
   // user: userService, // Disabled - API not ready
   gift: giftService,
   equipment: equipmentService,
-  level: levelService
+  level: levelService,
+  vip: vipService
 };
 
 /**

@@ -75,11 +75,14 @@ const giftConfig = {
       default: 0,
       label: 'Type',
       options: [
-        { value: 0, label: 'Default' },
-        { value: 1, label: 'Standard' },
-        { value: 2, label: 'Premium' },
-        { value: 3, label: 'Video' },
-        { value: 4, label: 'Special' }
+        { "value": 0, "label": "person" },
+        { "value": 1, "label": "audioLive" },
+        { "value": 2, "label": "videoLive" },
+        { "value": 3, "label": "video" },
+        { "value": 4, "label": "sticker" },
+        { "value": 5, "label": "exclusive" },
+        { "value": 6, "label": "vip" },
+        { "value": 7, "label": "level" }
       ]
     },
     {
@@ -91,15 +94,15 @@ const giftConfig = {
       label: 'Level',
       placeholder: 'Level Requirement'
     },
-    {
-      name: 'vip',
-      type: 'number',
-      required: false,
-      min: 0,
-      default: 0,
-      label: 'VIP',
-      placeholder: 'VIP Requirement'
-    },
+    // {
+    //   name: 'vip',
+    //   type: 'number',
+    //   required: false,
+    //   min: 0,
+    //   default: 0,
+    //   label: 'VIP',
+    //   placeholder: 'VIP Requirement'
+    // },
     {
       name: 'anim_type',
       type: 'number',
@@ -161,17 +164,17 @@ const giftConfig = {
       description: 'Upload icon and animation files',
       fields: ['icon', 'svga']
     },
-    {
-      name: 'details',
-      label: 'Details',
-      description: 'Additional information',
-      fields: ['description']
-    },
+    // {
+    //   name: 'details',
+    //   label: 'Details',
+    //   description: 'Additional information',
+    //   fields: ['description']
+    // },
     {
       name: 'settings',
       label: 'Settings',
       description: 'Gift properties and requirements',
-      fields: ['type', 'lvl', 'vip', 'anim_type', 'list_order', 'mark']
+      fields: ['type', 'lvl', 'anim_type', 'list_order', 'mark']
     }
   ]
 };

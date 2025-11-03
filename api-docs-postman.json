@@ -237,6 +237,84 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "addMore",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "175",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"value": "https://a.com/a.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts/addMore",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts",
+								"addMore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Gift",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts/delete?id",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -392,13 +470,123 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{bikmediaURL}}/dashboard/levels",
+							"raw": "{{bikmediaURL}}/dashboard/levels/edit?id=5",
 							"host": [
 								"{{bikmediaURL}}"
 							],
 							"path": [
 								"dashboard",
-								"levels"
+								"levels",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "noble",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/noble",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"noble"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePrivileges",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "noble id",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "",
+									"description": "0 = delete, 1= add",
+									"type": "text"
+								},
+								{
+									"key": "privilegeID",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/updatePrivileges",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"updatePrivileges"
 							]
 						}
 					},

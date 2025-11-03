@@ -129,7 +129,7 @@
                     </div>
 
                     <!-- Empty State -->
-                    <div v-else-if="!loading && filtered_levels_list.length === 0" class="text-center py-5">
+                    <div v-else-if="!loading && levels_list.length === 0" class="text-center py-5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox text-muted">
                             <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
                             <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
@@ -159,7 +159,7 @@
                             </div>
                         </div>
 
-                        <div v-for="(level, index) in paginatedLevels" class="items" :key="level.id">
+                        <div v-for="(level, index) in levels_list" class="items" :key="level.id">
                             <div class="item-content">
                                 <div class="user-profile">
                                     <img :src="level.level?.icon || defaultAvatar" alt="level" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
@@ -219,7 +219,7 @@
                     </div>
 
                     <!-- Pagination Controls -->
-                    <div v-if="!loading && filtered_levels_list.length > 0" class="row mt-4">
+                    <div v-if="!loading && levels_list.length > 0" class="row mt-4">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
                                 <label class="me-2">{{ $t('bikmedia.filters.itemsPerPage') }}:</label>
@@ -230,7 +230,7 @@
                                     <option :value="100">100 {{ $t('bikmedia.table.pagination.items') }}</option>
                                 </select>
                                 <span class="ms-3 text-muted">
-                                    {{ $t('bikmedia.table.pagination.showing') }} {{ startIndex + 1 }} {{ $t('bikmedia.table.pagination.to') }} {{ endIndex }} {{ $t('bikmedia.table.pagination.of') }} {{ filtered_levels_list.length }} {{ $t('bikmedia.store.levels') }}
+                                    {{ $t('bikmedia.table.pagination.showing') }} {{ startIndex + 1 }} {{ $t('bikmedia.table.pagination.to') }} {{ endIndex }} {{ $t('bikmedia.table.pagination.of') }} {{ pagination.total }} {{ $t('bikmedia.store.levels') }}
                                 </span>
                             </div>
                         </div>
@@ -335,7 +335,6 @@
 
     const router = useRouter();
     const levels_list = ref([]);
-    const filtered_levels_list = ref([]);
     const search_text = ref("");
     const grid_type = ref("list");
     const loading = ref(false);
@@ -348,27 +347,22 @@
         levelRange: '' // Empty string to show "All Levels" as default
     });
 
-    // Pagination
+    // Server-side pagination
     const pagination = ref({
         page: 1,
         limit: 25,
-        pages: 1
+        pages: 1,
+        total: 0
     });
 
-    // Computed properties for pagination
-    const paginatedLevels = computed(() => {
-        const start = (pagination.value.page - 1) * pagination.value.limit;
-        const end = start + pagination.value.limit;
-        return filtered_levels_list.value.slice(start, end);
-    });
-
+    // Computed properties for server-side pagination
     const startIndex = computed(() => {
         return (pagination.value.page - 1) * pagination.value.limit;
     });
 
     const endIndex = computed(() => {
         const end = pagination.value.page * pagination.value.limit;
-        return end > filtered_levels_list.value.length ? filtered_levels_list.value.length : end;
+        return end > pagination.value.total ? pagination.value.total : end;
     });
 
     const visiblePages = computed(() => {
@@ -411,96 +405,90 @@
     //     editLevelModal = new window.bootstrap.Modal(document.getElementById("editLevelModal"));
     // };
 
-    // Fetch levels from API
-    const fetchLevels = async () => {
+    // Fetch levels from API with server-side pagination
+    const fetchLevels = async (resetPage = false) => {
         loading.value = true;
         try {
-            const response = await levelService.getAll();
+            // Reset to page 1 if requested (for new searches/filters)
+            if (resetPage) {
+                pagination.value.page = 1;
+            }
+
+            // Prepare API parameters
+            const params = {
+                p: pagination.value.page,
+                limit: pagination.value.limit
+            };
+
+            // Add search parameter if provided
+            if (search_text.value.trim()) {
+                params.search = sanitizeInput(search_text.value.trim());
+            }
+
+            // Add level range filter if selected
+            if (filters.value.levelRange) {
+                params.levelRange = filters.value.levelRange;
+            }
+
+            console.log('Fetching levels with params:', params);
+
+            const response = await levelService.getAll(params);
             
             console.log('API Response:', response);
 
-            // Extract items from response.items.list (same structure as equipments)
-            levels_list.value = response.items?.list || [];
-            applyFilters();
+            // Update levels list and pagination from server response
+            levels_list.value = response.items || [];
+            
+            // Update pagination metadata from server
+            if (response.pagination) {
+                pagination.value = {
+                    page: response.pagination.page || pagination.value.page,
+                    limit: response.pagination.limit || pagination.value.limit,
+                    pages: response.pagination.pages || 1,
+                    total: response.pagination.total || 0
+                };
+            }
 
             console.log('Levels loaded:', levels_list.value.length, 'items');
+            console.log('Pagination:', pagination.value);
         } catch (error) {
             console.error("Failed to fetch levels:", error);
             showMessage(error.message || t('bikmedia.messages.errors.loadLevels'), "error");
             levels_list.value = [];
-            filtered_levels_list.value = [];
+            pagination.value.total = 0;
+            pagination.value.pages = 1;
         } finally {
             loading.value = false;
         }
     };
 
-    // Handle filter change
+    // Handle filter change - triggers server-side filtering
     const onFilterChange = () => {
-        applyFilters();
+        fetchLevels(true); // Reset to page 1 and fetch with new filters
     };
 
-    // Apply filters and search
-    const applyFilters = () => {
-        let filtered = Array.isArray(levels_list.value) ? [...levels_list.value] : [];
-
-        console.log('Applying filters:', filters.value);
-        console.log('Total levels:', filtered.length);
-
-        // Apply level range filter
-        if (filters.value.levelRange) {
-            const [min, max] = filters.value.levelRange.split('-').map(Number);
-            console.log('Filtering by level range:', min, '-', max);
-            filtered = filtered.filter(l => l.lvl >= min && l.lvl <= max);
-            console.log('After level range filter:', filtered.length);
-        }
-
-        // Apply search filter
-        if (search_text.value) {
-            const sanitizedSearch = sanitizeInput(search_text.value);
-            const searchLower = sanitizedSearch.toLowerCase();
-            filtered = filtered.filter(l => 
-                (l.lvl && l.lvl.toString().includes(searchLower)) ||
-                (l.level?.name && l.level.name.toLowerCase().includes(searchLower)) ||
-                (l.id && l.id.toString().includes(searchLower)) ||
-                (l.lid && l.lid.toString().includes(searchLower))
-            );
-            console.log('After search filter:', filtered.length);
-        }
-
-        filtered_levels_list.value = filtered;
-        console.log('Final filtered list:', filtered_levels_list.value.length);
-
-        // Update pagination
-        pagination.value.pages = Math.ceil(filtered_levels_list.value.length / pagination.value.limit);
-        
-        // Reset to page 1 if current page is beyond new total pages
-        if (pagination.value.page > pagination.value.pages && pagination.value.pages > 0) {
-            pagination.value.page = 1;
-        }
-    };
-
-    // Change page
+    // Change page - triggers server-side pagination
     const changePage = (page) => {
         if (page < 1 || page > pagination.value.pages || page === pagination.value.page) {
             return;
         }
         pagination.value.page = page;
+        fetchLevels(); // Fetch new page from server
     };
 
-    // Handle limit change
+    // Handle limit change - triggers server-side pagination
     const onLimitChange = () => {
-        pagination.value.page = 1; // Reset to first page when changing limit
-        applyFilters(); // Recalculate pages
+        fetchLevels(true); // Reset to page 1 and fetch with new limit
     };
 
-    // Handle search input with debounce
+    // Handle search input with debounce - triggers server-side search
     const onSearchInput = () => {
         if (searchTimeout) {
             clearTimeout(searchTimeout);
         }
         
         searchTimeout = setTimeout(() => {
-            applyFilters();
+            fetchLevels(true); // Reset to page 1 and fetch with search term
         }, 300); // 300ms debounce
     };
 
@@ -568,7 +556,7 @@
             // Check for success based on API response structure
             if (response.data?.code === 200 && response.data?.err === null && response.data?.data?.success === 1) {
                 showMessage(t('bikmedia.messages.success.levelDeleted'), 'success');
-                // Refresh the list
+                // Refresh the current page
                 await fetchLevels();
             } else if (response.data?.code === 201 && response.data?.err === 'notFound') {
                 throw new Error(t('bikmedia.messages.errors.notFound'));

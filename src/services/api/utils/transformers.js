@@ -28,26 +28,53 @@
  */
 export function transformPaginatedResponse(response) {
   const data = response.data || {};
-  
+
+  // Handle the specific API structure: response.data.data.list and response.data.data.pagination
+  let items = [];
+  let paginationData = {};
+
+  if (data.data && data.data.list) {
+    // Items are in data.data.list
+    items = data.data.list || [];
+    // Pagination metadata is in data.data.pagination
+    paginationData = data.data.pagination || {};
+  } else if (data.items && data.items.list) {
+    // Alternative structure: data.items.list
+    items = data.items.list || [];
+    paginationData = data.pagination || {};
+  } else if (Array.isArray(data.data)) {
+    // Direct array in data.data
+    items = data.data;
+    paginationData = data;
+  } else if (Array.isArray(data.items)) {
+    // Direct array in data.items
+    items = data.items;
+    paginationData = data;
+  } else if (Array.isArray(data)) {
+    // Direct array response
+    items = data;
+    paginationData = {};
+  }
+
   return {
-    items: data.data || data.items || [],
+    items: items,
     pagination: {
-      total: data.total || 0,
-      page: data.page || data.p || 1,
-      limit: data.limit || data.per_page || 10,
-      pages: data.pages || data.total_pages || 1
+      total: paginationData.total || data.total || 0,
+      page: paginationData.current_page || data.current_page || data.page || data.p || 1,
+      limit: paginationData.per_page || data.per_page || data.limit || 10,
+      pages: paginationData.last_page || data.last_page || data.pages || data.total_pages || 1
     },
     raw: response.data
   };
 }
 
-export function transformDeleteResponse(response) { 
-  const data = response.data  || {} ; 
+export function transformDeleteResponse(response) {
+  const data = response.data || {};
 
-  return { 
-    status:data
+  return {
+    status: data
   }
- 
+
 }
 
 /**
@@ -74,7 +101,7 @@ export function transformDeleteResponse(response) {
 export function transformErrorResponse(error) {
   const response = error.response || {};
   const data = response.data || {};
-  
+
   return {
     message: data.message || data.error || error.message || 'An unexpected error occurred',
     status: response.status || 500,
@@ -103,13 +130,13 @@ export function transformErrorResponse(error) {
  */
 export function buildQueryParams(params) {
   const cleanParams = {};
-  
+
   for (const [key, value] of Object.entries(params)) {
     if (value !== null && value !== undefined) {
       cleanParams[key] = value;
     }
   }
-  
+
   return cleanParams;
 }
 
@@ -129,7 +156,7 @@ export function buildQueryParams(params) {
  */
 export function transformListResponse(response) {
   const data = response.data || {};
-  
+
   return {
     items: Array.isArray(data) ? data : (data.data || data.items || []),
     raw: response.data
@@ -153,7 +180,7 @@ export function transformListResponse(response) {
  */
 export function transformSingleResponse(response) {
   const data = response.data || {};
-  
+
   return {
     item: data.data || data.item || data,
     raw: response.data

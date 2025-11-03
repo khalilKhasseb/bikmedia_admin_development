@@ -61,7 +61,8 @@
                 "store": "المتجر",
                 "gifts": "الهدايا",
                 "equipment": "المعدات",
-                "levels": "المستويات"
+                "levels": "المستويات",
+                "vipopt" : "اعدادت VIP"
             },
             "breadcrumb": {
                 "store": "المتجر",
@@ -128,7 +129,8 @@
                 "id": "المعرف",
                 "description": "الوصف",
                 "price": "السعر",
-                "category": "الفئة"
+                "category": "الفئة",
+                "goallserver":"Go Live All Server"
             },
             "actions": {
                 "view": "عرض",

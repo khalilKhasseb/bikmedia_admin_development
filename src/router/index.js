@@ -22,7 +22,7 @@ const routes = [
             keywords: 'analytics, dashboard, bikmedia, gifts, equipment, levels, users, statistics',
             // breadcrumb: [
             //     { name: 'Dashboard', path: '/' },
-                
+
             // ]
         }
     },
@@ -35,11 +35,19 @@ const routes = [
         }
 
     },
-     {
+    {
         path: '/auth/login',
         name: 'login',
         component: () => import(/* webpackChunkName: "auth-login" */ '../views/auth/login.vue'),
         meta: { layout: 'auth' },
+    },
+{
+        path: "/vipopt",
+        name: "vipopt",
+        component: () => import("../views/bikmedia/vipopt/index.vue"),
+        meta: {
+            requireAuth: true
+        }
     },
     ...giftRoutes,
     // ...templateRoutes,

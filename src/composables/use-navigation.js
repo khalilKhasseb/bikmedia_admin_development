@@ -102,6 +102,14 @@ const navigationConfig = [
         ]
     },
 
+    // VIP OPtions
+    {
+        id:"vipopt",
+        type:"single",
+        label:"bikmedia.navigation.menu.vipopt",
+        to:"/vipopt"
+    }
+
     // ============================================
     // EXAMPLE: Add your custom navigation items
     // ============================================
