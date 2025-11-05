@@ -160,12 +160,12 @@ const itemColumnClass = computed(() => {
   const breakpoint = currentBreakpoint.value;
   switch (breakpoint) {
     case 'xl':
-      return 'col-xl-6 col-lg-6 col-md-6';
+      return 'col-xl-12 col-lg-12 col-md-12';
     case 'lg':
-      return 'col-lg-4 col-md-6';
+      return 'col-lg-12 col-md-12';
     case 'md':
     default:
-      return 'col-md-6 col-sm-6';
+      return 'col-md-12 col-sm-12';
   }
 });
 

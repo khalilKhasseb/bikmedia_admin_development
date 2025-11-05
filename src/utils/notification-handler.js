@@ -301,6 +301,10 @@ export const bikMediaNotifications = {
    * General notifications
    */
   general: {
+    success: (message) => showSuccessToast(message),
+    error: (message) => showErrorToast(message),
+    warning: (message) => showWarningToast(message),
+    info: (message) => showInfoToast(message),
     noChanges: () => showInfoToast('No changes to update'),
     invalidId: (type) => showErrorToast(`bikmedia.messages.errors.invalid${type.charAt(0).toUpperCase() + type.slice(1)}Id`),
     validationError: () => showErrorToast('bikmedia.forms.validation.required'),

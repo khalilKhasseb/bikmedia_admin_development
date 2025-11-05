@@ -75,18 +75,15 @@
                           v-model="selectedLocale"
                           @change="handleLocaleChange"
                         >
-                          <option
-                            v-for="locale in levelConfig.supportedLocales"
-                            :key="locale.code"
-                            :value="locale.code"
-                          >
-                            {{ locale.label }}
-                          </option>
+                          <option value="en">English</option>
+                          <option value="ar">العربية</option>
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                
 
                 <!-- Section 1: Basic Information -->
                 <FormSection
@@ -118,16 +115,9 @@
                       <div class="mb-3">
                         <label class="form-label text-muted">
                           {{ $t('bikmedia.forms.name') }}
-                          <span
-                            v-if="showNameFallback"
-                            class="badge bg-light text-muted ms-2"
-                            style="font-weight: normal;"
-                          >
-                            Using default locale
-                          </span>
                         </label>
-                        <p class="form-control-plaintext" :dir="isRTL ? 'rtl' : 'ltr'">
-                          {{ displayName || (isRTL ? '(غير متوفر)' : '(Not available)') }}
+                        <p class="form-control-plaintext">
+                          {{ level?.level?.name || '(Not available)' }}
                         </p>
                       </div>
                     </div>
@@ -149,7 +139,30 @@
                   </div>
                 </FormSection>
 
-                <!-- Section 3: Icons -->
+                <!-- Section 3: Targets -->
+                <FormSection
+                  title="Targets"
+                  description="Targets for this base level"
+                >
+                  <div class="table-responsive">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th style="width: 100px;">Lvl</th>
+                          <th>Target</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="t in level?.level?.targets || []" :key="t.id">
+                          <td>{{ t.lvl }}</td>
+                          <td>{{ formatNumber(t.target) }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </FormSection>
+
+                <!-- Section 4: Icons -->
                 <FormSection
                   title="Icons"
                   description="Level icon variations"
@@ -162,10 +175,10 @@
                           <img
                             :src="level.level.icon"
                             alt="Active Icon"
-                            class="preview-image"
+                            class="preview-image mx-auto"
                             @error="handleImageError"
                           />
-                          <p class="text-muted small mt-2">{{ level.level.icon }}</p>
+                          <p style="word-break: break-all;" class="text-muted small mt-2">{{ level.level.icon }}</p>
                         </div>
                         <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
@@ -177,10 +190,10 @@
                           <img
                             :src="level.level.icon_disable"
                             alt="Disabled Icon"
-                            class="preview-image"
+                            class="preview-image mx-auto"
                             @error="handleImageError"
                           />
-                          <p class="text-muted small mt-2">{{ level.level.icon_disable }}</p>
+                          <p style="word-break: break-all;" class="text-muted small mt-2">{{ level.level.icon_disable }}</p>
                         </div>
                         <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
@@ -192,10 +205,10 @@
                           <img
                             :src="level.level.icon_anim"
                             alt="Animated Icon"
-                            class="preview-image"
+                            class="preview-image mx-auto"
                             @error="handleImageError"
                           />
-                          <p class="text-muted small mt-2">{{ level.level.icon_anim }}</p>
+                          <p style="word-break: break-all;" class="text-muted small mt-2">{{ level.level.icon_anim }}</p>
                         </div>
                         <p v-else class="form-control-plaintext text-muted">{{ $t('bikmedia.components.subGiftCard.imageNotAvailable') }}</p>
                       </div>
@@ -348,52 +361,6 @@ const loadError = ref(null);
 const selectedLocale = ref('en');
 const isDeleting = ref(false);
 
-// Computed helpers for localized fields
-const getLocalizedField = (baseField) => {
-  if (!level.value) return null;
-  
-  // For 'name' field, access nested level.level.name
-  if (baseField === 'name') {
-    return level.value.level?.name || null;
-  }
-  
-  // Map locale to field suffix
-  const suffix = selectedLocale.value === 'ar' ? 'AR' : 'EN';
-  const localizedKey = `${baseField}${suffix}`;
-  
-  return level.value[localizedKey];
-};
-
-const getFieldWithFallback = (baseField) => {
-  const localizedValue = getLocalizedField(baseField);
-  
-  if (localizedValue) {
-    return localizedValue;
-  }
-  
-  // Fallback to default locale (EN)
-  if (baseField === 'name') {
-    return level.value?.level?.name || level.value?.[baseField] || null;
-  }
-  
-  return level.value?.[`${baseField}EN`] || level.value?.[baseField] || null;
-};
-
-const isUsingFallback = (baseField) => {
-  const localizedValue = getLocalizedField(baseField);
-  const fallbackValue = getFieldWithFallback(baseField);
-  
-  // If we have a fallback value but no localized value, we're using fallback
-  return !localizedValue && !!fallbackValue && selectedLocale.value !== 'en';
-};
-
-// Computed properties for display
-const displayName = computed(() => getFieldWithFallback('name'));
-
-const showNameFallback = computed(() => isUsingFallback('name'));
-
-const isRTL = computed(() => selectedLocale.value === 'ar');
-
 // Methods
 const loadLevel = async (lang = null) => {
   loading.value = true;
@@ -401,39 +368,39 @@ const loadLevel = async (lang = null) => {
 
   try {
     const levelId = route.params.id;
-
-    if (!levelId) {
-      throw new Error('Level ID is required');
-    }
+    if (!levelId) throw new Error('Level ID is required');
 
     const locale = lang || selectedLocale.value;
 
-    // Try to use getById with locale support
     try {
-      // TODO: Replace fallback with levelService.getById(id, lang) when available
-      // This workaround will be replaced in subsequent phase "Extend API Services with Missing CRUD Methods"
-      // Attempt locale-driven fetch when API supports it
       const response = await levelService.getById(levelId, locale);
-      level.value = response.item;
-      console.log('Level loaded for view:', response.item);
-    } catch (getByIdError) {
-      // Fallback to getAll() and filter by ID if getById not available
-      console.warn('getById not available, falling back to getAll():', getByIdError.message);
-      const response = await levelService.getAll({ lang: locale });
-      const levelList = response.items?.list || [];
-
-      const foundLevel = levelList.find(l => l.id === Number(levelId));
-
-      if (!foundLevel) {
-        throw new Error(`Level with ID ${levelId} not found`);
+      console.log('🔍 Full API Response:', response);
+      console.log('🔍 Response.item:', response.item);
+      console.log('🔍 Response.raw:', response.raw);
+      
+      // transformSingleResponse returns the first item from data.data.list
+      if (!response.item) {
+        throw new Error('Level not found in response');
       }
-
+      
+      level.value = response.item;
+      console.log('✅ Level loaded for view:', level.value);
+    } catch (getByIdError) {
+      console.warn('⚠️ getById not available, falling back to getAll():', getByIdError.message);
+      const response = await levelService.getAll({ id: levelId, lang: locale });
+      console.log('🔍 Fallback response:', response);
+      
+      const list = Array.isArray(response.items) ? response.items : [];
+      const foundLevel = list.find(l => l.id === Number(levelId));
+      
+      if (!foundLevel) throw new Error(`Level with ID ${levelId} not found`);
+      
       level.value = foundLevel;
-      console.log('Level loaded for view (fallback):', foundLevel);
+      console.log('✅ Level loaded for view (fallback):', level.value);
     }
 
   } catch (error) {
-    console.error('Failed to load level:', error);
+    console.error('❌ Failed to load level:', error);
     loadError.value = error.message || 'Failed to load level data';
     showMessage(loadError.value, 'error');
   } finally {
@@ -442,7 +409,7 @@ const loadLevel = async (lang = null) => {
 };
 
 const handleLocaleChange = async () => {
-  console.log('Locale changed to:', selectedLocale.value);
+  console.log('🌐 Locale changed to:', selectedLocale.value);
   await loadLevel(selectedLocale.value);
 };
 
@@ -474,8 +441,7 @@ const handleImageError = (event) => {
 
 const formatNumber = (num) => {
   if (!num && num !== 0) return '0';
-  const locale = selectedLocale.value === 'ar' ? 'ar' : 'en-US';
-  return new Intl.NumberFormat(locale).format(num);
+  return new Intl.NumberFormat('en-US').format(num);
 };
 
 const handleEdit = () => {
@@ -487,7 +453,7 @@ const handleDelete = async () => {
   if (!level.value) return;
 
   // Show confirmation dialog with item name prominently displayed
-  const levelName = level.value.level?.name || displayName.value || `Level ${level.value.lvl}` || t('bikmedia.components.subGiftCard.unnamedGift');
+  const levelName = level.value.level?.name || `Level ${level.value.lvl}` || t('bikmedia.components.subGiftCard.unnamedGift');
   const result = await window.Swal.fire({
     title: t('bikmedia.messages.confirmations.deleteLevel'),
     html: `<div class="text-center mb-3">

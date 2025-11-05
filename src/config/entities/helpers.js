@@ -348,7 +348,7 @@ export function validateEntityFields(entityConfig, model, options = {}) {
  * @returns {FormData|Record<string, any>}
  */
 export function buildDynamicPayload(entityConfig, model, original = null, mode = 'create', options = {}) {
-  const { forceObject = false, id, updateStrategy = 'changed' } = options;
+  const { forceObject = false, id, updateStrategy = 'all' } = options;
 
   const hasFiles = (entityConfig?.nonTranslatableFields ?? []).some(f => f.type === 'file' && (model?.[`${f.name}Data`]?.file));
   const useFormData = mode === 'create' ? !forceObject : hasFiles;
@@ -374,12 +374,22 @@ export function buildDynamicPayload(entityConfig, model, original = null, mode =
           if (mode === 'create' || updateStrategy === 'all' || (original && data.url !== (original[field.name] || ''))) {
             fd.append(field.name, data.url);
           }
+        } else if (mode === 'update' && updateStrategy === 'all' && original?.[field.name]) {
+          // Preserve original file URL if no new file is provided (for conditionally hidden fields)
+          fd.append(field.name, original[field.name]);
         }
       } else {
         const value = model?.[field.name];
-        if (mode === 'create' || updateStrategy === 'all') {
+        if (mode === 'create') {
+          // For create, only include if value is defined
           if (value !== undefined) fd.append(field.name, String(value));
+        } else if (updateStrategy === 'all') {
+          // For update with 'all' strategy, always include field
+          // Use model value if present, otherwise fallback to original to preserve data
+          const finalValue = value !== undefined ? value : (original?.[field.name] ?? field.default ?? (field.type === 'number' ? 0 : ''));
+          fd.append(field.name, String(finalValue));
         } else {
+          // For 'changed' strategy, only include if changed
           const prev = original?.[field.name];
           if (value !== prev) {
             fd.append(field.name, String(value));
@@ -422,6 +432,9 @@ export function buildDynamicPayload(entityConfig, model, original = null, mode =
           out[field.name] = data.file;
         } else if (typeof data.url === 'string' && data.url !== '') {
           out[field.name] = data.url;
+        } else if (mode === 'update' && originalUrl) {
+          // Preserve original file URL if no new file is provided (for conditionally hidden fields)
+          out[field.name] = originalUrl;
         }
       } else if (!data.file && typeof data.url === 'string' && data.url !== '' && data.url !== originalUrl) {
         out[field.name] = data.url;
@@ -429,10 +442,104 @@ export function buildDynamicPayload(entityConfig, model, original = null, mode =
     } else {
       const curr = model?.[field.name];
       const prev = original?.[field.name];
-      if (updateStrategy === 'all') out[field.name] = curr;
-      else if (curr !== prev) out[field.name] = curr;
+      if (mode === 'create') {
+        // For create, only include if value is defined
+        if (curr !== undefined) out[field.name] = curr;
+      } else if (updateStrategy === 'all') {
+        // For update with 'all' strategy, always include field
+        // Use model value if present, otherwise fallback to original to preserve data
+        out[field.name] = curr !== undefined ? curr : (prev ?? field.default ?? (field.type === 'number' ? 0 : ''));
+      } else {
+        // For 'changed' strategy, only include if changed
+        if (curr !== prev) out[field.name] = curr;
+      }
     }
   });
 
   return out;
+}
+
+/**
+ * Evaluate a field's condition to determine if it should be shown
+ * @param {Function|Object|undefined} condition - Condition to evaluate
+ * @param {Record<string, any>} modelValue - Current form data
+ * @returns {boolean} True if field should be shown
+ */
+export function evaluateFieldCondition(condition, modelValue) {
+  if (!condition) return true; // No condition = always show
+
+  // Function condition: (modelValue) => boolean
+  if (typeof condition === 'function') {
+    return condition(modelValue);
+  }
+
+  // Object condition: { field: 'type', operator: '===', value: 7 }
+  if (typeof condition === 'object' && condition.field) {
+    const operator = condition.operator || '===';
+    const expectedValue = condition.value;
+
+    // Get raw field value
+    let fieldValue = modelValue[condition.field];
+
+    // Helpers to normalize common types to avoid string/number/boolean mismatches
+    const toBool = (v) => {
+      if (typeof v === 'boolean') return v;
+      if (typeof v === 'number') return v !== 0;
+      if (typeof v === 'string') return v.toLowerCase() === 'true' || v === '1';
+      return !!v;
+    };
+    const toNum = (v) => {
+      if (typeof v === 'number') return v;
+      const n = Number(v);
+      return Number.isNaN(n) ? v : n;
+    };
+
+    // Coerce field value to the type of expectedValue when appropriate
+    if (typeof expectedValue === 'boolean') {
+      fieldValue = toBool(fieldValue);
+    } else if (typeof expectedValue === 'number') {
+      fieldValue = toNum(fieldValue);
+    }
+
+    switch (operator) {
+      case '===':
+        return fieldValue === expectedValue;
+      case '!==':
+        return fieldValue !== expectedValue;
+      case '==':
+        // eslint-disable-next-line eqeqeq
+        return fieldValue == expectedValue;
+      case '!=':
+        // eslint-disable-next-line eqeqeq
+        return fieldValue != expectedValue;
+      case '>':
+        return fieldValue > expectedValue;
+      case '>=':
+        return fieldValue >= expectedValue;
+      case '<':
+        return fieldValue < expectedValue;
+      case '<=':
+        return fieldValue <= expectedValue;
+      case 'in': {
+        const arr = Array.isArray(expectedValue) ? expectedValue : [];
+        return arr.some(v => {
+          if (typeof v === 'boolean') return toBool(fieldValue) === v;
+          if (typeof v === 'number') return toNum(fieldValue) === v;
+          return String(fieldValue) === String(v);
+        });
+      }
+      case 'notIn': {
+        const arr = Array.isArray(expectedValue) ? expectedValue : [];
+        return !arr.some(v => {
+          if (typeof v === 'boolean') return toBool(fieldValue) === v;
+          if (typeof v === 'number') return toNum(fieldValue) === v;
+          return String(fieldValue) === String(v);
+        });
+      }
+      default:
+        return true;
+    }
+  }
+
+  return true;
 }

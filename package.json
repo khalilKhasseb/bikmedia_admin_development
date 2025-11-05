@@ -14,7 +14,10 @@
     "preview:pages": "npm run build:pages-local && vite preview --base=/bikmedia_admin_development/",
     "deploy:pages": "npm run build:pages && gh-pages -d dist -r bikmedia_admin_development -b gh-pages",
     "translation:validate": "node src/utils/translation-report-generator.js",
-    "translation:report": "npm run translation:validate"
+    "translation:report": "npm run translation:validate",
+    "template:list": "node scripts/adopt-template-component.js --list",
+    "template:info": "node scripts/adopt-template-component.js --info",
+    "template:adopt": "node scripts/adopt-template-component.js"
   },
   "dependencies": {
     "@bhplugin/vue3-datatable": "^1.0.1",

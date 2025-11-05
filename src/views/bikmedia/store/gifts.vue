@@ -17,7 +17,7 @@
             </ul>
         </teleport>
 
-        <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+        <div class="row layout-spacing layout-top-spacing" id="cancel-row" style="--columns:6">
             <div class="col-lg-12">
                 <div class="panel-body searchable-container" :class="[grid_type]">
                     <div class="row">
@@ -54,7 +54,7 @@
                                         <line x1="8" y1="12" x2="16" y2="12"></line>
                                     </svg>
                                     <span class="ms-1">{{ $t('bikmedia.actions.new') }} {{ $t('bikmedia.store.gifts')
-                                    }}</span>
+                                        }}</span>
                                 </button>
 
                                 <!-- Filters Dropdown -->
@@ -73,14 +73,11 @@
                                         <li class="mb-3">
                                             <label class="form-label">{{ $t('bikmedia.filters.giftType') }}</label>
                                             <select class="form-select"
-                                                :value="filters.type === null ? '' : filters.type"
+                                                :value="filters.filter === null ? '' : filters.filter"
                                                 @change="onTypeFilterChange">
                                                 <option value="">{{ $t('bikmedia.filters.allTypes') }}</option>
-                                                <option value="0">{{ $t('bikmedia.types.gift.default') }}</option>
-                                                <option value="1">{{ $t('bikmedia.types.gift.standard') }}</option>
-                                                <option value="2">{{ $t('bikmedia.types.gift.premium') }}</option>
-                                                <option value="3">{{ $t('bikmedia.types.gift.video') }}</option>
-                                                <option value="4">{{ $t('bikmedia.types.gift.special') }}</option>
+                                                <option v-for="option in giftConfig.filters" :value="option.value"
+                                                    :key="option.value">{{ option.label }}</option>
                                             </select>
                                         </li>
                                         <li class="mb-3">
@@ -163,6 +160,7 @@
 
                     <div v-else class="searchable-items" :class="[grid_type]">
                         <div class="items items-header-section">
+
                             <div class="item-content">
                                 <div class="">
                                     <h4>{{ $t('bikmedia.table.headers.gift') }}</h4>
@@ -193,7 +191,7 @@
                                     <img :src="gift.icon || gift.img || defaultAvatar" alt="gift"
                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
                                     <div class="user-meta-info">
-                                        <div class="d-flex align-items-center gap-2">
+                                        <div class="">
                                             <p class="user-name mb-0">{{ gift.name || 'N/A' }}</p>
                                             <span v-if="gift.icons && gift.icons.length" class="badge bg-secondary">{{
                                                 gift.icons.length }}</span>
@@ -227,10 +225,11 @@
                                     <p class="usr-ph-no">{{ gift.lvl || 0 }}</p>
                                 </div>
 
-                                <div class="d-flex justify-content-end">
+                                <div class="">
 
                                     <label class="switch s-icons s-outline s-outline-primary mb-4 me-2">
-                                        <input @change="handelChangeLiveServere($event, gift)" type="checkbox" />
+                                        <input @change="handelChangeLiveServere($event, gift)" :checked="gift.mark == 7"
+                                            type="checkbox" />
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -355,7 +354,7 @@ import { sanitizeInput, sanitizeObject } from '/src/utils/sanitize.js';
 import defaultAvatar from '/src/assets/images/profile-30.png';
 import SmartIcon from '@/views/bikmedia/components/SmartIcon.vue';
 import SubGiftCarousel from '@/views/bikmedia/components/SubGiftCarousel.vue';
-
+import giftConfig from '@/config/entities/gift.config';
 import { useMeta } from "/src/composables/use-meta";
 const { t } = useI18n();
 useMeta({ title: t('bikmedia.pages.gifts.title') });
@@ -382,7 +381,7 @@ let searchTimeout = null;
 const filters = ref({
     lang: "en",
     search: "",
-    type: null, // null for API, will display as "All Types" in select
+    filter: null, // null for API, will display as "All Types" in select
     limit: 25,
     p: 1
 });
@@ -444,8 +443,8 @@ const fetchGifts = async () => {
         };
 
         // Only include type if it's not null
-        if (filters.value.type !== null && filters.value.type !== undefined) {
-            requestParams.type = filters.value.type;
+        if (filters.value.filter !== null && filters.value.filter !== undefined) {
+            requestParams.filter = filters.value.filter;
         }
 
         // TODO: BACKEND ISSUE - The type filter is not working correctly on the API side
@@ -455,7 +454,7 @@ const fetchGifts = async () => {
         // Please fix the backend API to properly filter by type parameter
 
         console.log('Fetching gifts with params:', requestParams);
-        console.log('Current filters.value.type:', filters.value.type, 'Type:', typeof filters.value.type);
+        console.log('Current filters.value.type:', filters.value.filter, 'Type:', typeof filters.value.filter);
 
         const response = await giftService.getAll(requestParams);
 
@@ -530,17 +529,17 @@ const onTypeFilterChange = async (event) => {
 
     // Convert empty string to null for API, otherwise convert to number
     if (selectedValue === '') {
-        filters.value.type = null;
+        filters.value.filter = null;
     } else {
-        filters.value.type = Number(selectedValue);
+        filters.value.filter = Number(selectedValue);
     }
 
-    console.log("After conversion, filter type is:", filters.value.type);
+    console.log("After conversion, filter type is:", filters.value.filter);
 
     filters.value.p = 1; // Reset to first page
 
     await nextTick();
-    console.log("After nextTick, filter type is:", filters.value.type);
+    console.log("After nextTick, filter type is:", filters.value.filter);
 
     fetchGifts();
 };
@@ -631,11 +630,8 @@ const fetchSubGifts = async (id) => {
     subgiftsLoading.value[id] = true;
     try {
         subgiftsError.value[id] = false;
-        const { item: { list } } = await giftService.getById(id);
-        console.log("Item form sercice", list)
-        const one = list?.find?.(g => g.id === Number(id)) || item?.one || item || {};
-        console.log("helloe m => ", one)
-        subgifts.value[id] = one?.icons || [];
+        const { item } = await giftService.getById(id);
+        subgifts.value[id] = item?.icons || [];
     } catch (e) {
         console.error('Failed to fetch sub-gifts:', e);
         subgiftsError.value[id] = true;
@@ -664,7 +660,8 @@ const handelChangeLiveServere = async (event, gift) => {
 
     const _chekced = event.target?.checked;
 
-    gift.goLiveAllServer = Boolean(_chekced);
+    gift.mark = _chekced ? 7 : 0;
+    // gift.goLiveAllServer = Boolean(_chekced);
 
     const response = await giftService.update(gift.id, gift);
 

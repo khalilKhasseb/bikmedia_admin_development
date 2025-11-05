@@ -100,7 +100,6 @@ const login = async (username, password, rememberMe = false, lang = 'ar') => {
     try {
         // Clear both storages to ensure clean state for each login attempt
         clearAuthStorage();
-        console.log(username,password)
         const response = await http.post('/auth/login', {
             username: username,
             password: password,
@@ -119,16 +118,22 @@ const login = async (username, password, rememberMe = false, lang = 'ar') => {
             // for now we will return only the user in the user object
             // and the user object is not on local storage
             // we need to handle storage of the user data
-            const { user } = response.data;
+            // console.log("statment" , user && typeof user === 'object' && !Array.isArray(user) && token);
+            console.log('Login response:', response.data);
+            const { data:{user,token} } = response.data;
+            // const {token} = response.data;
+            console.log('User:', user);
+            console.log('Token:', token);
             
             // Check if user is a valid object (not an empty array)
-            if (user && typeof user === 'object' && !Array.isArray(user) && user.token) {
+            if (user && typeof user === 'object' && !Array.isArray(user) && token) {
                 // Use dynamic storage selection based on rememberMe preference
                 const storage = rememberMe ? localStorage : sessionStorage;
                 storage.setItem('user', JSON.stringify(user));
                 
                 // Encrypt token before storing
-                const encryptedToken = encryptToken(response.data.user.token);
+                const encryptedToken = encryptToken(token);
+                console.log('Encrypted token:', encryptedToken);
                 storage.setItem('authToken', encryptedToken);
                 
                 // Handle token expiration for persistent logins

@@ -14,20 +14,21 @@
         <div class="panel-body">
           <div class="row" :class="getSectionRowClass(section.name)">
             <template v-for="fieldName in (section.fields || [])" :key="fieldName">
-              <DynamicFieldRenderer
-                v-if="getFieldMeta(fieldName)"
-                :fieldConfig="getFieldMeta(fieldName)"
-                :entityConfig="entityConfig"  
-                :modelValue="modelValue"
-                :isSubmitted="isSubmitted"
-                :errors="errors"
-                :existingData="existingData"
-                :selectedLocale="selectedLocale"
-                :mode="mode"
-                :showAllLocales="showAllLocales"
-                :layoutMode="layoutMode"
-                @update:modelValue="$emit('update:modelValue', $event)"
-              />
+              <div v-if="getFieldMeta(fieldName)" :class="getFieldColumnClass(section, fieldName)">
+                <DynamicFieldRenderer
+                  :fieldConfig="getFieldMeta(fieldName)"
+                  :entityConfig="entityConfig"  
+                  :modelValue="modelValue"
+                  :isSubmitted="isSubmitted"
+                  :errors="errors"
+                  :existingData="existingData"
+                  :selectedLocale="selectedLocale"
+                  :mode="mode"
+                  :showAllLocales="showAllLocales"
+                  :layoutMode="layoutMode"
+                  @update:modelValue="$emit('update:modelValue', $event)"
+                />
+              </div>
             </template>
           </div>
         </div>
@@ -43,10 +44,9 @@
         :description="section.description || ''"
       >
         <div class="row">
-          <div class="col-12">
-            <template v-for="fieldName in (section.fields || [])" :key="fieldName">
+          <template v-for="fieldName in (section.fields || [])" :key="fieldName">
+            <div v-if="getFieldMeta(fieldName)" :class="getFieldColumnClass(section, fieldName)">
               <DynamicFieldRenderer
-                v-if="getFieldMeta(fieldName)"
                 :fieldConfig="getFieldMeta(fieldName)"
                 :entityConfig="entityConfig"
                 :modelValue="modelValue"
@@ -59,8 +59,8 @@
                 :layoutMode="layoutMode"
                 @update:modelValue="$emit('update:modelValue', $event)"
               />
-            </template>
-          </div>
+            </div>
+          </template>
         </div>
       </FormSection>
     </template>
@@ -70,7 +70,7 @@
 <script setup>
 import FormSection from '@/components/forms/FormSection.vue';
 import DynamicFieldRenderer from '@/views/bikmedia/components/DynamicFieldRenderer.vue';
-import { getFieldConfigByName } from '@/config/entities/helpers.js';
+import { getFieldConfigByName, evaluateFieldCondition } from '@/config/entities/helpers.js';
 
 const props = defineProps({
   entityConfig: { type: Object, required: true },
@@ -87,7 +87,12 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const getFieldMeta = (name) => {
-  return getFieldConfigByName(props.entityConfig, name);
+  const field = getFieldConfigByName(props.entityConfig, name);
+  if (!field) return null;
+  
+  // Check if field should be shown based on condition
+  const shouldShow = evaluateFieldCondition(field.config?.condition, props.modelValue);
+  return shouldShow ? field : null;
 };
 
 const getSectionClass = (sectionName) => {
@@ -105,6 +110,32 @@ const getSectionRowClass = (sectionName) => {
     return ''; // Media section uses custom layout in DynamicFieldRenderer
   }
   return '';
+};
+
+/**
+ * Get Bootstrap column class based on columnsPerRow
+ * @param {Object} section - Form section configuration
+ * @param {string} fieldName - Field name to check for special handling
+ * @returns {string} Bootstrap column class
+ */
+const getFieldColumnClass = (section, fieldName) => {
+  const field = getFieldMeta(fieldName);
+  const isFileField = field?.config?.type === 'file';
+  
+  // Check if section has fileColumnsPerRow for file fields (takes priority)
+  if (isFileField && section.fileColumnsPerRow) {
+    const colWidth = Math.floor(12 / section.fileColumnsPerRow);
+    return `col-md-${colWidth} col-sm-12 mb-3`;
+  }
+  
+  // Default: use columnsPerRow or default to 1 (full width)
+  // This applies to both regular fields and file fields
+  const columnsPerRow = section.columnsPerRow || 1;
+  const colWidth = Math.floor(12 / columnsPerRow);
+  
+  // Return responsive column classes
+  // Use md breakpoint for better responsiveness, sm for mobile stacking
+  return `col-md-${colWidth} col-sm-12 mb-3`;
 };
 </script>
 

@@ -32,7 +32,7 @@ export default new createStore({
             i18n.global.locale.value = value;
             localStorage.setItem("i18n_locale", value);
             state.locale = value;
-        },
+        }, 
 
         toggleDarkMode(state, value) {
             //light|dark|system

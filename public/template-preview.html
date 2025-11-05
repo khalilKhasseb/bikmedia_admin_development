@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Component Preview - Cork Admin</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border: 2px solid #e0e6ed;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .stats {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .component-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .card-features {
+            margin-bottom: 15px;
+        }
+
+        .features-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .feature-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .card-footer {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .dependencies {
+            margin-bottom: 15px;
+        }
+
+        .dependencies-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .dependency-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .dependency-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #bbdefb;
+        }
+
+        .no-deps {
+            color: #28a745;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .usage-example {
+            margin-top: 10px;
+            padding: 12px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #856404;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            opacity: 0.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .adoption-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .adoption-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .adoption-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Template Component Preview</h1>
+            <p>Explore and adopt pre-built UI components from the Cork Admin Template</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search components by name, description, or features...">
+            </div>
+            <div class="category-filter" id="categoryFilter">
+                <button class="category-btn active" data-category="all">All</button>
+            </div>
+            <div class="stats">
+                <span id="componentCount">0</span> components
+            </div>
+        </div>
+
+        <div class="component-grid" id="componentGrid">
+            <!-- Components will be loaded here -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>No components found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <!-- Modal for component details -->
+    <div class="modal" id="componentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Component Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Template components data (embedded for standalone functionality)
+        const templateComponents = {
+            // Apps Category
+            'Calendar': {
+                path: 'src/views/apps/calendar.vue',
+                category: 'apps',
+                dependencies: ['@fullcalendar/core', '@fullcalendar/daygrid', '@fullcalendar/interaction', '@fullcalendar/timegrid', '@fullcalendar/vue3'],
+                assets: ['src/assets/sass/apps/calendar.scss'],
+                description: 'Full-featured calendar with event management, drag & drop, and multiple views',
+                features: ['Event creation/editing', 'Drag & drop events', 'Month/Week/Day views', 'Event filtering'],
+                usageExample: 'Perfect for scheduling systems, appointment booking, or event management'
+            },
+            'Chat': {
+                path: 'src/views/apps/chat.vue',
+                category: 'apps',
+                dependencies: ['vue3-perfect-scrollbar'],
+                assets: ['src/assets/sass/apps/chat.scss'],
+                description: 'Real-time chat interface with user list, message history, and file sharing',
+                features: ['Message threads', 'User status indicators', 'File attachments', 'Search functionality'],
+                usageExample: 'Ideal for customer support, team communication, or messaging features'
+            },
+            'Contacts': {
+                path: 'src/views/apps/contacts.vue',
+                category: 'apps',
+                dependencies: ['@suadelabs/vue3-multiselect'],
+                assets: ['src/assets/sass/apps/contacts.scss'],
+                description: 'Contact management system with search, filtering, and detailed contact cards',
+                features: ['Contact search', 'Category filtering', 'Contact details modal', 'Bulk actions'],
+                usageExample: 'Great for CRM systems, address books, or customer databases'
+            },
+            'Scrumboard': {
+                path: 'src/views/apps/scrumboard.vue',
+                category: 'apps',
+                dependencies: ['vue-draggable-next'],
+                assets: ['src/assets/sass/apps/scrumboard.scss'],
+                description: 'Kanban-style project management board with drag & drop functionality',
+                features: ['Drag & drop cards', 'Multiple columns', 'Task assignment', 'Progress tracking'],
+                usageExample: 'Perfect for project management, task tracking, or workflow visualization'
+            },
+
+            // Authentication Category
+            'LoginBoxed': {
+                path: 'src/views/auth/login_boxed.vue',
+                category: 'auth',
+                dependencies: [],
+                assets: ['src/assets/sass/authentication/auth-boxed.scss'],
+                description: 'Boxed login form with modern design and validation',
+                features: ['Form validation', 'Remember me option', 'Forgot password link', 'Social login buttons'],
+                usageExample: 'Alternative login design for applications requiring boxed layout'
+            },
+            'RegisterBoxed': {
+                path: 'src/views/auth/register_boxed.vue',
+                category: 'auth',
+                dependencies: [],
+                assets: ['src/assets/sass/authentication/auth-boxed.scss'],
+                description: 'Boxed registration form with terms acceptance and validation',
+                features: ['Multi-field validation', 'Terms acceptance', 'Password strength indicator', 'Social registration'],
+                usageExample: 'User registration with boxed design layout'
+            },
+
+            // Charts Category
+            'ApexCharts': {
+                path: 'src/views/charts/apex_chart.vue',
+                category: 'charts',
+                dependencies: ['apexcharts', 'vue3-apexcharts'],
+                assets: [],
+                description: 'Comprehensive chart library with multiple chart types',
+                features: ['Line charts', 'Area charts', 'Bar charts', 'Donut charts', 'Mixed charts', 'Interactive tooltips'],
+                usageExample: 'Perfect for dashboards, analytics, and data visualization'
+            },
+
+            // Components Category
+            'Accordions': {
+                path: 'src/views/components/accordions.vue',
+                category: 'components',
+                dependencies: [],
+                assets: ['src/assets/sass/components/tabs-accordian/custom-accordions.scss'],
+                description: 'Collapsible content panels with various styles',
+                features: ['Multiple accordion styles', 'Icon indicators', 'Smooth animations', 'Nested accordions'],
+                usageExample: 'FAQ sections, content organization, or space-saving layouts'
+            },
+            'Carousel': {
+                path: 'src/views/components/carousel.vue',
+                category: 'components',
+                dependencies: ['vue3-carousel'],
+                assets: ['src/assets/sass/components/custom-carousel.scss'],
+                description: 'Image and content carousel with navigation controls',
+                features: ['Auto-play', 'Navigation arrows', 'Dot indicators', 'Touch/swipe support'],
+                usageExample: 'Image galleries, product showcases, or featured content'
+            },
+            'Modals': {
+                path: 'src/views/components/modals.vue',
+                category: 'components',
+                dependencies: [],
+                assets: ['src/assets/sass/components/custom-modal.scss'],
+                description: 'Various modal dialog styles and sizes',
+                features: ['Multiple sizes', 'Animation effects', 'Custom styling', 'Video modals'],
+                usageExample: 'Confirmations, forms, content display, or media playback'
+            },
+            'Timeline': {
+                path: 'src/views/components/timeline.vue',
+                category: 'components',
+                dependencies: [],
+                assets: ['src/assets/sass/components/timeline/custom-timeline.scss'],
+                description: 'Timeline component for displaying chronological events',
+                features: ['Vertical timeline', 'Event markers', 'Custom icons', 'Responsive design'],
+                usageExample: 'Project milestones, company history, or process flows'
+            },
+
+            // Forms Category
+            'FormWizard': {
+                path: 'src/views/forms/wizards.vue',
+                category: 'forms',
+                dependencies: ['vue3-form-wizard'],
+                assets: [],
+                description: 'Multi-step form wizard with validation and navigation',
+                features: ['Step navigation', 'Form validation', 'Progress indicator', 'Custom styling'],
+                usageExample: 'Registration processes, surveys, or complex data entry'
+            },
+            'FileUpload': {
+                path: 'src/views/forms/fileupload.vue',
+                category: 'forms',
+                dependencies: ['file-upload-with-preview'],
+                assets: ['src/assets/sass/forms/file-upload-with-preview.min.css'],
+                description: 'File upload component with drag & drop and preview',
+                features: ['Drag & drop upload', 'File preview', 'Multiple file support', 'Progress tracking'],
+                usageExample: 'Document uploads, image galleries, or media management'
+            },
+            'DateRangePicker': {
+                path: 'src/views/forms/date_range_picker.vue',
+                category: 'forms',
+                dependencies: ['vue-flatpickr-component'],
+                assets: ['src/assets/sass/forms/custom-flatpickr.css'],
+                description: 'Date and time picker with range selection',
+                features: ['Date range selection', 'Time picker', 'Custom formatting', 'Localization support'],
+                usageExample: 'Booking systems, report filtering, or event scheduling'
+            },
+
+            // Tables Category
+            'DataTableBasic': {
+                path: 'src/views/tables/vue3-datatable/basic.vue',
+                category: 'tables',
+                dependencies: ['@bhplugin/vue3-datatable'],
+                assets: ['src/assets/sass/tables/table-basic.scss'],
+                description: 'Basic data table with sorting and pagination',
+                features: ['Column sorting', 'Pagination', 'Row selection', 'Responsive design'],
+                usageExample: 'Simple data display, user lists, or basic reporting'
+            },
+            'DataTableAdvanced': {
+                path: 'src/views/tables/vue3-datatable/advance.vue',
+                category: 'tables',
+                dependencies: ['@bhplugin/vue3-datatable'],
+                assets: ['src/assets/sass/tables/table-custom.scss'],
+                description: 'Advanced data table with filtering, search, and export',
+                features: ['Global search', 'Column filtering', 'Export functionality', 'Custom actions'],
+                usageExample: 'Complex data management, reporting, or admin interfaces'
+            },
+
+            // Pages Category
+            'Error404': {
+                path: 'src/views/pages/error404.vue',
+                category: 'pages',
+                dependencies: [],
+                assets: ['src/assets/sass/pages/error/style-400.scss'],
+                description: 'Custom 404 error page with navigation options',
+                features: ['Custom error message', 'Navigation links', 'Search functionality', 'Responsive design'],
+                usageExample: 'Handle missing pages, broken links, or unauthorized access'
+            },
+            'FAQ': {
+                path: 'src/views/pages/faq.vue',
+                category: 'pages',
+                dependencies: [],
+                assets: ['src/assets/sass/pages/faq/faq.scss'],
+                description: 'Frequently Asked Questions page with search',
+                features: ['Question search', 'Category filtering', 'Expandable answers', 'Contact support'],
+                usageExample: 'Customer support, product documentation, or help sections'
+            },
+            'ContactUs': {
+                path: 'src/views/pages/contact_us.vue',
+                category: 'pages',
+                dependencies: [],
+                assets: ['src/assets/sass/pages/contact_us.scss'],
+                description: 'Contact form with location map and company information',
+                features: ['Contact form', 'Location map', 'Company details', 'Social media links'],
+                usageExample: 'Business contact pages, support requests, or location information'
+            }
+        };
+
+        // Global variables
+        let currentFilter = 'all';
+        let currentSearch = '';
+        let filteredComponents = { ...templateComponents };
+
+        // Initialize the preview system
+        function init() {
+            setupCategories();
+            setupEventListeners();
+            renderComponents();
+        }
+
+        // Setup category filter buttons
+        function setupCategories() {
+            const categories = [...new Set(Object.values(templateComponents).map(c => c.category))].sort();
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            categories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                btn.dataset.category = category;
+                btn.onclick = () => filterByCategory(category);
+                categoryFilter.appendChild(btn);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase();
+                applyFilters();
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('componentModal').addEventListener('click', (e) => {
+                if (e.target.id === 'componentModal') {
+                    closeModal();
+                }
+            });
+        }
+
+        // Filter components by category
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            applyFilters();
+        }
+
+        // Apply current filters
+        function applyFilters() {
+            filteredComponents = {};
+
+            Object.entries(templateComponents).forEach(([name, component]) => {
+                // Category filter
+                if (currentFilter !== 'all' && component.category !== currentFilter) {
+                    return;
+                }
+
+                // Search filter
+                if (currentSearch) {
+                    const searchableText = [
+                        name,
+                        component.description,
+                        ...component.features,
+                        component.usageExample
+                    ].join(' ').toLowerCase();
+
+                    if (!searchableText.includes(currentSearch)) {
+                        return;
+                    }
+                }
+
+                filteredComponents[name] = component;
+            });
+
+            renderComponents();
+        }
+
+        // Render components grid
+        function renderComponents() {
+            const grid = document.getElementById('componentGrid');
+            const noResults = document.getElementById('noResults');
+            const componentCount = document.getElementById('componentCount');
+
+            const count = Object.keys(filteredComponents).length;
+            componentCount.textContent = count;
+
+            if (count === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            grid.innerHTML = Object.entries(filteredComponents)
+                .map(([name, component]) => createComponentCard(name, component))
+                .join('');
+        }
+
+        // Create component card HTML
+        function createComponentCard(name, component) {
+            const dependencyTags = component.dependencies.length > 0
+                ? component.dependencies.map(dep => `<span class="dependency-tag">${dep}</span>`).join('')
+                : '<span class="no-deps">No dependencies required</span>';
+
+            const featureTags = component.features
+                .map(feature => `<span class="feature-tag">${feature}</span>`)
+                .join('');
+
+            return `
+                <div class="component-card">
+                    <div class="card-header">
+                        <div class="card-category">${component.category}</div>
+                        <h3 class="card-title">${name}</h3>
+                        <p class="card-description">${component.description}</p>
+                        
+                        <div class="card-features">
+                            <div class="features-title">Features:</div>
+                            <div class="features-list">${featureTags}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <div class="dependencies">
+                            <div class="dependencies-title">Dependencies:</div>
+                            <div class="dependency-list">${dependencyTags}</div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn btn-primary" onclick="showComponentDetails('${name}')">
+                                📋 View Details
+                            </button>
+                            <button class="btn btn-outline" onclick="copyComponentPath('${component.path}')">
+                                📁 Copy Path
+                            </button>
+                        </div>
+                        
+                        <div class="usage-example">
+                            <strong>Use Case:</strong> ${component.usageExample}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show component details in modal
+        function showComponentDetails(componentName) {
+            const component = templateComponents[componentName];
+            if (!component) return;
+
+            const modal = document.getElementById('componentModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = `${componentName} - Component Details`;
+
+            const installCommand = component.dependencies.length > 0
+                ? `npm install ${component.dependencies.join(' ')}`
+                : 'No additional dependencies required';
+
+            const assetImports = component.assets.length > 0
+                ? component.assets.map(asset => `@import '${asset}';`).join('\n')
+                : 'No additional assets required';
+
+            modalBody.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <h3>📍 Component Location</h3>
+                    <div class="code-block">${component.path}</div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3>📦 Installation</h3>
+                    <div class="code-block">${installCommand}</div>
+                </div>
+
+                ${component.assets.length > 0 ? `
+                <div style="margin-bottom: 20px;">
+                    <h3>🎨 Required Assets</h3>
+                    <div class="code-block">${assetImports}</div>
+                </div>
+                ` : ''}
+
+                <div style="margin-bottom: 20px;">
+                    <h3>👁️ Interactive Preview</h3>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 10px 0;">
+                        <button onclick="showInteractivePreview('${componentName}')" class="btn btn-primary">
+                            🎮 Launch Interactive Preview
+                        </button>
+                        <p style="margin: 10px 0 0 0; font-size: 14px; color: #666;">
+                            Experience the component with live interactions and sample data
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3>🚀 Adoption Steps</h3>
+                    <ol class="adoption-steps">
+                        <li>Copy the component file from <code>${component.path}</code> to your desired location</li>
+                        ${component.dependencies.length > 0 ? `<li>Install required dependencies: <code>${installCommand}</code></li>` : ''}
+                        ${component.assets.length > 0 ? `<li>Import required SCSS files in your component or main stylesheet</li>` : ''}
+                        <li>Import and register the component in your Vue application</li>
+                        <li>Customize the component props and styling as needed</li>
+                        <li>Test the component in your application context</li>
+                    </ol>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3>✨ Features</h3>
+                    <ul style="list-style: disc; margin-left: 20px;">
+                        ${component.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3>💡 Usage Example</h3>
+                    <p style="background: #f8f9fa; padding: 15px; border-radius: 6px; border-left: 4px solid #667eea;">
+                        ${component.usageExample}
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3>🔗 Quick Actions</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="copyComponentPath('${component.path}')">
+                            📁 Copy File Path
+                        </button>
+                        <button class="btn btn-secondary" onclick="copyInstallCommand('${installCommand}')">
+                            📦 Copy Install Command
+                        </button>
+                        <a href="/${component.path}" target="_blank" class="btn btn-outline">
+                            👁️ View Source
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('componentModal').classList.remove('active');
+        }
+
+        // Copy component path to clipboard
+        function copyComponentPath(path) {
+            navigator.clipboard.writeText(path).then(() => {
+                showToast('Component path copied to clipboard!');
+            });
+        }
+
+        // Copy install command to clipboard
+        function copyInstallCommand(command) {
+            navigator.clipboard.writeText(command).then(() => {
+                showToast('Install command copied to clipboard!');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 6px;
+                z-index: 10000;
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideIn 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        // Show interactive preview in new window
+        function showInteractivePreview(componentName) {
+            const component = templateComponents[componentName];
+            if (!component) return;
+
+            // Generate preview HTML with interactive functionality
+            const previewHTML = generateInteractivePreview(componentName, component);
+            
+            // Open in new window
+            const previewWindow = window.open('', '_blank', 'width=1000,height=700,scrollbars=yes,resizable=yes');
+            previewWindow.document.write(previewHTML);
+            previewWindow.document.close();
+        }
+
+        // Generate interactive preview HTML
+        function generateInteractivePreview(componentName, component) {
+            // This would use the same logic as the Vue component's preview generator
+            // For now, we'll create a simple interactive preview
+            return `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${componentName} - Interactive Preview</title>
+                    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
+                    <style>
+                        body {
+                            font-family: 'Nunito', sans-serif;
+                            margin: 0;
+                            padding: 20px;
+                            background: #f8f9fa;
+                        }
+                        .preview-header {
+                            background: white;
+                            padding: 20px;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        }
+                        .preview-content {
+                            background: white;
+                            padding: 20px;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        }
+                        .component-info {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 15px;
+                        }
+                        .component-title {
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            color: #333;
+                        }
+                        .close-btn {
+                            background: #dc3545;
+                            color: white;
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                        }
+                        .component-description {
+                            color: #666;
+                            margin-bottom: 20px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="preview-header">
+                        <div class="component-info">
+                            <h1 class="component-title">${componentName} - Interactive Preview</h1>
+                            <button class="close-btn" onclick="window.close()">Close Preview</button>
+                        </div>
+                        <p class="component-description">${component.description}</p>
+                        <div style="font-size: 14px; color: #666;">
+                            <strong>Features:</strong> ${component.features.join(', ')}
+                        </div>
+                    </div>
+                    <div class="preview-content">
+                        <div id="interactiveDemo">
+                            <p style="text-align: center; color: #666; padding: 40px;">
+                                🎮 Interactive preview for ${componentName} would be rendered here.<br>
+                                This would include live functionality, sample data, and user interactions.
+                            </p>
+                        </div>
+                    </div>
+                    <script>
+                        // Add component-specific interactive functionality here
+                        console.log('Interactive preview for ${componentName} loaded');
+                        
+                        // Example: Add some basic interactivity
+                        document.getElementById('interactiveDemo').innerHTML = \`
+                            <div style="text-align: center; padding: 20px;">
+                                <h3>🎨 ${componentName} Preview</h3>
+                                <p style="margin: 15px 0;">${component.description}</p>
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                                    <strong>Key Features:</strong>
+                                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                                        \${component.features.map(feature => \`<li>\${feature}</li>\`).join('')}
+                                    </ul>
+                                </div>
+                                <div style="background: #e3f2fd; padding: 15px; border-radius: 6px; border-left: 4px solid #2196f3;">
+                                    <strong>Usage Example:</strong><br>
+                                    ${component.usageExample}
+                                </div>
+                                <button onclick="alert('This would demonstrate the component functionality!')" 
+                                        style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 15px;">
+                                    🚀 Try Component Features
+                                </button>
+                            </div>
+                        \`;
+                    </script>
+                </body>
+                </html>
+            `;
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

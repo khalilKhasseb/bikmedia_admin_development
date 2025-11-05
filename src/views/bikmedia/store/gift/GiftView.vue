@@ -93,23 +93,7 @@
                   </div>
                 </FormSection>
 
-                <!-- Section 2: Description -->
-                <FormSection :title="$t('bikmedia.forms.description')" :description="$t('bikmedia.forms.description')">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-3">
-                        <label class="form-label text-muted">
-                          {{ $t('bikmedia.forms.description') }}
-                          <span v-if="showDescriptionFallback" class="badge bg-light text-muted ms-2"
-                            style="font-weight: normal;">Using default locale</span>
-                        </label>
-                        <p class="form-control-plaintext" :dir="isRTL ? 'rtl' : 'ltr'">
-                          {{ displayDescription || (isRTL ? '(غير متوفر)' : '(Not available)') }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </FormSection>
+               
 
                 <!-- Section 3: Settings (Non-Translatable Fields) -->
                 <FormSection :title="$t('bikmedia.forms.status')" description="Gift properties and requirements">
@@ -454,12 +438,15 @@ const loadGift = async (lang = null) => {
       // Attempt locale-driven fetch when API supports it
       const response = await giftService.getById(giftId, locale);
 
+      console.log("Response in single and single transform" , response)
+
       // Verify response shape to ensure fallback triggers if invalid
       if (!response || !response.item) {
         throw new Error('Invalid getById() response');
       }
 
-      gift.value = response.item.list.find(g => g.id === Number(giftId));
+      // transformSingleResponse returns a single item, not an array
+      gift.value = response.item;
       currentDataLocale.value = locale;
       console.log('Gift loaded for view:', response.item);
     } catch (getByIdError) {

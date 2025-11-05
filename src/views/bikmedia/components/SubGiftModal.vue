@@ -31,14 +31,15 @@
             <label class="form-label">{{ $t('bikmedia.modals.subGift.iconFile') }}</label>
             <div class="custom-file">
               <input 
-                id="iconFile" 
+                id="SubGiftIconFile" 
                 type="file" 
                 class="custom-file-input" 
                 accept="image/*,.svga,.svg"
+                @click="clearFile"
                 @change="handleFileChange"
                 :class="{ 'is-invalid': isSubmitted && !form.iconData?.file }"
               />
-              <label for="iconFile" :data-browse="$t('bikmedia.actions.search')" class="custom-file-label">
+              <label @click="clearFile" for="SubGiftIconFile" :data-browse="$t('bikmedia.actions.search')" class="custom-file-label">
                 <span class="d-block form-file-text">{{ form.iconData?.file ? form.iconData.file.name : $t('bikmedia.modals.subGift.chooseFile') }}</span>
               </label>
             </div>
@@ -107,7 +108,11 @@ function handleClose() {
 }
 
 function handleFileChange(event) {
+  console.log('event => ',event);
+  
   const file = event.target.files[0];
+  console.log('file changed => ',file);
+
   if (file) {
     // Check file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
@@ -122,6 +127,11 @@ function handleFileChange(event) {
   } else {
     form.iconData = { file: null, url: '' };
   }
+}
+
+function clearFile() {
+  console.log("Clicked")
+  form.iconData = { file: null, url: '' };
 }
 
 async function handleSubmit() {

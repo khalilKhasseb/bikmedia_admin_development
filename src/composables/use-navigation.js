@@ -103,11 +103,20 @@ const navigationConfig = [
     },
 
     // VIP OPtions
+    // {
+    //     id:"vipopt",
+    //     type:"single",
+    //     label:"bikmedia.navigation.menu.vipopt",
+    //     to:"/vipopt"
+    // },
+
+    // VIP Packages
     {
-        id:"vipopt",
+        id:"vip-packages",
         type:"single",
-        label:"bikmedia.navigation.menu.vipopt",
-        to:"/vipopt"
+        label:"bikmedia.navigation.menu.vipPackages",
+        to:"/vip",
+        icon:icons.airplay
     }
 
     // ============================================

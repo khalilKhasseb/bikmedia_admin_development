@@ -224,10 +224,11 @@ const backgroundPrefetchOtherLocales = async (activeLocale, levelId) => {
     for (const locale of others) {
       try {
         const resp = await levelService.getById(levelId, locale);
-        const item = resp?.item?.list?.find(l => l.id === Number(levelId)) || resp?.data?.one || null;
-        if (item && typeof item.name === 'string') {
+        const item = resp?.item;
+        // Map nested level.name to flat nameEN/nameAR
+        if (item && item.level && typeof item.level.name === 'string') {
           const key = `name${locale.toUpperCase()}`;
-          if (!formData.value[key]) formData.value[key] = item.name;
+          if (!formData.value[key]) formData.value[key] = item.level.name;
         }
       } catch (e) {
         // ignore individual locale failures
@@ -255,7 +256,7 @@ const loadLevel = async (lang = null) => {
     try {
       // Preferred: fetch by id with locale
       const response = await levelService.getById(levelId, locale);
-      foundLevel = response?.item?.list?.find(l => l.id === Number(levelId)) || response?.data?.one || null;
+      foundLevel = response?.item
       if (!foundLevel) throw new Error('Invalid getById() response');
     } catch (e) {
       // Fallback to getAll with locale and filter
@@ -271,13 +272,26 @@ const loadLevel = async (lang = null) => {
 
     // Initialize form with existing data to populate non-translatables
     const prevModel = formData.value;
-    formData.value = initializeFormData(levelConfig, foundLevel);
+    
+    // Map nested response structure to flat form structure
+    const flattenedLevel = {
+      id: foundLevel.id,
+      lid: foundLevel.lid,
+      lvl: foundLevel.lvl,
+      target: foundLevel.target,
+      // Map nested level.icon fields to flat structure
+      icon: foundLevel.level?.icon || null,
+      icon_disable: foundLevel.level?.icon_disable || null,
+      icon_anim: foundLevel.level?.icon_anim || null
+    };
+    
+    formData.value = initializeFormData(levelConfig, flattenedLevel);
 
-    // Map unsuffixed localized fields from response into active locale buffers
+    // Map nested level.name to flat nameEN/nameAR for active locale
     const suffix = selectedLocale.value.toUpperCase();
-    if (typeof foundLevel.name === 'string') {
+    if (foundLevel.level && typeof foundLevel.level.name === 'string') {
       const key = `name${suffix}`;
-      formData.value[key] = foundLevel.name;
+      formData.value[key] = foundLevel.level.name;
     }
 
     // Preserve other locale buffers if previously edited
@@ -345,9 +359,8 @@ const handleDelete = async () => {
     return;
   }
 
-  const result = await bikMediaNotifications.level.confirmDelete(
-    level.value.name || t('bikmedia.components.subGiftCard.unnamedLevel')
-  );
+  const levelName = level.value.level?.name || `Level ${level.value.lvl}` || t('bikmedia.components.subGiftCard.unnamedLevel');
+  const result = await bikMediaNotifications.level.confirmDelete(levelName);
 
   if (result.isConfirmed) {
     await performDelete(level.value.id);
@@ -411,13 +424,16 @@ const handleSubmit = async () => {
       nameAR: formData.value.nameAR
     };
 
-    const cleaned = sanitizeObject(sanitizedData, ['nameEN']);
+    const cleaned = sanitizeObject(sanitizedData, ['nameEN', 'nameAR']);
 
     Object.assign(formData.value, cleaned);
 
-    // Build payload dynamically
+    // Build payload dynamically (flat structure for API)
+    // The payload will contain: id, lid, lvl, target, nameEN, nameAR, icon, icon_disable, icon_anim
     const payload = buildDynamicPayload(levelConfig, formData.value, level.value, 'update', { id: route.params.id, updateStrategy: 'all' });
     const isFormData = payload instanceof FormData;
+    
+    console.log('📤 Submitting payload:', isFormData ? 'FormData' : payload);
 
     // Check if there are any changes
     if (

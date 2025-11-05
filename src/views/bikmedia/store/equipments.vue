@@ -15,7 +15,7 @@
             </ul>
         </teleport>
 
-        <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+        <div class="row layout-spacing layout-top-spacing" id="cancel-row" style="--columns:5">
             <div class="col-lg-12">
                 <div class="panel-body searchable-container" :class="[grid_type]">
                     <div class="row">

@@ -50,7 +50,7 @@ export function transformNobleToVip(nobleData) {
     coin: noble.coin,
     renew_coin: noble.renew_coin || noble.coin, // Fallback to coin if renew_coin not provided
     days: noble.days || 30, // Default to 30 days if not provided
-    icon: noble.icon || `/assets/images/vip-${noble.id}.png`, // Generate default icon path
+    icon: noble.icon || null, // Generate default icon path
     editUrl: `/vip/edit/${noble.id}`,
     privileges: transformPrivilegesList(noble.privileges_list || [], nobleData.privileges || [])
   }));
@@ -92,7 +92,7 @@ export function transformPrivilegesList(privilegesList, allPrivileges) {
   return allPrivileges.map(privilege => {
     const activePrivilege = activePrivilegesMap.get(privilege.id);
     const isActive = activePrivilege !== undefined;
-    
+
     return {
       id: privilege.id,
       name: privilege.name || `privilege_${privilege.id}`,
@@ -130,22 +130,22 @@ export function convertPrivilegeState(state) {
   if (state === null || state === undefined) {
     return false;
   }
-  
+
   // Handle boolean values
   if (typeof state === 'boolean') {
     return state;
   }
-  
+
   // Handle numeric values
   if (typeof state === 'number') {
     return state === 1;
   }
-  
+
   // Handle string values
   if (typeof state === 'string') {
     return state === '1' || state.toLowerCase() === 'true';
   }
-  
+
   // Default to false for any other type
   return false;
 }
@@ -172,17 +172,17 @@ export function convertBooleanToNobleState(isActive) {
   if (typeof isActive === 'boolean') {
     return isActive ? "1" : "0";
   }
-  
+
   // Handle numeric values
   if (typeof isActive === 'number') {
     return isActive === 1 ? "1" : "0";
   }
-  
+
   // Handle string values
   if (typeof isActive === 'string') {
     return (isActive === '1' || isActive.toLowerCase() === 'true') ? "1" : "0";
   }
-  
+
   // Default to "0" for any other type
   return "0";
 }
@@ -212,7 +212,7 @@ export function validateNobleApiResponse(response) {
   }
 
   const { data } = response;
-  
+
   if (typeof data.code !== 'number') {
     throw new Error('Invalid API response: Missing or invalid response code.');
   }
@@ -349,7 +349,7 @@ export function validateUpdatePrivilegeResponse(response) {
   }
 
   const { data } = response;
-  
+
   if (typeof data.code !== 'number') {
     throw new Error('Invalid API response: Missing or invalid response code.');
   }
@@ -363,8 +363,9 @@ export function validateUpdatePrivilegeResponse(response) {
     throw new Error('Invalid API response: Missing or invalid data payload.');
   }
 
-  // Check for success indicator
-  if (data.data.success !== 1) {
-    throw new Error('API Error: Privilege update was not successful.');
-  }
+  // Check for success indicator . 
+  // this check is not needed the APi has no Success parameter to check
+  // if (data.data.success !== 1) {
+  //   throw new Error('API Error: Privilege update was not successful.');
+  // }
 }

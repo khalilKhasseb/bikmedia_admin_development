@@ -181,8 +181,24 @@ export function transformListResponse(response) {
 export function transformSingleResponse(response) {
   const data = response.data || {};
 
+  // Handle different API response structures
+  let item = null;
+  
+  // Check for data.item (already processed by service)
+  if (data.item) {
+    item = data.item;
+  }
+  // Check for data.data as object (single item response)
+  else if (data.data && !Array.isArray(data.data) && typeof data.data === 'object') {
+    item = data.data;
+  }
+  // Fallback to data itself
+  else {
+    item = data;
+  }
+
   return {
-    item: data.data || data.item || data,
+    item,
     raw: response.data
   };
 }

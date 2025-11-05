@@ -54,7 +54,12 @@
             "refresh": "Refresh",
             "reload": "Reload",
             "retry": "Retry",
-            "copy": "Copy"
+            "copy": "Copy",
+            "active": "Active",
+            "saveChanges": "Save Changes",
+            "privileges": "Privileges",
+            "enableAll": "Enable All",
+            "disableAll": "Disable All"
         },
         "navigation": {
             "menu": {
@@ -62,7 +67,8 @@
                 "gifts": "Gifts",
                 "equipment": "Equipment",
                 "levels": "Levels",
-                "vipopt" : "VIP Options"
+                "vipopt": "VIP Options",
+                "vipPackages": "VIP Packages"
             },
             "breadcrumb": {
                 "store": "Store",
@@ -71,7 +77,9 @@
                 "levels": "Levels",
                 "create": "Create",
                 "edit": "Edit",
-                "view": "View"
+                "view": "View",
+                "dashboard": "Dashboard",
+                "vipPackages": "VIP Packages"
             }
         },
         "forms": {
@@ -130,7 +138,7 @@
                 "description": "Description",
                 "price": "Price",
                 "category": "Category",
-                "goallserver":"Go Live All Server"
+                "goallserver": "Go Live All Server"
             },
             "actions": {
                 "view": "View",
@@ -156,15 +164,10 @@
             }
         },
         "filters": {
-            "giftType": "Gift Type",
-            "equipmentType": "Equipment Type",
-            "language": "Language",
-            "itemsPerPage": "Items Per Page",
-            "allTypes": "All Types",
-            "english": "English",
-            "arabic": "Arabic",
-            "levelRange": "Level Range",
-            "allLevels": "All Levels"
+            "allPrivileges": "All Privileges",
+            "activeOnly": "Active Only",
+            "inactiveOnly": "Inactive Only",
+            "allTypes": "All Types"
         },
         "types": {
             "gift": {
@@ -186,93 +189,19 @@
             }
         },
         "messages": {
-            "loading": "Loading...",
-            "loadingGifts": "Loading gifts...",
-            "loadingEquipment": "Loading equipment...",
-            "loadingLevels": "Loading levels...",
+            "privilegeUpdated": "{name} has been {status}",
+            "loadingPrivileges": "Loading privileges...",
+            "noPrivilegesFound": "No privileges found",
+            "tryDifferentSearch": "Try adjusting your search or filter criteria",
+            "allPrivilegesAlreadyEnabled": "All privileges are already enabled",
+            "allPrivilegesAlreadyDisabled": "All privileges are already disabled",
+            "bulkPrivilegeSuccess": "{count} privileges {action} successfully",
+            "bulkPrivilegePartial": "{success} privileges updated, {failed} failed",
+            "updating": "Updating...",
+            "loadingGifts": "Loading Gifts",
+            "loading": "Loading ...",
             "success": {
-                "created": "Created successfully",
-                "updated": "Updated successfully",
-                "deleted": "Deleted successfully",
-                "saved": "Saved successfully",
-                "giftCreated": "Gift created successfully",
-                "giftUpdated": "Gift updated successfully",
-                "giftDeleted": "Gift deleted successfully",
-                "equipmentCreated": "Equipment created successfully",
-                "equipmentUpdated": "Equipment updated successfully",
-                "equipmentDeleted": "Equipment deleted successfully",
-                "levelCreated": "Level created successfully",
-                "levelUpdated": "Level updated successfully",
-                "levelDeleted": "Level deleted successfully"
-            },
-            "errors": {
-                "required": "This field is required",
-                "invalid": "Invalid input",
-                "network": "Network error occurred",
-                "server": "Server error",
-                "notFound": "Not found",
-                "unauthorized": "Unauthorized",
-                "forbidden": "Forbidden",
-                "timeout": "Request timeout",
-                "unknown": "Unknown error",
-                "failedToLoad": "Failed to load",
-                "failedToSave": "Failed to save",
-                "failedToDelete": "Failed to delete",
-                "failedToCreate": "Failed to create",
-                "failedToUpdate": "Failed to update",
-                "invalidGiftId": "Invalid gift ID",
-                "invalidEquipmentId": "Invalid equipment ID",
-                "invalidLevelId": "Invalid level ID",
-                "loadGifts": "Failed to load gifts",
-                "loadEquipment": "Failed to load equipment",
-                "loadLevels": "Failed to load levels",
-                "failedToLoadVipPackages": "Failed to load VIP packages",
-                "failedToUpdatePrivilege": "Failed to update privilege",
-                "vipPackageNotFound": "VIP package not found",
-                "privilegeNotFound": "Privilege not found",
-                "invalidVipId": "Invalid VIP package ID",
-                "invalidPrivilegeId": "Invalid privilege ID",
-                "privilegeAlreadyActive": "Privilege is already active",
-                "privilegeAlreadyInactive": "Privilege is already inactive",
-                "vipServiceUnavailable": "VIP service is temporarily unavailable",
-                "operationNotSupported": "Operation Not Supported",
-                "levelCreateNotSupported": "Level creation is not supported by the API. Levels are managed by the system.",
-                "levelEditNotSupported": "Level editing is not currently supported by the API. This feature will be available when the backend supports it.",
-                "api": {
-                    "400": "Bad request - Invalid data provided",
-                    "401": "Unauthorized - Please log in again",
-                    "403": "Forbidden - You don't have permission to perform this action",
-                    "404": "Not found - The requested resource was not found",
-                    "408": "Request timeout - The request took too long to complete",
-                    "409": "Conflict - The resource already exists or conflicts with current state",
-                    "422": "Validation failed - Please check your input data",
-                    "429": "Too many requests - Please wait before trying again",
-                    "500": "Internal server error - Something went wrong on our end",
-                    "502": "Bad gateway - Service temporarily unavailable",
-                    "503": "Service unavailable - Please try again later",
-                    "504": "Gateway timeout - The service is taking too long to respond",
-                    "networkError": "Network error - Please check your internet connection",
-                    "requestFailed": "Request failed - Please try again",
-                    "connectionLost": "Connection lost - Please check your network",
-                    "serverUnavailable": "Server unavailable - Please try again later"
-                }
-            },
-            "confirmations": {
-                "delete": "Delete?",
-                "deleteGift": "Delete Gift?",
-                "deleteEquipment": "Delete Equipment?",
-                "deleteLevel": "Delete Level?",
-                "cannotUndo": "This action cannot be undone.",
-                "areYouSure": "Are you sure?",
-                "confirmDelete": "Confirm Delete",
-                "confirmAction": "Confirm Action"
-            },
-            "notifications": {
-                "noChanges": "No changes to update",
-                "copySuccess": "Link copied to clipboard!",
-                "copyError": "Failed to copy link",
-                "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?",
-                "languageSwitchWarning": "Unsaved changes may be lost when switching language."
+                "giftCreated": "Gift Created"
             }
         },
         "modals": {
@@ -393,6 +322,64 @@
                     "title": "View Level",
                     "subtitle": "View level details"
                 }
+            },
+            "vip": {
+                "title": "VIP Packages Management",
+                "subtitle": "Manage VIP packages and their configurations",
+                "editTitle": "Edit VIP Package",
+                "privilegeManagement": "Privilege Management",
+                "privileges": "Privileges",
+                "activePrivileges": "Active",
+                "inactivePrivileges": "Inactive",
+                "totalPrivileges": "Total",
+                "fields": {
+                    "coin": "Coins",
+                    "renewCoin": "Renewal Coins",
+                    "days": "Duration (Days)"
+                }
+            }
+        },
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive",
+            "activated": "activated",
+            "deactivated": "deactivated"
+        },
+        "common": {
+            "days": "days"
+        },
+        "validation": {
+            "mustBePositive": "Must be a positive number",
+            "mustBeGreaterThanZero": "Must be greater than zero",
+            "pleaseFixErrors": "Please fix the errors before saving"
+        },
+        "errors": {
+            "noPackageSelected": "No package selected for editing",
+            "failedToUpdatePackage": "Failed to update VIP package",
+            "failedToUpdateStatus": "Failed to update package status",
+            "failedToLoadPrivileges": "Failed to load privileges",
+            "failedToUpdatePrivilege": "Failed to update privilege",
+            "bulkPrivilegeOperationFailed": "Bulk privilege operation failed"
+        },
+        "vip": {
+            "title": "VIP Packages Management",
+            "subtitle": "Manage VIP packages and their configurations",
+            "editTitle": "Edit VIP Package",
+            "privilegeManagement": "Privilege Management",
+            "privileges": "Privileges",
+            "activePrivileges": "Active",
+            "inactivePrivileges": "Inactive",
+            "totalPrivileges": "Total",
+            "completionRate": "{rate}% Complete",
+            "enabledFeatures": "Enabled Features",
+            "availableFeatures": "Available Features",
+            "required": "Required",
+            "requiredPrivilegeTooltip": "This privilege is required and cannot be disabled",
+            "showingPrivileges": "Showing {count} of {total} privileges",
+            "fields": {
+                "coin": "Coins",
+                "renewCoin": "Renewal Coins",
+                "days": "Duration (Days)"
             }
         }
     }

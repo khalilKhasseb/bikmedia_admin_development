@@ -323,7 +323,11 @@ class VipService extends BaseService {
         // Real API call to Noble endpoint
         // POST {{bikmediaURL}}/dashboard/noble with empty body (urlencoded)
         // Headers: API-KEY and Auth-Token are automatically added by HTTP interceptor
-        const response = await this.post('/noble', {}, {}, 'bikmedia.messages.errors.failedToLoadVipPackages');
+        const response = await this.post('noble', {}, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          } 
+        }, 'bikmedia.messages.errors.failedToLoadVipPackages');
         
         // Validate API response structure
         validateNobleApiResponse(response);
@@ -333,6 +337,7 @@ class VipService extends BaseService {
         
         return {
           items: vipPackages,
+          allPrivileges: response.data.data.privileges || [],
           raw: response.data
         };
       } catch (error) {
@@ -353,6 +358,187 @@ class VipService extends BaseService {
       const retryOptions = maxRetries !== undefined ? { maxRetries } : {};
       return await this._executeWithRetry(requestFn, 'getAll', retryOptions);
     }
+  }
+
+  /**
+   * Update VIP package details
+   * 
+   * Updates a VIP package with new data. This is a simplified implementation
+   * that would need to be connected to the actual Noble API update endpoint.
+   * 
+   * @param {number|string} packageId - VIP package ID
+   * @param {Object|FormData} updateData - Package update data
+   * @param {Object} options - Request options
+   * @returns {Promise<Object>} Promise resolving to updated package
+   * 
+   * @example
+   * await vipService.updatePackage(1, { name: 'Updated VIP', coin: 1000 });
+   */
+  async updatePackage(packageId, updateData, options = {}) {
+    const { skipRetry = false, maxRetries } = options;
+    
+    // Enhanced parameter validation
+    if (!packageId) {
+      const error = new Error('Package ID is required for update.');
+      error.code = 'MISSING_PACKAGE_ID';
+      throw error;
+    }
+
+    const requestFn = async () => {
+      try {
+        // For now, this is a mock implementation
+        // In a real implementation, this would call the Noble API update endpoint
+        // POST {{bikmediaURL}}/dashboard/noble/update with package data
+        
+        console.log('Updating VIP package:', packageId, updateData);
+        
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Mock successful response
+        const updatedPackage = {
+          id: parseInt(packageId),
+          ...(updateData instanceof FormData ? 
+            Object.fromEntries(updateData.entries()) : 
+            updateData
+          )
+        };
+        
+        return {
+          data: {
+            code: 200,
+            err: null,
+            data: updatedPackage
+          }
+        };
+      } catch (error) {
+        // Create user-friendly error
+        const enhancedError = this._createUserFriendlyError(error, 'updatePackage');
+        throw enhancedError;
+      }
+    };
+
+    if (skipRetry) {
+      const requestId = this.loadingManager.startLoading('updatePackage', { 
+        skipRetry: true,
+        packageId
+      });
+      try {
+        return await requestFn();
+      } finally {
+        this.loadingManager.stopLoading('updatePackage', requestId);
+      }
+    } else {
+      const retryOptions = maxRetries !== undefined ? { maxRetries } : {};
+      return await this._executeWithRetry(requestFn, 'updatePackage', retryOptions);
+    }
+  }
+
+  /**
+   * Get all privileges with their states for a specific VIP package
+   * 
+   * Returns all available privileges showing which ones are active/inactive for the given VIP package.
+   * This is used to display the complete privilege list with proper toggle states.
+   * 
+   * @param {number|string} vipId - VIP package ID
+   * @param {Object} options - Request options
+   * @returns {Promise<Object>} Promise resolving to privileges with states
+   * @returns {Array} returns.privileges - All privileges with isActive states
+   * @returns {Object} returns.vipPackage - VIP package details
+   * 
+   * @example
+   * const { privileges, vipPackage } = await vipService.getPrivilegesForVip(1);
+   * console.log('VIP Package:', vipPackage.name);
+   * privileges.forEach(priv => {
+   *   console.log(`${priv.name}: ${priv.isActive ? 'Active' : 'Inactive'}`);
+   * });
+   */
+  async getPrivilegesForVip(vipId, options = {}) {
+    const { skipRetry = false, maxRetries } = options;
+    
+    // Enhanced parameter validation
+    if (!vipId) {
+      const error = new Error('VIP ID is required to get privileges.');
+      error.code = 'MISSING_VIP_ID';
+      throw error;
+    }
+
+    const requestFn = async () => {
+      try {
+        // Get all VIP packages and privileges
+        const { items: vipPackages, allPrivileges } = await this.getAll({ skipRetry: true });
+        
+        // Find the specific VIP package
+        const vipPackage = vipPackages.find(pkg => pkg.id === parseInt(vipId));
+        if (!vipPackage) {
+          const error = new Error(`VIP package with ID ${vipId} not found.`);
+          error.code = 'VIP_PACKAGE_NOT_FOUND';
+          throw error;
+        }
+        
+        // Get privileges with states for this VIP package
+        const privilegesWithStates = this._calculatePrivilegeStates(vipPackage.privileges, allPrivileges);
+        
+        return {
+          privileges: privilegesWithStates,
+          vipPackage: vipPackage,
+          allPrivileges: allPrivileges
+        };
+      } catch (error) {
+        // Create user-friendly error
+        const enhancedError = this._createUserFriendlyError(error, 'getPrivilegesForVip');
+        throw enhancedError;
+      }
+    };
+
+    if (skipRetry) {
+      const requestId = this.loadingManager.startLoading('getPrivilegesForVip', { 
+        skipRetry: true,
+        vipId
+      });
+      try {
+        return await requestFn();
+      } finally {
+        this.loadingManager.stopLoading('getPrivilegesForVip', requestId);
+      }
+    } else {
+      const retryOptions = maxRetries !== undefined ? { maxRetries } : {};
+      return await this._executeWithRetry(requestFn, 'getPrivilegesForVip', retryOptions);
+    }
+  }
+
+  /**
+   * Calculate privilege states for a VIP package
+   * 
+   * Shows ALL available privileges with their current active/inactive states for the VIP package.
+   * This ensures the UI displays all privileges, not just the assigned ones.
+   * 
+   * @private
+   * @param {Array} vipPrivileges - Current privileges assigned to VIP package
+   * @param {Array} allPrivileges - All available privileges in the system
+   * @returns {Array} All privileges with isActive states
+   */
+  _calculatePrivilegeStates(vipPrivileges, allPrivileges) {
+    // Create a map of active privileges for quick lookup
+    const activePrivilegesMap = new Map();
+    (vipPrivileges || []).forEach(privilege => {
+      activePrivilegesMap.set(privilege.id, privilege);
+    });
+
+    // Return ALL privileges with their states
+    return (allPrivileges || []).map(privilege => {
+      const activePrivilege = activePrivilegesMap.get(privilege.id);
+      
+      return {
+        id: privilege.id,
+        name: privilege.name || `privilege_${privilege.id}`,
+        description: privilege.description || `Privilege ${privilege.name || privilege.id}`,
+        isActive: activePrivilege ? activePrivilege.isActive : false,
+        optional: privilege.optional !== undefined ? privilege.optional : true,
+        icon: privilege.icon || `/assets/images/icons/${privilege.name || 'default'}.png`,
+        svga: privilege.svga || `/assets/images/animations/${privilege.name || 'default'}.svga`
+      };
+    });
   }
 
   /**
@@ -433,13 +619,20 @@ class VipService extends BaseService {
         const requestData = prepareNobleUpdateRequest(params);
 
         // Real API call to updatePrivileges endpoint
-        const response = await this.post('updatePrivileges', requestData, {}, 'bikmedia.messages.errors.failedToUpdatePrivilege');
+        const response = await this.post('/noble/updatePrivileges', requestData, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }, 'bikmedia.messages.errors.failedToUpdatePrivilege');
         
         // Validate API response
         validateUpdatePrivilegeResponse(response);
+
+        console.log('updatePrivilege response',response)
         
         return response;
       } catch (error) {
+        console.log('updatePrivilege error',error);
         // Create user-friendly error
         const enhancedError = this._createUserFriendlyError(error, 'updatePrivilege');
         
@@ -577,6 +770,7 @@ class VipService extends BaseService {
 
   /**
    * Update an existing VIP option (DEPRECATED - for backward compatibility)
+   * @TODO: Remove this method once the frontend is updated to use the new unified API
    * 
    * @deprecated Use updatePrivilege() method instead for new implementations
    * @param {number|string} optionId - Option ID to update

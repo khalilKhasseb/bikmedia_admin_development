@@ -10,7 +10,7 @@ const http = axios.create({
     baseURL: "/api",
     headers: {
         'API-KEY': import.meta.env.VITE_API_KEY,
-        'Auth-Token': import.meta.env.VITE_AUTH_TOKEN
+        // 'Auth-Token': import.meta.env.VITE_AUTH_TOKEN
         // Auth-Token is added dynamically in request interceptor when user is authenticated
     },
 });
@@ -19,7 +19,10 @@ http.interceptors.request.use(
     (config) => {
         // Retrieve and decrypt auth token from storage (checks both sessionStorage and localStorage)
         const token = getAuthToken();
+
+       
         if (token) {
+            console.log('Auth-Token:', token);
             config.headers['Auth-Token'] = String(token);
         }
         // Note: We don't set Auth-Token if no token exists, avoiding default env value

@@ -101,7 +101,8 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" v-for="(sg, idx) in gift.icons" :key="idx">
                       <div class="card h-100">
                         <div style="height: 140px; overflow: hidden;">
-                          <SmartIcon :src="sg.icon" alt="subgift" width="100%" height="140px" fit="cover" />
+                          <!-- <SmartIcon :src="sg.icon" alt="subgift" width="100%" height="140px" fit="cover" /> -->
+                          <img :src="sg.icon" alt="subgift" width="100%" height="140px" />
                         </div>
                         <div class="card-body p-2">
                           <div class="d-flex justify-content-between align-items-center">
@@ -269,7 +270,8 @@ const loadGift = async (lang = null) => {
     try {
       // Preferred: fetch by id with locale
       const response = await giftService.getById(giftId, locale);
-      const one = response?.item?.list?.find(g => g.id === Number(giftId)) || response?.data?.one || null;
+      // console.log("Response in single and single transform", response)
+      const one = response?.item
       if (!one) throw new Error('Invalid getById() response');
       gift.value = one;
       // initialFormData.svga = one.anim;
@@ -580,4 +582,5 @@ onMounted(() => {
     margin-top: 2rem;
   }
 }
+
 </style>

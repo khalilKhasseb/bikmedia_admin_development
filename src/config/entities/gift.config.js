@@ -21,6 +21,17 @@ const giftConfig = {
   // Locales (EN/AR) configured
   supportedLocales: STANDARD_LOCALES,
 
+  filters: [
+    { "value": 0, "label": "person" },
+    { "value": 1, "label": "audioLive" },
+    { "value": 2, "label": "videoLive" },
+    { "value": 3, "label": "video" },
+    { "value": 4, "label": "sticker" },
+    { "value": 5, "label": "exclusive" },
+    { "value": 6, "label": "vip" },
+    { "value": 7, "label": "level" }
+  ],
+
   // Translatable field definitions for name and description
   translatableFields: [
     // {
@@ -92,7 +103,8 @@ const giftConfig = {
       min: 0,
       default: 0,
       label: 'Level',
-      placeholder: 'Level Requirement'
+      placeholder: 'Level Requirement',
+      condition: { field: 'type', operator: '===', value: 7 } // Show only when type is "level" (7)
     },
     // {
     //   name: 'vip',
@@ -122,15 +134,15 @@ const giftConfig = {
       placeholder: 'Display Order',
       helpText: 'Lower numbers appear first'
     },
-    {
-      name: 'mark',
-      type: 'number',
-      required: false,
-      min: 0,
-      default: 1,
-      label: 'Mark',
-      placeholder: 'Mark Value'
-    },
+    // {
+    //   name: 'mark',
+    //   type: 'number',
+    //   required: false,
+    //   min: 0,
+    //   default: 1,
+    //   label: 'Mark',
+    //   placeholder: 'Mark Value'
+    // },
     {
       name: 'icon',
       type: 'file',
@@ -141,13 +153,22 @@ const giftConfig = {
       maxSize: 5
     },
     {
-      name: 'svga',
+      name:"enable_animation",
+      type: 'boolean',
+      required: false,
+      default: false,
+      label: 'Enable Animation',
+      placeholder: 'Enable Animation'
+    },
+    {
+      name: 'anim',
       type: 'file',
       accept: '.svga,.webp,.gif,.svg',
       required: false,
       label: 'Animation',
       supportsUrlFallback: true,
-      maxSize: 10
+      maxSize: 10,
+      condition: { field: 'enable_animation', operator: '===', value: true } // Show only when enable_animation is true
     }
   ],
 
@@ -156,25 +177,22 @@ const giftConfig = {
       name: 'basicInfo',
       label: 'Basic Info',
       description: 'Gift name and identification',
-      fields: ['name', 'coin']
+      fields: ['name', 'coin'],
+      columnsPerRow: 2 // 2 fields per row (each field takes col-md-6)
     },
     {
       name: 'media',
       label: 'Media',
       description: 'Upload icon and animation files',
-      fields: ['icon', 'svga']
+      fields: ['icon','anim', 'enable_animation'],
+      columnsPerRow: 3 // 2 fields per row (each field takes col-md-6)
     },
-    // {
-    //   name: 'details',
-    //   label: 'Details',
-    //   description: 'Additional information',
-    //   fields: ['description']
-    // },
     {
       name: 'settings',
       label: 'Settings',
       description: 'Gift properties and requirements',
-      fields: ['type', 'lvl', 'anim_type', 'list_order', 'mark']
+      fields: ['type', 'lvl', 'anim_type', 'list_order'],
+      columnsPerRow: 3 // 3 fields per row (each field takes col-md-4)
     }
   ]
 };

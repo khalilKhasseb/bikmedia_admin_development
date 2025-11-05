@@ -77,14 +77,38 @@ const vipOptionConfig = {
     {
       name: 'basicInfo',
       label: 'Basic Information',
-      description: 'Option name and description',
-      fields: ['name', 'description']
+      description: 'VIP package name and identification',
+      fields: ['id', 'name', 'lang_name', 'orderno']
+    },
+    {
+      name: 'pricing',
+      label: 'Pricing & Duration',
+      description: 'Coin costs and subscription period',
+      fields: ['coin', 'renew_coin', 'days']
     },
     {
       name: 'media',
-      label: 'Media Files',
-      description: 'Upload icon and animation files',
-      fields: ['icon', 'svga']
+      label: 'Media & Content',
+      description: 'Images and content description',
+      fields: ['img', 'content']
+    },
+    {
+      name: 'customization',
+      label: 'Customization Features',
+      description: 'Chat backgrounds, bubbles, and avatar frames',
+      fields: ['chat_bg_ids', 'chat_bubble_ids', 'avatar_frame_ids', 'colors']
+    },
+    {
+      name: 'rewards',
+      label: 'Rewards & Effects',
+      description: 'Medals, cars, and special effects',
+      fields: ['medal_ids', 'car_ids', 'entry_effects', 'room_images']
+    },
+    {
+      name: 'settings',
+      label: 'Settings',
+      description: 'Package status and configuration',
+      fields: ['state']
     }
   ]
 };

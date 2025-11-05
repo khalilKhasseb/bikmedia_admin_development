@@ -124,8 +124,23 @@ class EquipmentService extends BaseService {
       // Make POST request to /dashboard/equipment with id parameter
       const response = await this.post('', cleanedParams);
       
-      // Transform and return single item response
-      return transformSingleResponse(response);
+      // The API doesn't filter by ID server-side, so we need to filter client-side
+      // Extract the list from the response
+      const data = response.data || {};
+      const list = data.data?.list || [];
+      
+      // Find the specific item by ID
+      const foundItem = list.find(item => item.id === Number(id));
+      
+      if (!foundItem) {
+        throw new Error(`Equipment with ID ${id} not found`);
+      }
+      
+      // Return in the expected format
+      return {
+        item: foundItem,
+        raw: response.data
+      };
     } catch (error) {
       // Normalize error and re-throw
       const normalizedError = transformErrorResponse(error);

@@ -62,7 +62,8 @@
                 "gifts": "الهدايا",
                 "equipment": "المعدات",
                 "levels": "المستويات",
-                "vipopt" : "اعدادت VIP"
+                "vipopt" : "اعدادت VIP",
+                "vipPackages": "باقات VIP"
             },
             "breadcrumb": {
                 "store": "المتجر",
@@ -71,7 +72,9 @@
                 "levels": "المستويات",
                 "create": "إنشاء",
                 "edit": "تعديل",
-                "view": "عرض"
+                "view": "عرض",
+                "dashboard": "لوحة التحكم",
+                "vipPackages": "باقات VIP"
             }
         },
         "forms": {
@@ -384,6 +387,84 @@
                     "title": "عرض المستوى",
                     "subtitle": "عرض تفاصيل المستوى"
                 }
+            },
+            "vip": {
+                "title": "إدارة باقات VIP",
+                "subtitle": "إدارة باقات VIP وإعداداتها",
+                "editTitle": "تعديل باقة VIP"
+            }
+        },
+        "status": {
+            "active": "نشط",
+            "inactive": "غير نشط",
+            "activated": "تم التفعيل",
+            "deactivated": "تم إلغاء التفعيل"
+        },
+        "common": {
+            "days": "أيام"
+        },
+        "validation": {
+            "mustBePositive": "يجب أن يكون رقماً موجباً",
+            "mustBeGreaterThanZero": "يجب أن يكون أكبر من الصفر",
+            "pleaseFixErrors": "يرجى إصلاح الأخطاء قبل الحفظ"
+        },
+        "errors": {
+            "noPackageSelected": "لم يتم اختيار باقة للتعديل",
+            "failedToUpdatePackage": "فشل في تحديث باقة VIP",
+            "failedToUpdateStatus": "فشل في تحديث حالة الباقة",
+            "failedToLoadPrivileges": "فشل في تحميل الامتيازات",
+            "failedToUpdatePrivilege": "فشل في تحديث الامتياز",
+            "bulkPrivilegeOperationFailed": "فشلت العملية المجمعة للامتيازات"
+        },
+        "messages": {
+            "loadingVipPackages": "جاري تحميل باقات VIP...",
+            "saving": "جاري الحفظ...",
+            "noVipPackages": "لا توجد باقات VIP",
+            "noVipPackagesDesc": "لم يتم تكوين أي باقات VIP بعد.",
+            "vipPackageStatusUpdated": "تم {status} {name}",
+            "vipPackageUpdated": "تم تحديث {name} بنجاح",
+            "noChangesToSave": "لا توجد تغييرات للحفظ",
+            "privilegeUpdated": "تم {status} {name}",
+            "loadingPrivileges": "جاري تحميل الامتيازات...",
+            "noPrivilegesFound": "لم يتم العثور على امتيازات",
+            "tryDifferentSearch": "جرب تعديل البحث أو معايير التصفية",
+            "allPrivilegesAlreadyEnabled": "جميع الامتيازات مفعلة بالفعل",
+            "allPrivilegesAlreadyDisabled": "جميع الامتيازات معطلة بالفعل",
+            "bulkPrivilegeSuccess": "تم {action} {count} امتياز بنجاح",
+            "bulkPrivilegePartial": "تم تحديث {success} امتياز، فشل {failed}",
+            "updating": "جاري التحديث..."
+        },
+        "actions": {
+            "active": "نشط",
+            "saveChanges": "حفظ التغييرات",
+            "privileges": "الامتيازات",
+            "enableAll": "تفعيل الكل",
+            "disableAll": "تعطيل الكل"
+        },
+        "filters": {
+            "allPrivileges": "جميع الامتيازات",
+            "activeOnly": "النشط فقط",
+            "inactiveOnly": "غير النشط فقط"
+        },
+        "vip": {
+            "title": "إدارة باقات VIP",
+            "subtitle": "إدارة باقات VIP وإعداداتها",
+            "editTitle": "تعديل باقة VIP",
+            "privilegeManagement": "إدارة الامتيازات",
+            "privileges": "الامتيازات",
+            "activePrivileges": "نشط",
+            "inactivePrivileges": "غير نشط",
+            "totalPrivileges": "المجموع",
+            "completionRate": "{rate}% مكتمل",
+            "enabledFeatures": "الميزات المفعلة",
+            "availableFeatures": "الميزات المتاحة",
+            "required": "مطلوب",
+            "requiredPrivilegeTooltip": "هذا الامتياز مطلوب ولا يمكن تعطيله",
+            "showingPrivileges": "عرض {count} من {total} امتياز",
+            "fields": {
+                "coin": "العملات",
+                "renewCoin": "عملات التجديد",
+                "days": "المدة (أيام)"
             }
         }
     }

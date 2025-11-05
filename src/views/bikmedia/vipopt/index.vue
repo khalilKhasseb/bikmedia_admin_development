@@ -105,7 +105,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" disabled
+                                        <button @click="openEditModal(item)" type="button" class="btn btn-sm btn-outline-secondary" 
                                             title="Editing privilege details is not supported">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -173,8 +173,8 @@ import { useStore } from 'vuex';
 import services from "@services/api"
 import VipOptionModal from './components/VipOptionModal.vue';
 import VipOptionToggle from './components/VipOptionToggle.vue';
-
-
+import vipConfig from '@/config/entities/vip.config';
+import { initializeFormData } from '@/config/entities/helpers';
 const store = useStore();
 
 const vips = ref([]);
@@ -185,6 +185,7 @@ const isOperationInProgress = ref(false);
 const isLoading = ref(false);
 const error = ref(null);
 
+const fromData = initializeFormData(vipConfig)
 
 // Computed property to safely get the selected VIP ID
 const selectedVipId = computed(() => {
@@ -218,6 +219,7 @@ const openAddModal = () => {
 };
 
 const openEditModal = (option) => {
+    console.log(option)
     if (!option || !option.id) {
         showErrorMessage('Invalid option selected');
         return;

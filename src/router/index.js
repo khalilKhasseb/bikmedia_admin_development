@@ -41,12 +41,32 @@ const routes = [
         component: () => import(/* webpackChunkName: "auth-login" */ '../views/auth/login.vue'),
         meta: { layout: 'auth' },
     },
-{
-        path: "/vipopt",
-        name: "vipopt",
-        component: () => import("../views/bikmedia/vipopt/index.vue"),
+    // {
+    //     path: "/vipopt",
+    //     name: "vipopt",
+    //     component: () => import("../views/bikmedia/vipopt/index.vue"),
+    //     meta: {
+    //         requireAuth: true
+    //     }
+    // },
+    {
+        path: "/vip",
+        name: "vip-packages",
+        component: () => import("../views/bikmedia/vip/index.vue"),
         meta: {
-            requireAuth: true
+            requireAuth: true,
+            title: 'VIP Packages',
+            description: 'Manage VIP packages and their configurations'
+        }
+    },
+    {
+        path: "/template-preview",
+        name: "template-preview",
+        component: () => import("../views/template-preview.vue"),
+        meta: {
+            requireAuth: true,
+            title: 'Template Component Preview',
+            description: 'Explore and adopt pre-built UI components from the Cork Admin Template'
         }
     },
     ...giftRoutes,

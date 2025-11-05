@@ -125,20 +125,18 @@ const equipmentConfig = {
       label: 'Basic Info',
       fields: ['name']
     },
-    {
-      name: 'details',
-      label: 'Details',
-      fields: []
-    },
+  
     {
       name: 'settings',
       label: 'Settings',
-      fields: ['coin', 'days', 'type', 'lvl', 'vip']
+      fields: ['coin', 'days', 'type', 'lvl', 'vip'],
+      columnsPerRow: 3 // 3 fields per row (each field takes col-md-4)
     },
     {
       name: 'media',
       label: 'Media',
-      fields: ['icon', 'svga']
+      fields: ['icon', 'svga'],
+      columnsPerRow: 2 // 2 fields per row (each field takes col-md-6)
     }
   ]
 };

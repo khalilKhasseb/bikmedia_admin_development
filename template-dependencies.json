@@ -1,0 +1,781 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-03",
+  "description": "Template component dependency mapping for selective adoption",
+  
+  "dependencyGroups": {
+    "charts": {
+      "description": "Chart and data visualization libraries",
+      "dependencies": [
+        "apexcharts",
+        "vue3-apexcharts",
+        "echarts",
+        "vue3-echarts"
+      ]
+    },
+    "forms": {
+      "description": "Form components and validation libraries",
+      "dependencies": [
+        "@vuelidate/core",
+        "@vuelidate/validators",
+        "vue3-form-wizard",
+        "file-upload-with-preview",
+        "vue-flatpickr-component",
+        "vue3-quill",
+        "vue3-easymde",
+        "@suadelabs/vue3-multiselect",
+        "maska"
+      ]
+    },
+    "tables": {
+      "description": "Data table and grid components",
+      "dependencies": [
+        "@bhplugin/vue3-datatable",
+        "v-tables-3",
+        "vue3-easy-data-table"
+      ]
+    },
+    "ui-components": {
+      "description": "UI components and interactive elements",
+      "dependencies": [
+        "vue3-carousel",
+        "vue-easy-lightbox",
+        "sweetalert2",
+        "vue-countup-v3",
+        "vue3-perfect-scrollbar",
+        "@headlessui/vue",
+        "@popperjs/core"
+      ]
+    },
+    "calendar": {
+      "description": "Calendar and scheduling components",
+      "dependencies": [
+        "@fullcalendar/core",
+        "@fullcalendar/daygrid",
+        "@fullcalendar/interaction",
+        "@fullcalendar/timegrid",
+        "@fullcalendar/vue3"
+      ]
+    },
+    "drag-drop": {
+      "description": "Drag and drop functionality",
+      "dependencies": [
+        "vue-draggable-next"
+      ]
+    },
+    "maps": {
+      "description": "Map components and geolocation",
+      "dependencies": [
+        "vue3-google-map"
+      ]
+    },
+    "utilities": {
+      "description": "Utility libraries for various features",
+      "dependencies": [
+        "vue-clipboard3",
+        "highlight.js",
+        "vue3-scroll-spy",
+        "vue3-nouislider",
+        "vue3-number-spinner",
+        "jspdf",
+        "jspdf-autotable",
+        "vue3-json-excel"
+      ]
+    }
+  },
+
+  "componentDependencyMapping": {
+    "Calendar": {
+      "dependencies": [
+        "@fullcalendar/core@^5.11.0",
+        "@fullcalendar/daygrid@^5.11.0",
+        "@fullcalendar/interaction@^5.11.0",
+        "@fullcalendar/timegrid@^5.11.0",
+        "@fullcalendar/vue3@^5.11.1"
+      ],
+      "group": "calendar",
+      "bundleSize": "~180KB",
+      "required": true,
+      "description": "Full calendar functionality requires all FullCalendar packages"
+    },
+    
+    "Chat": {
+      "dependencies": [
+        "vue3-perfect-scrollbar@^1.5.5"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~15KB",
+      "required": false,
+      "description": "Perfect scrollbar for smooth chat message scrolling"
+    },
+    
+    "Contacts": {
+      "dependencies": [
+        "@suadelabs/vue3-multiselect@^1.0.2"
+      ],
+      "group": "forms",
+      "bundleSize": "~25KB",
+      "required": false,
+      "description": "Multiselect for contact category filtering"
+    },
+    
+    "Mailbox": {
+      "dependencies": [
+        "vue3-perfect-scrollbar@^1.5.5"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~15KB",
+      "required": false,
+      "description": "Scrollbar for email list and content areas"
+    },
+    
+    "Notes": {
+      "dependencies": [
+        "vue3-perfect-scrollbar@^1.5.5"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~15KB",
+      "required": false,
+      "description": "Scrollbar for notes list and content"
+    },
+    
+    "Scrumboard": {
+      "dependencies": [
+        "vue-draggable-next@^2.1.1"
+      ],
+      "group": "drag-drop",
+      "bundleSize": "~35KB",
+      "required": true,
+      "description": "Essential for drag and drop kanban functionality"
+    },
+    
+    "TodoList": {
+      "dependencies": [
+        "vue-draggable-next@^2.1.1"
+      ],
+      "group": "drag-drop",
+      "bundleSize": "~35KB",
+      "required": false,
+      "description": "Optional drag and drop for task reordering"
+    },
+    
+    "LoginBoxed": {
+      "dependencies": [],
+      "group": "auth",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "No external dependencies required"
+    },
+    
+    "RegisterBoxed": {
+      "dependencies": [],
+      "group": "auth",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "No external dependencies required"
+    },
+    
+    "PasswordRecovery": {
+      "dependencies": [],
+      "group": "auth",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "No external dependencies required"
+    },
+    
+    "LockScreen": {
+      "dependencies": [],
+      "group": "auth",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "No external dependencies required"
+    },
+    
+    "ApexCharts": {
+      "dependencies": [
+        "apexcharts@^3.35.3",
+        "vue3-apexcharts@^1.4.1"
+      ],
+      "group": "charts",
+      "bundleSize": "~280KB",
+      "required": true,
+      "description": "Both packages required for chart functionality"
+    },
+    
+    "Accordions": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Cards": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Carousel": {
+      "dependencies": [
+        "vue3-carousel@^0.1.40"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~45KB",
+      "required": true,
+      "description": "Required for carousel functionality"
+    },
+    
+    "Countdown": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure JavaScript implementation"
+    },
+    
+    "Counter": {
+      "dependencies": [
+        "vue-countup-v3@^1.0.14"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~12KB",
+      "required": true,
+      "description": "Required for animated counting effects"
+    },
+    
+    "Lightbox": {
+      "dependencies": [
+        "vue-easy-lightbox@^1.4.1"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~30KB",
+      "required": true,
+      "description": "Required for lightbox functionality"
+    },
+    
+    "Modals": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Timeline": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Toast": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure Vue implementation"
+    },
+    
+    "SweetAlert": {
+      "dependencies": [
+        "sweetalert2@^11.4.17"
+      ],
+      "group": "ui-components",
+      "bundleSize": "~85KB",
+      "required": true,
+      "description": "Required for enhanced alert functionality"
+    },
+    
+    "Alerts": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Buttons": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Badges": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Pagination": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "ProgressBar": {
+      "dependencies": [],
+      "group": "ui-components",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "FormWizard": {
+      "dependencies": [
+        "vue3-form-wizard@^0.0.4"
+      ],
+      "group": "forms",
+      "bundleSize": "~20KB",
+      "required": true,
+      "description": "Required for multi-step form functionality"
+    },
+    
+    "FormValidation": {
+      "dependencies": [
+        "@vuelidate/core@^2.0.0-alpha.42",
+        "@vuelidate/validators@^2.0.0-alpha.30"
+      ],
+      "group": "forms",
+      "bundleSize": "~35KB",
+      "required": true,
+      "description": "Both packages required for form validation"
+    },
+    
+    "FileUpload": {
+      "dependencies": [
+        "file-upload-with-preview@^4.2.0"
+      ],
+      "group": "forms",
+      "bundleSize": "~25KB",
+      "required": true,
+      "description": "Required for drag & drop file upload functionality"
+    },
+    
+    "DateRangePicker": {
+      "dependencies": [
+        "vue-flatpickr-component@^9.0.5"
+      ],
+      "group": "forms",
+      "bundleSize": "~40KB",
+      "required": true,
+      "description": "Required for date/time picker functionality"
+    },
+    
+    "RichTextEditor": {
+      "dependencies": [
+        "vue3-quill@^0.2.6"
+      ],
+      "group": "forms",
+      "bundleSize": "~120KB",
+      "required": true,
+      "description": "Required for rich text editing functionality"
+    },
+    
+    "MarkdownEditor": {
+      "dependencies": [
+        "vue3-easymde@^1.0.0"
+      ],
+      "group": "forms",
+      "bundleSize": "~80KB",
+      "required": true,
+      "description": "Required for markdown editing functionality"
+    },
+    
+    "Select2": {
+      "dependencies": [
+        "@suadelabs/vue3-multiselect@^1.0.2"
+      ],
+      "group": "forms",
+      "bundleSize": "~25KB",
+      "required": true,
+      "description": "Required for advanced select functionality"
+    },
+    
+    "Switches": {
+      "dependencies": [],
+      "group": "forms",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "DataTableBasic": {
+      "dependencies": [
+        "@bhplugin/vue3-datatable@^1.0.1"
+      ],
+      "group": "tables",
+      "bundleSize": "~60KB",
+      "required": true,
+      "description": "Required for data table functionality"
+    },
+    
+    "DataTableAdvanced": {
+      "dependencies": [
+        "@bhplugin/vue3-datatable@^1.0.1"
+      ],
+      "group": "tables",
+      "bundleSize": "~60KB",
+      "required": true,
+      "description": "Required for advanced data table functionality"
+    },
+    
+    "DataTableActions": {
+      "dependencies": [
+        "@bhplugin/vue3-datatable@^1.0.1"
+      ],
+      "group": "tables",
+      "bundleSize": "~60KB",
+      "required": true,
+      "description": "Required for data table with actions"
+    },
+    
+    "V3TableBasic": {
+      "dependencies": [
+        "v-tables-3@^0.4.7"
+      ],
+      "group": "tables",
+      "bundleSize": "~45KB",
+      "required": true,
+      "description": "Alternative table component library"
+    },
+    
+    "Error404": {
+      "dependencies": [],
+      "group": "pages",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "Error500": {
+      "dependencies": [],
+      "group": "pages",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "FAQ": {
+      "dependencies": [],
+      "group": "pages",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "ContactUs": {
+      "dependencies": [],
+      "group": "pages",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "ComingSoon": {
+      "dependencies": [],
+      "group": "pages",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "UserProfile": {
+      "dependencies": [],
+      "group": "users",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    },
+    
+    "AccountSettings": {
+      "dependencies": [],
+      "group": "users",
+      "bundleSize": "0KB",
+      "required": false,
+      "description": "Pure CSS/Vue implementation"
+    }
+  },
+
+  "dependencyDetails": {
+    "@fullcalendar/core": {
+      "version": "^5.11.0",
+      "description": "Core FullCalendar functionality",
+      "bundleSize": "~80KB",
+      "peerDependencies": [],
+      "components": ["Calendar"],
+      "group": "calendar"
+    },
+    "@fullcalendar/daygrid": {
+      "version": "^5.11.0",
+      "description": "Month view plugin for FullCalendar",
+      "bundleSize": "~25KB",
+      "peerDependencies": ["@fullcalendar/core"],
+      "components": ["Calendar"],
+      "group": "calendar"
+    },
+    "@fullcalendar/interaction": {
+      "version": "^5.11.0",
+      "description": "Drag & drop and resizing for FullCalendar",
+      "bundleSize": "~20KB",
+      "peerDependencies": ["@fullcalendar/core"],
+      "components": ["Calendar"],
+      "group": "calendar"
+    },
+    "@fullcalendar/timegrid": {
+      "version": "^5.11.0",
+      "description": "Week and day views for FullCalendar",
+      "bundleSize": "~30KB",
+      "peerDependencies": ["@fullcalendar/core"],
+      "components": ["Calendar"],
+      "group": "calendar"
+    },
+    "@fullcalendar/vue3": {
+      "version": "^5.11.1",
+      "description": "Vue 3 wrapper for FullCalendar",
+      "bundleSize": "~25KB",
+      "peerDependencies": ["@fullcalendar/core", "vue"],
+      "components": ["Calendar"],
+      "group": "calendar"
+    },
+    "vue3-perfect-scrollbar": {
+      "version": "^1.5.5",
+      "description": "Custom scrollbar component for Vue 3",
+      "bundleSize": "~15KB",
+      "peerDependencies": ["vue"],
+      "components": ["Chat", "Mailbox", "Notes"],
+      "group": "ui-components"
+    },
+    "@suadelabs/vue3-multiselect": {
+      "version": "^1.0.2",
+      "description": "Multiselect component for Vue 3",
+      "bundleSize": "~25KB",
+      "peerDependencies": ["vue"],
+      "components": ["Contacts", "Select2"],
+      "group": "forms"
+    },
+    "vue-draggable-next": {
+      "version": "^2.1.1",
+      "description": "Vue 3 drag and drop component",
+      "bundleSize": "~35KB",
+      "peerDependencies": ["vue"],
+      "components": ["Scrumboard", "TodoList"],
+      "group": "drag-drop"
+    },
+    "apexcharts": {
+      "version": "^3.35.3",
+      "description": "Modern charting library",
+      "bundleSize": "~250KB",
+      "peerDependencies": [],
+      "components": ["ApexCharts"],
+      "group": "charts"
+    },
+    "vue3-apexcharts": {
+      "version": "^1.4.1",
+      "description": "Vue 3 wrapper for ApexCharts",
+      "bundleSize": "~30KB",
+      "peerDependencies": ["apexcharts", "vue"],
+      "components": ["ApexCharts"],
+      "group": "charts"
+    },
+    "vue3-carousel": {
+      "version": "^0.1.40",
+      "description": "Carousel component for Vue 3",
+      "bundleSize": "~45KB",
+      "peerDependencies": ["vue"],
+      "components": ["Carousel"],
+      "group": "ui-components"
+    },
+    "vue-countup-v3": {
+      "version": "^1.0.14",
+      "description": "Animated counter component for Vue 3",
+      "bundleSize": "~12KB",
+      "peerDependencies": ["vue"],
+      "components": ["Counter"],
+      "group": "ui-components"
+    },
+    "vue-easy-lightbox": {
+      "version": "^1.4.1",
+      "description": "Lightbox component for Vue 3",
+      "bundleSize": "~30KB",
+      "peerDependencies": ["vue"],
+      "components": ["Lightbox"],
+      "group": "ui-components"
+    },
+    "sweetalert2": {
+      "version": "^11.4.17",
+      "description": "Beautiful alert dialogs",
+      "bundleSize": "~85KB",
+      "peerDependencies": [],
+      "components": ["SweetAlert"],
+      "group": "ui-components"
+    },
+    "vue3-form-wizard": {
+      "version": "^0.0.4",
+      "description": "Multi-step form wizard for Vue 3",
+      "bundleSize": "~20KB",
+      "peerDependencies": ["vue"],
+      "components": ["FormWizard"],
+      "group": "forms"
+    },
+    "@vuelidate/core": {
+      "version": "^2.0.0-alpha.42",
+      "description": "Core validation library for Vue",
+      "bundleSize": "~20KB",
+      "peerDependencies": ["vue"],
+      "components": ["FormValidation"],
+      "group": "forms"
+    },
+    "@vuelidate/validators": {
+      "version": "^2.0.0-alpha.30",
+      "description": "Built-in validators for Vuelidate",
+      "bundleSize": "~15KB",
+      "peerDependencies": ["@vuelidate/core"],
+      "components": ["FormValidation"],
+      "group": "forms"
+    },
+    "file-upload-with-preview": {
+      "version": "^4.2.0",
+      "description": "File upload with drag & drop and preview",
+      "bundleSize": "~25KB",
+      "peerDependencies": [],
+      "components": ["FileUpload"],
+      "group": "forms"
+    },
+    "vue-flatpickr-component": {
+      "version": "^9.0.5",
+      "description": "Date/time picker component for Vue",
+      "bundleSize": "~40KB",
+      "peerDependencies": ["vue"],
+      "components": ["DateRangePicker"],
+      "group": "forms"
+    },
+    "vue3-quill": {
+      "version": "^0.2.6",
+      "description": "Rich text editor for Vue 3",
+      "bundleSize": "~120KB",
+      "peerDependencies": ["vue"],
+      "components": ["RichTextEditor"],
+      "group": "forms"
+    },
+    "vue3-easymde": {
+      "version": "^1.0.0",
+      "description": "Markdown editor for Vue 3",
+      "bundleSize": "~80KB",
+      "peerDependencies": ["vue"],
+      "components": ["MarkdownEditor"],
+      "group": "forms"
+    },
+    "@bhplugin/vue3-datatable": {
+      "version": "^1.0.1",
+      "description": "Data table component for Vue 3",
+      "bundleSize": "~60KB",
+      "peerDependencies": ["vue"],
+      "components": ["DataTableBasic", "DataTableAdvanced", "DataTableActions"],
+      "group": "tables"
+    },
+    "v-tables-3": {
+      "version": "^0.4.7",
+      "description": "Alternative data table component for Vue 3",
+      "bundleSize": "~45KB",
+      "peerDependencies": ["vue"],
+      "components": ["V3TableBasic"],
+      "group": "tables"
+    }
+  },
+
+  "adoptionRecommendations": {
+    "lightweight": {
+      "description": "Components with no external dependencies",
+      "components": [
+        "LoginBoxed", "RegisterBoxed", "PasswordRecovery", "LockScreen",
+        "Accordions", "Cards", "Countdown", "Modals", "Timeline", "Toast",
+        "Alerts", "Buttons", "Badges", "Pagination", "ProgressBar", "Switches",
+        "Error404", "Error500", "FAQ", "ContactUs", "ComingSoon",
+        "UserProfile", "AccountSettings"
+      ],
+      "totalBundleImpact": "0KB"
+    },
+    "essential": {
+      "description": "Components with small, essential dependencies",
+      "components": [
+        "Chat", "Mailbox", "Notes", "Counter", "FormWizard"
+      ],
+      "totalBundleImpact": "~82KB"
+    },
+    "feature-rich": {
+      "description": "Components with larger dependencies but rich functionality",
+      "components": [
+        "Calendar", "ApexCharts", "Scrumboard", "DataTableBasic", "DataTableAdvanced",
+        "RichTextEditor", "MarkdownEditor"
+      ],
+      "totalBundleImpact": "~655KB"
+    },
+    "specialized": {
+      "description": "Components for specific use cases",
+      "components": [
+        "Carousel", "Lightbox", "SweetAlert", "FormValidation", "FileUpload",
+        "DateRangePicker", "Select2", "V3TableBasic"
+      ],
+      "totalBundleImpact": "~360KB"
+    }
+  },
+
+  "migrationGuide": {
+    "currentlyUsed": {
+      "description": "Dependencies already in use by the application",
+      "dependencies": [
+        "@bhplugin/vue3-datatable",
+        "@fullcalendar/core",
+        "@fullcalendar/daygrid", 
+        "@fullcalendar/interaction",
+        "@fullcalendar/timegrid",
+        "@fullcalendar/vue3",
+        "@suadelabs/vue3-multiselect",
+        "@vuelidate/core",
+        "@vuelidate/validators",
+        "apexcharts",
+        "file-upload-with-preview",
+        "sweetalert2",
+        "vue-countup-v3",
+        "vue-draggable-next",
+        "vue-easy-lightbox",
+        "vue-flatpickr-component",
+        "vue3-apexcharts",
+        "vue3-carousel",
+        "vue3-easymde",
+        "vue3-form-wizard",
+        "vue3-perfect-scrollbar",
+        "vue3-quill",
+        "v-tables-3"
+      ]
+    },
+    "safeToRemove": {
+      "description": "Dependencies that can be safely removed if not using specific components",
+      "dependencies": [
+        "echarts",
+        "vue3-echarts",
+        "vue3-easy-data-table",
+        "vue3-google-map",
+        "vue3-json-excel",
+        "vue3-nouislider",
+        "vue3-number-spinner",
+        "vue3-scroll-spy",
+        "jspdf",
+        "jspdf-autotable",
+        "vue-clipboard3",
+        "highlight.js",
+        "maska"
+      ]
+    }
+  }
+}

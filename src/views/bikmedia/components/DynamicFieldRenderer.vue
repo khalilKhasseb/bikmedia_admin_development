@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div v-if="shouldShowField" class="mb-4">
     <!-- Translatable Field -->
     <TranslationInput v-if="meta.translatable" :fieldName="meta.name" :fieldConfig="meta.config || {}"
       :locales="localesToRender" :modelValue="modelValue" :isSubmitted="isSubmitted" :errors="errors"
@@ -51,7 +51,7 @@
       <!-- File Field -->
       <div v-else>
         <!-- Custom Media Layout for Panel Mode -->
-        <div v-if="layoutMode === 'custom-panels'" class="col-md-6">
+        <div v-if="layoutMode === 'custom-panels'">
           <div class="media-upload-box">
             <label class="form-label">{{ meta.config?.label || meta.name }}</label>
 
@@ -85,6 +85,7 @@
               </label>
             </div>
             <small class="text-muted d-block mb-2">{{ $t('bikmedia.components.dynamicField.max') }} {{ meta.config?.maxSize || 5 }}MB. {{ $t('bikmedia.components.dynamicField.allowed') }}: {{ getAcceptedTypes() }}</small>
+           
             <div v-if="meta.config?.supportsUrlFallback !== false" class="mb-3">
               <label :for="`${meta.name}Url`" class="form-label">{{ $t('bikmedia.components.dynamicField.orEnter') }} {{ meta.config?.label || meta.name }} {{ $t('bikmedia.components.dynamicField.url') }}</label>
               <input type="url" :id="`${meta.name}Url`" class="form-control" v-model="fileData.url"
@@ -112,6 +113,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import TranslationInput from '@/views/bikmedia/components/TranslationInput.vue';
 import FileUploadInput from '@/components/forms/FileUploadInput.vue';
+import { evaluateFieldCondition } from '@/config/entities/helpers.js';
 
 const { t } = useI18n();
 
@@ -133,6 +135,12 @@ const emit = defineEmits(['update:modelValue']);
 const meta = computed(() => props.fieldConfig);
 const inputType = computed(() => meta.value?.config?.type || meta.value?.type || 'text');
 const isFileType = computed(() => (meta.value?.config?.type || meta.value?.type) === 'file');
+
+// Check if field should be shown based on condition
+const shouldShowField = computed(() => {
+  const condition = meta.value?.config?.condition;
+  return evaluateFieldCondition(condition, props.modelValue);
+});
 
 // Render behavior depends on mode
 // - create: render all locales so user can fill all translations
