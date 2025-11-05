@@ -4,8 +4,13 @@ node_modules
 
 
 # local env files
+.env
 .env.local
 .env.*.local
+
+# Netlify
+.netlify
+test-api.html
 
 # Log files
 npm-debug.log*
@@ -16,6 +21,13 @@ pnpm-debug.log*
 # Editor directories and files
 .idea
 .vscode
+.windsurf
+.windsurfrules
+.windsurfrules.json
+.windsurfrules.md
+.kiro
+.editorconfig
+
 *.suo
 *.ntvs*
 *.njsproj

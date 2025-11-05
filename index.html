@@ -4,10 +4,73 @@
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Content Security Policy: Helps prevent XSS attacks by restricting resource sources -->
+        <!-- DEVELOPMENT CSP: Permissive policy for Vite dev mode -->
+        <!-- Note: 'unsafe-inline' and 'unsafe-eval' are required for Vite dev mode and Vue -->
+        <!-- 
+        PRODUCTION CSP RECOMMENDATIONS:
+        1. Remove 'unsafe-eval' from script-src (not needed in production builds)
+        2. Replace 'unsafe-inline' with nonce-based or hash-based CSP for stricter security
+        3. Implement environment-based CSP injection via server headers or build-time templating
+        4. Update connect-src to match your production API domain(s)
+        5. Consider using report-uri or report-to for CSP violation monitoring
+        
+        Example Production CSP (implement via server headers):
+        Content-Security-Policy: 
+            default-src 'self';
+            script-src 'self' 'nonce-{RANDOM}';
+            style-src 'self' 'nonce-{RANDOM}' https://fonts.googleapis.com;
+            font-src 'self' https://fonts.gstatic.com;
+            img-src 'self' data: https:;
+            connect-src 'self' https://your-api-domain.com;
+            frame-src 'none';
+            object-src 'none';
+            base-uri 'self';
+            form-action 'self';
+            upgrade-insecure-requests;
+            report-uri /csp-report;
+        -->
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval';
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+            font-src 'self' https://fonts.gstatic.com;
+            img-src 'self' data: https:;
+            connect-src 'self' http://bikmedia.com https://bikmedia.com;
+            frame-src 'none';
+            object-src 'none';
+            base-uri 'self';
+            form-action 'self';
+            upgrade-insecure-requests;
+        ">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
         <title>Sales Admin | CORK - Multipurpose Bootstrap Dashboard Template</title>
+        
+        <!-- GitHub Pages SPA Redirect Handler -->
+        <script type="text/javascript">
+            // Single Page Apps for GitHub Pages
+            // MIT License
+            // https://github.com/rafgraph/spa-github-pages
+            // This script checks to see if a redirect is present in the query string,
+            // converts it back into the correct url and adds it to the
+            // browser's history using window.history.replaceState(...),
+            // which won't cause the browser to attempt to load the new url.
+            // When the single page app is loaded further down in this file,
+            // the correct url will be waiting in the browser's history for
+            // the single page app to route accordingly.
+            (function(l) {
+                if (l.search[1] === '/' ) {
+                    var decoded = l.search.slice(1).split('&').map(function(s) { 
+                        return s.replace(/~and~/g, '&')
+                    }).join('?');
+                    window.history.replaceState(null, null,
+                        l.pathname.slice(0, -1) + decoded + l.hash
+                    );
+                }
+            }(window.location))
+        </script>
     </head>
     <body>
         <noscript>

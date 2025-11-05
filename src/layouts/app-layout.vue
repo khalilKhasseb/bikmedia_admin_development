@@ -26,7 +26,7 @@
             <!--  END CONTENT AREA  -->
 
             <!-- BEGIN APP SETTING LAUNCHER -->
-            <app-settings />
+            <!-- <app-settings /> -->
             <!-- END APP SETTING LAUNCHER -->
         </div>
     </div>

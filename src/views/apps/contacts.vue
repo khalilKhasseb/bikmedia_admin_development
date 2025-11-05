@@ -302,6 +302,7 @@
 
 <script setup>
     import { computed, onMounted, ref } from "vue";
+    import giftService from "../../services/api/gift.service";
     import "/src/assets/sass/apps/contacts.scss";
 
     import { useMeta } from "/src/composables/use-meta";
@@ -318,6 +319,15 @@
     onMounted(() => {
         initPopup();
         bind_contacts();
+        giftService.getAll({
+            lang: "ar",
+            // search: "",
+            type: 1,
+            limit: 10,
+            p: 2
+        }).then((response) => {
+            console.log(response);
+        });
     });
 
     const check_all_checkbox = computed(() => {

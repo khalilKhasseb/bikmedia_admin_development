@@ -1,0 +1,632 @@
+{
+	"info": {
+		"_postman_id": "851d75e9-6ed1-422a-b910-b73a0ff6eee1",
+		"name": "admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49457628",
+		"_collection_link": "https://bikmediaadmin.postman.co/workspace/Team-Workspace~080321da-2e39-48ea-8fb4-5224143222d3/collection/48552493-851d75e9-6ed1-422a-b910-b73a0ff6eee1?action=share&source=collection_link&creator=49457628"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lang",
+									"value": "ar",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "amr",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "gg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/auth/login",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/admin/user",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gift",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "lang",
+									"value": "ar",
+									"type": "text"
+								},
+								{
+									"key": "search",
+									"value": "kiss",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "p",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "166",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Angel love",
+									"type": "text"
+								},
+								{
+									"key": "coin",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "anim_type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lvl",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "vip",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts/edit",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addMore",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "175",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"value": "https://a.com/a.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts/addMore",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts",
+								"addMore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Gift",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/gifts/delete?id",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"gifts",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "equipment",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/equipment",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"equipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "11",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nameEN",
+									"value": "amr",
+									"type": "text"
+								},
+								{
+									"key": "nameAR",
+									"value": "عمرو",
+									"type": "text"
+								},
+								{
+									"key": "coin",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "days",
+									"value": "231",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "anim_type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lvl",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "vip",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/equipment/edit",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"equipment",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "level",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/levels/edit?id=5",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"levels",
+								"edit"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "noble",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/noble",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"noble"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePrivileges",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-KEY",
+								"value": "{{apiKey}}",
+								"type": "text"
+							},
+							{
+								"key": "Auth-Token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "noble id",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "",
+									"description": "0 = delete, 1= add",
+									"type": "text"
+								},
+								{
+									"key": "privilegeID",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{bikmediaURL}}/dashboard/updatePrivileges",
+							"host": [
+								"{{bikmediaURL}}"
+							],
+							"path": [
+								"dashboard",
+								"updatePrivileges"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": "q25etr-as568-er9855-85rtg-45g56"
+		},
+		{
+			"key": "token",
+			"value": "dZaMZ423sb0Nv6TtlbwoD2oKR7"
+		}
+	]
+}

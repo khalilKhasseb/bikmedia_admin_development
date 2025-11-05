@@ -1,0 +1,197 @@
+<template>
+  <div class="layout-px-spacing equipment-create">
+    <!-- Breadcrumb Navigation -->
+    <teleport to="#breadcrumb">
+      <ul class="navbar-nav flex-row">
+        <li>
+          <div class="page-header">
+            <nav class="breadcrumb-one" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Store</a></li>
+                <li class="breadcrumb-item"><a href="javascript:;" @click="router.push('/store/equipments')">Equipments</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>Create</span></li>
+              </ol>
+            </nav>
+          </div>
+        </li>
+      </ul>
+    </teleport>
+
+    <!-- Main Layout -->
+    <div class="row layout-top-spacing layout-spacing">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="doc-container">
+          <div class="row">
+            <div class="col-xl-9">
+              <DynamicFormBuilder
+                :entityConfig="equipmentConfig"
+                v-model="formData"
+                :isSubmitted="isSubmitted"
+                :errors="validationErrors"
+                :existingData="null"
+                mode="create"
+              />
+
+              <!-- Action Buttons -->
+              <div class="row mt-4">
+                <div class="col-12">
+                  <div class="d-flex justify-content-end gap-2">
+                    <button 
+                      type="button" 
+                      class="btn btn-secondary"
+                      @click="handleCancel"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      Cancel
+                    </button>
+                    <button 
+                      type="button" 
+                      class="btn btn-primary"
+                      @click="handleSubmit"
+                      :disabled="isSubmitting"
+                    >
+                      <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                      {{ isSubmitting ? 'Creating...' : 'Create Equipment' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import equipmentConfig from '@/config/entities/equipment.config.js';
+import equipmentService from '@/services/api/equipment.service.js';
+import DynamicFormBuilder from '@/views/bikmedia/components/DynamicFormBuilder.vue';
+import { initializeFormData, validateEntityFields, buildDynamicPayload } from '@/config/entities/helpers.js';
+import { useMeta } from '@/composables/use-meta';
+import { sanitizeObject } from '@/utils/sanitize.js';
+
+// Meta Setup
+useMeta({ title: 'Create Equipment' });
+
+// Router Setup
+const router = useRouter();
+
+// Reactive State
+const formData = ref(initializeFormData(equipmentConfig));
+const initialSnapshot = JSON.parse(JSON.stringify(formData.value));
+
+const isSubmitted = ref(false);
+const isSubmitting = ref(false);
+const validationErrors = ref({});
+
+const validateForm = () => {
+  const { valid, errors } = validateEntityFields(equipmentConfig, formData.value);
+  validationErrors.value = errors;
+  return valid;
+};
+
+// Event Handlers
+const handleCancel = () => {
+  // Optional: Show confirmation if form has changes
+  const hasChanges = JSON.stringify(formData.value) !== JSON.stringify(initialSnapshot);
+  
+  if (hasChanges) {
+    window.Swal.fire({
+      title: 'Discard changes?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, discard',
+      cancelButtonText: 'No, stay'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push('/store/equipments');
+      }
+    });
+  } else {
+    router.push('/store/equipments');
+  }
+};
+
+const handleSubmit = async () => {
+  // Set submitted flag to trigger validation display
+  isSubmitted.value = true;
+  
+  // Validate form
+  if (!validateForm()) {
+    showMessage('Please fix validation errors', 'error');
+    return;
+  }
+  
+  try {
+    isSubmitting.value = true;
+    
+    // Sanitize string inputs to prevent XSS
+    const sanitizedData = {
+      nameEN: formData.value.nameEN,
+      nameAR: formData.value.nameAR
+    };
+    
+    // Apply sanitization (only to string fields)
+    const cleaned = sanitizeObject(sanitizedData, ['nameEN', 'nameAR']);
+    
+    // Update formData with sanitized values
+    Object.assign(formData.value, cleaned);
+    
+    // Build payload dynamically
+    const formDataToSend = buildDynamicPayload(equipmentConfig, formData.value, null, 'create');
+    
+    // Call service method
+    const response = await equipmentService.create(formDataToSend);
+    
+    // Show success message
+    showMessage('Equipment created successfully', 'success');
+    
+    // Navigate to list page after short delay
+    setTimeout(() => {
+      router.push('/store/equipments');
+    }, 1000);
+    
+  } catch (error) {
+    console.error('Failed to create equipment:', error);
+    showMessage(error.message || 'Failed to create equipment', 'error');
+  } finally {
+    isSubmitting.value = false;
+  }
+};
+
+const showMessage = (msg = '', type = 'success') => {
+  const toast = window.Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000
+  });
+  toast.fire({
+    icon: type,
+    title: msg,
+    padding: '10px 20px'
+  });
+};
+
+// Lifecycle Hooks
+onMounted(() => {
+  // Optional: Initialize form with default values from config
+  // Already done in formData ref initialization
+  
+  // Optional: Load any required data (e.g., type options)
+  // Already available in equipmentConfig
+});
+</script>
+
+<style scoped>
+/* Ensure consistent spacing for action buttons */
+.gap-2 {
+  gap: 0.5rem;
+}
+</style>

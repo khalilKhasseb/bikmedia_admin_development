@@ -1,0 +1,439 @@
+/* Two-Panel Layout Responsive CSS Enhancements */
+
+/* Utility Classes */
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
+/* Preview Image Styles - Consistent across all view pages */
+.preview-image {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  object-fit: cover;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.preview-image:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+}
+
+/* File Preview Container - Consistent across all view pages */
+.file-preview {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.file-preview:hover {
+  background-color: #f1f3f4;
+  border-color: #dee2e6;
+}
+
+/* Action Sidebar Responsive Adjustments */
+.invoice-actions-btn {
+  .invoice-action-btn {
+    .row {
+      /* Desktop: Full width buttons in sidebar */
+      @media (min-width: 1200px) {
+        .col-xl-12 {
+          margin-bottom: 0.75rem;
+          
+          .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            
+            svg {
+              margin-right: 0.5rem;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+      
+      /* Large screens: 3 buttons per row */
+      @media (min-width: 992px) and (max-width: 1199.98px) {
+        .col-md-4 {
+          margin-bottom: 1rem;
+          
+          .btn {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            font-size: 0.8125rem;
+            
+            svg {
+              margin-right: 0.25rem;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+      
+      /* Medium screens: 2 buttons per row */
+      @media (min-width: 768px) and (max-width: 991.98px) {
+        .col-sm-6 {
+          margin-bottom: 1rem;
+          
+          .btn {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            font-size: 0.8125rem;
+            
+            svg {
+              margin-right: 0.25rem;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+      
+      /* Small screens: 1 button per row */
+      @media (max-width: 767.98px) {
+        .col-xl-12,
+        .col-md-4,
+        .col-md-6,
+        .col-sm-6 {
+          margin-bottom: 1rem;
+          
+          .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            
+            svg {
+              margin-right: 0.5rem;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Sticky Sidebar Enhancements */
+.sticky-sidebar {
+  @media (min-width: 1200px) {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+}
+
+/* Two-Panel Layout Container */
+.two-panel-layout {
+  .content-panel {
+    @media (min-width: 1200px) {
+      padding-right: 1.5rem;
+    }
+    
+    @media (max-width: 1199.98px) {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  .action-sidebar {
+    @media (max-width: 1199.98px) {
+      border-top: 1px solid #e0e6ed;
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+  }
+}
+
+/* Sub-gifts Grid Responsive Enhancements */
+.sub-gifts-grid {
+  .row.g-3 {
+    /* Desktop: 4 columns */
+    @media (min-width: 1200px) {
+      .col-xl-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+    }
+    
+    /* Large screens: 3 columns */
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .col-lg-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+      }
+    }
+    
+    /* Medium screens: 2 columns */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+    
+    /* Small screens: 2 columns */
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+    
+    /* Extra small screens: 1 column */
+    @media (max-width: 575.98px) {
+      .col-xl-3,
+      .col-lg-4,
+      .col-md-6,
+      .col-sm-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+/* Media Section Responsive Layout */
+.media-section {
+  .row {
+    /* Stack media fields vertically on mobile */
+    @media (max-width: 767.98px) {
+      .col-md-6 {
+        margin-bottom: 1.5rem;
+      }
+      
+      .col-md-6:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* Form Section Responsive Adjustments */
+.form-section-responsive {
+  /* Settings section 2-column grid adjustments */
+  .settings-grid {
+    .row {
+      @media (max-width: 767.98px) {
+        .col-md-4,
+        .col-md-6 {
+          margin-bottom: 1rem;
+        }
+        
+        .col-md-4:last-child,
+        .col-md-6:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Locale Selector Responsive */
+.locale-selector {
+  min-width: 150px;
+  
+  @media (max-width: 767.98px) {
+    width: 100% !important;
+    margin-top: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    width: 200px;
+  }
+}
+
+/* Header Section Responsive */
+.page-header-responsive {
+  .d-flex {
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      align-items: flex-start !important;
+      
+      h3 {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+/* Media Upload Box Responsive */
+.media-upload-box {
+  @media (max-width: 767.98px) {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+
+/* Custom File Input Responsive */
+.custom-file {
+  @media (max-width: 575.98px) {
+    .custom-file-label {
+      font-size: 0.8125rem;
+      padding: 0.5rem 0.75rem;
+      
+      &::after {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+/* Card Responsive Adjustments */
+.card {
+  @media (max-width: 575.98px) {
+    .card-body {
+      padding: 0.75rem;
+    }
+  }
+}
+
+/* Button Responsive Text */
+@media (max-width: 575.98px) {
+  .btn {
+    font-size: 0.8125rem;
+    padding: 0.625rem 1rem;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  .btn-sm {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+/* Loading and Error States Responsive */
+.loading-state,
+.error-state {
+  @media (max-width: 575.98px) {
+    padding: 2rem 1rem !important;
+    
+    h5 {
+      font-size: 1.125rem;
+    }
+    
+    svg {
+      width: 48px !important;
+      height: 48px !important;
+    }
+  }
+}
+
+/* Breadcrumb Responsive */
+.breadcrumb-one {
+  @media (max-width: 575.98px) {
+    .breadcrumb {
+      font-size: 0.8125rem;
+      padding: 0.5rem 0;
+      
+      .breadcrumb-item {
+        + .breadcrumb-item::before {
+          padding-right: 0.25rem;
+          padding-left: 0.25rem;
+        }
+      }
+    }
+  }
+}
+
+/* Form Control Responsive */
+@media (max-width: 575.98px) {
+  .form-control,
+  .form-select {
+    font-size: 0.875rem;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  .form-label {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Panel Responsive */
+.statbox.panel {
+  @media (max-width: 575.98px) {
+    .panel-heading {
+      padding: 0.75rem 1rem;
+      
+      h4 {
+        font-size: 1.125rem;
+      }
+      
+      p {
+        font-size: 0.8125rem;
+      }
+    }
+    
+    .panel-body {
+      padding: 1rem;
+    }
+  }
+}
+
+/* Animation and Transition Enhancements */
+.preview-image,
+.file-preview,
+.media-upload-box,
+.btn,
+.form-control,
+.form-select {
+  transition: all 0.3s ease;
+}
+
+/* Focus States for Better Accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: 2px solid rgba(0, 123, 255, 0.25);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .preview-image,
+  .file-preview {
+    border-width: 2px;
+  }
+  
+  .btn {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .preview-image,
+  .file-preview,
+  .media-upload-box,
+  .btn,
+  .form-control,
+  .form-select {
+    transition: none;
+  }
+}

@@ -1,0 +1,471 @@
+{
+    "dashboard": "لوحة التحكم",
+    "sales": "المبيعات",
+    "analytics": "التحليلات",
+    "apps": "التطبيقات",
+    "components": "المكونات",
+    "elements": "العناصر",
+    "font_icons": "أيقونات الخط",
+    "widgets": "الأدوات",
+    "tables": "الجداول",
+    "datatables": "جداول البيانات",
+    "forms": "النماذج",
+    "users": "المستخدمون",
+    "pages": "الصفحات",
+    "authentication": "المصادقة",
+    "drag_and_drop": "السحب والإفلات",
+    "maps": "الخرائط",
+    "charts": "الرسوم البيانية",
+    "starter_kit": "مجموعة البداية",
+    "documentation": "التوثيق",
+    "ui_kit": "مجموعة واجهة المستخدم",
+    "more": "المزيد",
+    "store": "المتجر",
+    "gifts": "الهدايا",
+    "equipments": "المعدات",
+    "bikmedia": {
+        "store": {
+            "gifts": "الهدايا",
+            "equipment": "المعدات",
+            "level": "المستوى",
+            "levels": "المستويات",
+            "title": "إدارة المتجر"
+        },
+        "actions": {
+            "create": "إنشاء",
+            "edit": "تعديل",
+            "delete": "حذف",
+            "save": "حفظ",
+            "cancel": "إلغاء",
+            "view": "عرض",
+            "search": "بحث",
+            "filter": "تصفية",
+            "filters": "المرشحات",
+            "new": "جديد",
+            "add": "إضافة",
+            "update": "تحديث",
+            "remove": "إزالة",
+            "confirm": "تأكيد",
+            "close": "إغلاق",
+            "submit": "إرسال",
+            "reset": "إعادة تعيين",
+            "backToList": "العودة إلى القائمة",
+            "clear": "مسح",
+            "refresh": "تحديث",
+            "reload": "إعادة تحميل",
+            "retry": "إعادة المحاولة",
+            "copy": "نسخ"
+        },
+        "navigation": {
+            "menu": {
+                "store": "المتجر",
+                "gifts": "الهدايا",
+                "equipment": "المعدات",
+                "levels": "المستويات",
+                "vipopt" : "اعدادت VIP",
+                "vipPackages": "باقات VIP"
+            },
+            "breadcrumb": {
+                "store": "المتجر",
+                "gifts": "الهدايا",
+                "equipment": "المعدات",
+                "levels": "المستويات",
+                "create": "إنشاء",
+                "edit": "تعديل",
+                "view": "عرض",
+                "dashboard": "لوحة التحكم",
+                "vipPackages": "باقات VIP"
+            }
+        },
+        "forms": {
+            "name": "الاسم",
+            "description": "الوصف",
+            "type": "النوع",
+            "status": "الحالة",
+            "level": "المستوى",
+            "coins": "العملات",
+            "price": "السعر",
+            "image": "الصورة",
+            "icon": "الأيقونة",
+            "category": "الفئة",
+            "language": "اللغة",
+            "days": "الأيام",
+            "levelId": "معرف المستوى",
+            "target": "الهدف",
+            "activeIcon": "أيقونة نشطة",
+            "disabledIcon": "أيقونة معطلة",
+            "animatedIcon": "أيقونة متحركة",
+            "required": "مطلوب",
+            "optional": "اختياري",
+            "placeholder": {
+                "search": "البحث...",
+                "searchGifts": "البحث في الهدايا...",
+                "searchEquipment": "البحث في المعدات...",
+                "searchLevels": "البحث في المستويات...",
+                "enterName": "أدخل الاسم",
+                "enterDescription": "أدخل الوصف",
+                "selectType": "اختر النوع",
+                "selectLevel": "اختر المستوى",
+                "selectLanguage": "اختر اللغة"
+            },
+            "validation": {
+                "required": "هذا الحقل مطلوب",
+                "invalid": "إدخال غير صحيح",
+                "minLength": "الحد الأدنى للطول هو {min} أحرف",
+                "maxLength": "الحد الأقصى للطول هو {max} حرف",
+                "email": "يرجى إدخال بريد إلكتروني صحيح",
+                "number": "يرجى إدخال رقم صحيح",
+                "positive": "يجب أن يكون الرقم موجباً",
+                "url": "يرجى إدخال رابط صحيح"
+            }
+        },
+        "table": {
+            "headers": {
+                "gift": "الهدية",
+                "equipment": "المعدات",
+                "level": "المستوى",
+                "name": "الاسم",
+                "type": "النوع",
+                "coins": "العملات",
+                "status": "الحالة",
+                "actions": "الإجراءات",
+                "id": "المعرف",
+                "description": "الوصف",
+                "price": "السعر",
+                "category": "الفئة",
+                "goallserver":"Go Live All Server"
+            },
+            "actions": {
+                "view": "عرض",
+                "edit": "تعديل",
+                "delete": "حذف"
+            },
+            "pagination": {
+                "showing": "عرض",
+                "to": "إلى",
+                "of": "من",
+                "entries": "إدخالات",
+                "itemsPerPage": "عناصر لكل صفحة",
+                "items": "عناصر",
+                "previous": "السابق",
+                "next": "التالي"
+            },
+            "empty": {
+                "noGifts": "لم يتم العثور على هدايا",
+                "noEquipment": "لم يتم العثور على معدات",
+                "noLevels": "لم يتم العثور على مستويات",
+                "noData": "لا توجد بيانات",
+                "tryAdjusting": "جرب تعديل البحث أو المرشحات"
+            }
+        },
+        "filters": {
+            "giftType": "نوع الهدية",
+            "equipmentType": "نوع المعدات",
+            "language": "اللغة",
+            "itemsPerPage": "عناصر لكل صفحة",
+            "allTypes": "جميع الأنواع",
+            "english": "الإنجليزية",
+            "arabic": "العربية",
+            "levelRange": "نطاق المستوى",
+            "allLevels": "جميع المستويات"
+        },
+        "types": {
+            "gift": {
+                "default": "افتراضي",
+                "standard": "قياسي",
+                "premium": "مميز",
+                "video": "فيديو",
+                "special": "خاص"
+            },
+            "equipment": {
+                "weapon": "سلاح",
+                "armor": "درع",
+                "accessory": "إكسسوار",
+                "consumable": "قابل للاستهلاك",
+                "frame": "إطار",
+                "entryEffect": "تأثير الدخول",
+                "badge": "شارة",
+                "theme": "موضوع"
+            }
+        },
+        "messages": {
+            "loading": "جاري التحميل...",
+            "loadingGifts": "جاري تحميل الهدايا...",
+            "loadingEquipment": "جاري تحميل المعدات...",
+            "loadingLevels": "جاري تحميل المستويات...",
+            "success": {
+                "created": "تم الإنشاء بنجاح",
+                "updated": "تم التحديث بنجاح",
+                "deleted": "تم الحذف بنجاح",
+                "saved": "تم الحفظ بنجاح",
+                "giftCreated": "تم إنشاء الهدية بنجاح",
+                "giftUpdated": "تم تحديث الهدية بنجاح",
+                "giftDeleted": "تم حذف الهدية بنجاح",
+                "equipmentCreated": "تم إنشاء المعدات بنجاح",
+                "equipmentUpdated": "تم تحديث المعدات بنجاح",
+                "equipmentDeleted": "تم حذف المعدات بنجاح",
+                "levelCreated": "تم إنشاء المستوى بنجاح",
+                "levelUpdated": "تم تحديث المستوى بنجاح",
+                "levelDeleted": "تم حذف المستوى بنجاح"
+            },
+            "errors": {
+                "required": "هذا الحقل مطلوب",
+                "invalid": "إدخال غير صحيح",
+                "network": "حدث خطأ في الشبكة",
+                "server": "خطأ في الخادم",
+                "notFound": "غير موجود",
+                "unauthorized": "غير مصرح",
+                "forbidden": "محظور",
+                "timeout": "انتهت مهلة الطلب",
+                "unknown": "خطأ غير معروف",
+                "failedToLoad": "فشل في التحميل",
+                "failedToSave": "فشل في الحفظ",
+                "failedToDelete": "فشل في الحذف",
+                "failedToCreate": "فشل في الإنشاء",
+                "failedToUpdate": "فشل في التحديث",
+                "invalidGiftId": "معرف الهدية غير صحيح",
+                "invalidEquipmentId": "معرف المعدات غير صحيح",
+                "invalidLevelId": "معرف المستوى غير صحيح",
+                "loadGifts": "فشل في تحميل الهدايا",
+                "loadEquipment": "فشل في تحميل المعدات",
+                "loadLevels": "فشل في تحميل المستويات",
+                "operationNotSupported": "العملية غير مدعومة",
+                "levelCreateNotSupported": "إنشاء المستويات غير مدعوم من قبل الواجهة البرمجية. المستويات يديرها النظام.",
+                "levelEditNotSupported": "تحرير المستويات غير مدعوم حالياً من قبل الواجهة البرمجية. ستكون هذه الميزة متاحة عندما يدعمها الخادم.",
+                "api": {
+                    "400": "طلب خاطئ - البيانات المقدمة غير صحيحة",
+                    "401": "غير مصرح - يرجى تسجيل الدخول مرة أخرى",
+                    "403": "محظور - ليس لديك صلاحية لتنفيذ هذا الإجراء",
+                    "404": "غير موجود - المورد المطلوب غير موجود",
+                    "408": "انتهت مهلة الطلب - استغرق الطلب وقتاً طويلاً",
+                    "409": "تعارض - المورد موجود بالفعل أو يتعارض مع الحالة الحالية",
+                    "422": "فشل في التحقق - يرجى التحقق من البيانات المدخلة",
+                    "429": "طلبات كثيرة جداً - يرجى الانتظار قبل المحاولة مرة أخرى",
+                    "500": "خطأ داخلي في الخادم - حدث خطأ من جانبنا",
+                    "502": "بوابة سيئة - الخدمة غير متاحة مؤقتاً",
+                    "503": "الخدمة غير متاحة - يرجى المحاولة مرة أخرى لاحقاً",
+                    "504": "انتهت مهلة البوابة - الخدمة تستغرق وقتاً طويلاً للاستجابة",
+                    "networkError": "خطأ في الشبكة - يرجى التحقق من اتصال الإنترنت",
+                    "requestFailed": "فشل الطلب - يرجى المحاولة مرة أخرى",
+                    "connectionLost": "فقدان الاتصال - يرجى التحقق من الشبكة",
+                    "serverUnavailable": "الخادم غير متاح - يرجى المحاولة مرة أخرى لاحقاً"
+                }
+            },
+            "confirmations": {
+                "delete": "حذف؟",
+                "deleteGift": "حذف الهدية؟",
+                "deleteEquipment": "حذف المعدات؟",
+                "deleteLevel": "حذف المستوى؟",
+                "cannotUndo": "لا يمكن التراجع عن هذا الإجراء.",
+                "areYouSure": "هل أنت متأكد؟",
+                "confirmDelete": "تأكيد الحذف",
+                "confirmAction": "تأكيد الإجراء"
+            },
+            "notifications": {
+                "noChanges": "لا توجد تغييرات للتحديث",
+                "copySuccess": "تم نسخ الرابط إلى الحافظة!",
+                "copyError": "فشل في نسخ الرابط",
+                "unsavedChanges": "لديك تغييرات غير محفوظة. هل أنت متأكد من أنك تريد المغادرة؟",
+                "languageSwitchWarning": "قد تفقد التغييرات غير المحفوظة عند تبديل اللغة."
+            }
+        },
+        "modals": {
+            "subGift": {
+                "title": "إدارة الهدايا الفرعية",
+                "addSubGift": "إضافة هدية فرعية",
+                "editSubGift": "تعديل الهدية الفرعية",
+                "noSubGifts": "لا توجد هدايا فرعية",
+                "subGiftName": "اسم الهدية الفرعية",
+                "subGiftIcon": "أيقونة الهدية الفرعية",
+                "iconName": "اسم الأيقونة",
+                "iconFile": "ملف الأيقونة",
+                "chooseFile": "اختر ملف...",
+                "maxFileSize": "الحد الأقصى 5 ميجابايت. المسموح: الصور، .svga، .svg",
+                "adding": "جاري الإضافة...",
+                "validation": {
+                    "nameRequired": "الاسم مطلوب",
+                    "fileRequired": "يرجى اختيار ملف أيقونة",
+                    "provideName": "يرجى تقديم اسم.",
+                    "selectIconFile": "يرجى اختيار ملف أيقونة.",
+                    "fileSizeExceeds": "حجم الملف يتجاوز حد 5 ميجابايت",
+                    "failedToAdd": "فشل في إضافة الهدية الفرعية"
+                },
+                "placeholders": {
+                    "enterSubgiftName": "أدخل اسم الهدية الفرعية"
+                }
+            }
+        },
+        "components": {
+            "dynamicField": {
+                "selectOption": "اختر خياراً",
+                "enterValue": "أدخل القيمة",
+                "uploadFile": "رفع ملف",
+                "selectFile": "اختر ملف",
+                "looksGood": "يبدو جيداً!",
+                "thisFieldRequired": "هذا الحقل مطلوب",
+                "current": "الحالي",
+                "choose": "اختر",
+                "file": "ملف...",
+                "max": "الحد الأقصى",
+                "allowed": "المسموح",
+                "orEnter": "أو أدخل",
+                "url": "الرابط:",
+                "enter": "أدخل",
+                "note": "ملاحظة: الملفات المرفوعة لها الأولوية على الروابط",
+                "fileSizeExceeds": "حجم الملف يتجاوز حد {maxSize} ميجابايت"
+            },
+            "carousel": {
+                "noItems": "لا توجد عناصر للعرض",
+                "loadingItems": "جاري تحميل العناصر...",
+                "errorLoading": "خطأ في التحميل",
+                "retryLoading": "إعادة المحاولة",
+                "previous": "السابق",
+                "next": "التالي"
+            },
+            "subGiftCard": {
+                "imageNotAvailable": "الصورة غير متوفرة",
+                "unnamedGift": "هدية بدون اسم",
+                "subGift": "هدية فرعية"
+            },
+            "subGiftCarousel": {
+                "loading": "جاري التحميل...",
+                "loadingSubGifts": "جاري تحميل الهدايا الفرعية...",
+                "failedToLoad": "فشل في تحميل الهدايا الفرعية",
+                "noSubGifts": "لا توجد هدايا فرعية",
+                "tryAgain": "حاول مرة أخرى"
+            },
+            "translationInput": {
+                "looksGood": "يبدو جيداً!",
+                "pleaseFill": "يرجى ملء"
+            }
+        },
+        "pages": {
+            "gifts": {
+                "title": "إدارة الهدايا",
+                "subtitle": "إدارة جميع الهدايا في النظام",
+                "create": {
+                    "title": "إنشاء هدية جديدة",
+                    "subtitle": "إضافة هدية جديدة إلى النظام"
+                },
+                "edit": {
+                    "title": "تعديل الهدية",
+                    "subtitle": "تحديث معلومات الهدية"
+                },
+                "view": {
+                    "title": "عرض الهدية",
+                    "subtitle": "عرض تفاصيل الهدية"
+                }
+            },
+            "equipment": {
+                "title": "إدارة المعدات",
+                "subtitle": "إدارة جميع المعدات في النظام",
+                "create": {
+                    "title": "إنشاء معدات جديدة",
+                    "subtitle": "إضافة معدات جديدة إلى النظام"
+                },
+                "edit": {
+                    "title": "تعديل المعدات",
+                    "subtitle": "تحديث معلومات المعدات"
+                },
+                "view": {
+                    "title": "عرض المعدات",
+                    "subtitle": "عرض تفاصيل المعدات"
+                }
+            },
+            "levels": {
+                "title": "إدارة المستويات",
+                "subtitle": "إدارة جميع المستويات في النظام",
+                "create": {
+                    "title": "إنشاء مستوى جديد",
+                    "subtitle": "إضافة مستوى جديد إلى النظام"
+                },
+                "edit": {
+                    "title": "تعديل المستوى",
+                    "subtitle": "تحديث معلومات المستوى"
+                },
+                "view": {
+                    "title": "عرض المستوى",
+                    "subtitle": "عرض تفاصيل المستوى"
+                }
+            },
+            "vip": {
+                "title": "إدارة باقات VIP",
+                "subtitle": "إدارة باقات VIP وإعداداتها",
+                "editTitle": "تعديل باقة VIP"
+            }
+        },
+        "status": {
+            "active": "نشط",
+            "inactive": "غير نشط",
+            "activated": "تم التفعيل",
+            "deactivated": "تم إلغاء التفعيل"
+        },
+        "common": {
+            "days": "أيام"
+        },
+        "validation": {
+            "mustBePositive": "يجب أن يكون رقماً موجباً",
+            "mustBeGreaterThanZero": "يجب أن يكون أكبر من الصفر",
+            "pleaseFixErrors": "يرجى إصلاح الأخطاء قبل الحفظ"
+        },
+        "errors": {
+            "noPackageSelected": "لم يتم اختيار باقة للتعديل",
+            "failedToUpdatePackage": "فشل في تحديث باقة VIP",
+            "failedToUpdateStatus": "فشل في تحديث حالة الباقة",
+            "failedToLoadPrivileges": "فشل في تحميل الامتيازات",
+            "failedToUpdatePrivilege": "فشل في تحديث الامتياز",
+            "bulkPrivilegeOperationFailed": "فشلت العملية المجمعة للامتيازات"
+        },
+        "messages": {
+            "loadingVipPackages": "جاري تحميل باقات VIP...",
+            "saving": "جاري الحفظ...",
+            "noVipPackages": "لا توجد باقات VIP",
+            "noVipPackagesDesc": "لم يتم تكوين أي باقات VIP بعد.",
+            "vipPackageStatusUpdated": "تم {status} {name}",
+            "vipPackageUpdated": "تم تحديث {name} بنجاح",
+            "noChangesToSave": "لا توجد تغييرات للحفظ",
+            "privilegeUpdated": "تم {status} {name}",
+            "loadingPrivileges": "جاري تحميل الامتيازات...",
+            "noPrivilegesFound": "لم يتم العثور على امتيازات",
+            "tryDifferentSearch": "جرب تعديل البحث أو معايير التصفية",
+            "allPrivilegesAlreadyEnabled": "جميع الامتيازات مفعلة بالفعل",
+            "allPrivilegesAlreadyDisabled": "جميع الامتيازات معطلة بالفعل",
+            "bulkPrivilegeSuccess": "تم {action} {count} امتياز بنجاح",
+            "bulkPrivilegePartial": "تم تحديث {success} امتياز، فشل {failed}",
+            "updating": "جاري التحديث..."
+        },
+        "actions": {
+            "active": "نشط",
+            "saveChanges": "حفظ التغييرات",
+            "privileges": "الامتيازات",
+            "enableAll": "تفعيل الكل",
+            "disableAll": "تعطيل الكل"
+        },
+        "filters": {
+            "allPrivileges": "جميع الامتيازات",
+            "activeOnly": "النشط فقط",
+            "inactiveOnly": "غير النشط فقط"
+        },
+        "vip": {
+            "title": "إدارة باقات VIP",
+            "subtitle": "إدارة باقات VIP وإعداداتها",
+            "editTitle": "تعديل باقة VIP",
+            "privilegeManagement": "إدارة الامتيازات",
+            "privileges": "الامتيازات",
+            "activePrivileges": "نشط",
+            "inactivePrivileges": "غير نشط",
+            "totalPrivileges": "المجموع",
+            "completionRate": "{rate}% مكتمل",
+            "enabledFeatures": "الميزات المفعلة",
+            "availableFeatures": "الميزات المتاحة",
+            "required": "مطلوب",
+            "requiredPrivilegeTooltip": "هذا الامتياز مطلوب ولا يمكن تعطيله",
+            "showingPrivileges": "عرض {count} من {total} امتياز",
+            "fields": {
+                "coin": "العملات",
+                "renewCoin": "عملات التجديد",
+                "days": "المدة (أيام)"
+            }
+        }
+    }
+}

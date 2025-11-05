@@ -19,6 +19,15 @@ import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";
 import { createHead } from "@vueuse/head";
 const head = createHead();
 
+// Initialize CSP detection for media loading
+import { initCSPDetection } from "./utils/media-config.js";
+initCSPDetection();
+
+// Initialize optimized charts
+import { initializeOptimizedCharts } from "./utils/chart-imports.js";
+const { VueApexCharts } = initializeOptimizedCharts();
+console.log('Main: VueApexCharts component:', VueApexCharts);
+
 //Sweetalert
 import Swal from "sweetalert2";
 window.Swal = Swal;
@@ -36,6 +45,7 @@ registerScrollSpy(app, { offset: 118 });
 
 //vue-i18n
 import i18n from "./i18n";
+import { TranslationValidatorPlugin } from "./utils/translation-validator.js";
 
 // datatables
 import { ClientTable } from "v-tables-3";
@@ -56,4 +66,30 @@ window.$appSetting.init();
 import VueEasymde from 'vue3-easymde';
 import "easymde/dist/easymde.min.css";
 
-app.use(store).use(router).use(i18n).use(PerfectScrollbar).use(VueNouislider).use(Maska).use(ClientTable).use(vue3JsonExcel).use(VueFormWizard).use(head).use(VueEasymde).mount("#app");
+// console.log("Before app mpunts",import.meta.env);
+
+
+// Initialize authentication state from storage before mounting
+(async () => {
+    await store.dispatch('auth/initializeAuth');
+    
+    app.use(store)
+    .use(router)
+    .use(i18n)
+    .use(TranslationValidatorPlugin, {
+        warningsEnabled: import.meta.env.DEV,
+        fallbackLocale: 'en',
+        supportedLocales: ['en', 'ar']
+    })
+    .use(PerfectScrollbar)
+    .use(VueNouislider)
+    .use(Maska)
+    .use(ClientTable)
+    .use(vue3JsonExcel)
+    .use(VueFormWizard)
+    .use(head)
+    .use(VueEasymde)
+    .component('apexchart', VueApexCharts)
+    .mount("#app");
+    
+})();

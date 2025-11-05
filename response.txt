@@ -1,0 +1,460 @@
+{
+    code: 200,
+    err: null,
+    data: {
+        noble: [
+            {
+                id: 1,
+                name: vip1,
+                coin: 1000,
+                renew_coin: 950,
+                img: null,
+                days: 30,
+                content: null,
+                chat_bg_ids: null,
+                chat_bubble_ids: null,
+                avatar_frame_ids: null,
+                medal_ids: null,
+                car_ids: null,
+                colors: null,
+                entry_effects: null,
+                room_images: null,
+                state: 1,
+                orderno: null,
+                lang_name: null,
+                
+                privileges_list: [
+                    {
+                        id: 2,
+                        name: vipBudg,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 3,
+                        name: enterRoomEffect,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 4,
+                        name: untiBan,
+                        state: 1,
+                        optional: 0
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: vip2,
+                coin: 2500,
+                renew_coin: 2400,
+                img: null,
+                days: 30,
+                content: null,
+                chat_bg_ids: null,
+                chat_bubble_ids: null,
+                avatar_frame_ids: null,
+                medal_ids: null,
+                car_ids: null,
+                colors: null,
+                entry_effects: null,
+                room_images: null,
+                state: 1,
+                orderno: null,
+                lang_name: null,
+                privileges_list: [
+                    {
+                        id: 2,
+                        name: vipBudg,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 3,
+                        name: enterRoomEffect,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 4,
+                        name: untiBan,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 5,
+                        name: moreSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 6,
+                        name: costomSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 7,
+                        name: gameRoom,
+                        state: 1,
+                        optional: 0
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: vip3,
+                coin: 5000,
+                renew_coin: 4800,
+                img: null,
+                days: 30,
+                content: null,
+                chat_bg_ids: null,
+                chat_bubble_ids: null,
+                avatar_frame_ids: null,
+                medal_ids: null,
+                car_ids: null,
+                colors: null,
+                entry_effects: null,
+                room_images: null,
+                state: 1,
+                orderno: null,
+                lang_name: null,
+                privileges_list: [
+                    {
+                        id: 2,
+                        name: vipBudg,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 3,
+                        name: enterRoomEffect,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 4,
+                        name: untiBan,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 5,
+                        name: moreSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 6,
+                        name: costomSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 7,
+                        name: gameRoom,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 8,
+                        name: specialEntry,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 9,
+                        name: specialFrame,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 10,
+                        name: moreEmoje,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 11,
+                        name: hideFromTop,
+                        state: 1,
+                        optional: 1
+                    },
+                    {
+                        id: 12,
+                        name: hideInRoom,
+                        state: 1,
+                        optional: 1
+                    }
+                ]
+            },
+            {
+                id: 4,
+                name: vip4,
+                coin: 21000,
+                renew_coin: 20000,
+                img: null,
+                days: 30,
+                content: null,
+                chat_bg_ids: null,
+                chat_bubble_ids: null,
+                avatar_frame_ids: null,
+                medal_ids: null,
+                car_ids: null,
+                colors: null,
+                entry_effects: null,
+                room_images: null,
+                state: 1,
+                orderno: null,
+                lang_name: null,
+                privileges_list: [
+                    {
+                        id: 2,
+                        name: vipBudg,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 3,
+                        name: enterRoomEffect,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 4,
+                        name: untiBan,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 5,
+                        name: moreSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 6,
+                        name: costomSets,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 7,
+                        name: gameRoom,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 8,
+                        name: specialEntry,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 9,
+                        name: specialFrame,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 10,
+                        name: moreEmoje,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 11,
+                        name: hideFromTop,
+                        state: 1,
+                        optional: 1
+                    },
+                    {
+                        id: 12,
+                        name: hideInRoom,
+                        state: 1,
+                        optional: 1
+                    },
+                    {
+                        id: 13,
+                        name: hideInLive,
+                        state: 1,
+                        optional: 1
+                    },
+                    {
+                        id: 14,
+                        name: hideLevel,
+                        state: 1,
+                        optional: 1
+                    },
+                    {
+                        id: 15,
+                        name: moreOptionInRooms,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 16,
+                        name: costomBackground,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 17,
+                        name: openRoom,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 18,
+                        name: openLive,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 19,
+                        name: vipSupport,
+                        state: 1,
+                        optional: 0
+                    },
+                    {
+                        id: 20,
+                        name: exclusiveGift,
+                        state: 1,
+                        optional: 0
+                    }
+                ]
+            }
+        ],
+        privileges: [
+            {
+                id: 2,
+                name: vipBudg,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 3,
+                name: enterRoomEffect,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 4,
+                name: untiBan,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 5,
+                name: moreSets,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 6,
+                name: costomSets,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 7,
+                name: gameRoom,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 8,
+                name: specialEntry,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 9,
+                name: specialFrame,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 10,
+                name: moreEmoje,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 11,
+                name: hideFromTop,
+                state: 1,
+                optional: 1
+            },
+            {
+                id: 12,
+                name: hideInRoom,
+                state: 1,
+                optional: 1
+            },
+            {
+                id: 13,
+                name: hideInLive,
+                state: 1,
+                optional: 1
+            },
+            {
+                id: 14,
+                name: hideLevel,
+                state: 1,
+                optional: 1
+            },
+            {
+                id: 15,
+                name: moreOptionInRooms,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 16,
+                name: costomBackground,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 17,
+                name: openRoom,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 18,
+                name: openLive,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 19,
+                name: vipSupport,
+                state: 1,
+                optional: 0
+            },
+            {
+                id: 20,
+                name: exclusiveGift,
+                state: 1,
+                optional: 0
+            }
+        ]
+    },
+    user: {
+        id: 18,
+        role: 8,
+        referral_code: vd6f1YMVDV1,
+        coins: 0,
+        game_coins: 0,
+        income: 0,
+        deleted_at: null,
+        username_can_update_at: null,
+        name_can_update_at: null,
+        token: dZaMZ423sb0Nv6TtlbwoD2oKR7,
+        created_at: 2025-09-26 06: 51: 06
+    }
+}

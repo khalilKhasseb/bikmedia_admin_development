@@ -14,15 +14,17 @@
     .new-control-input {
         position: unset;
     }
+
     .new-control.new-checkbox span.new-control-indicator:after {
         top: 51%;
     }
+
     /*
         Filtered List Search
         */
 
     .filtered-list-search form {
-        > div {
+        >div {
             position: relative;
             width: 80%;
 
@@ -131,6 +133,7 @@
         }
 
         .add-contact-box .add-contact-content {
+
             .contact-name .validation-text,
             .contact-email .validation-text,
             .contact-occupation .validation-text,
@@ -191,6 +194,7 @@
         }
 
         .switch {
+
             .view-grid:hover,
             .view-list:hover,
             .active-view {
@@ -207,6 +211,16 @@
                     font-weight: 600;
                     margin-bottom: 0;
                     margin-left: 39px;
+
+                    
+                }
+
+                .item-content {
+                    >div:not(:first-child) {
+                        h4 {
+                            margin-left: 0;
+                        }
+                    }
                 }
 
                 .n-chk {
@@ -215,16 +229,22 @@
             }
 
             .item-content {
-                -ms-flex-direction: row;
-                flex-direction: row;
-                -ms-flex-align: center;
+
+                display: grid;
+                grid-template-columns: repeat(var(--columns), 1fr);
+                grid-template-rows: auto;
+                justify-items: center;
                 align-items: center;
+                // -ms-flex-direction: row;
+                // flex-direction: row;
+                // -ms-flex-align: center;
+                // align-items: center;
                 padding: 0.75rem 0.625rem;
                 position: relative;
-                display: inline-flex;
+                // display: inline-flex;
                 min-width: 0;
                 word-wrap: break-word;
-                justify-content: space-between;
+                // justify-content: space-between;
                 background: #fff;
                 margin-bottom: 8px;
                 border-radius: 6px;
@@ -236,6 +256,11 @@
                 /* box-shadow: 0px 2px 4px rgba(126,142,177,0.12); */
                 border: 1px solid $m-color_3;
                 box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);
+
+                >div:first-child {
+                    justify-self: start;
+                }
+                
             }
 
             &:not(.items-header-section) .item-content:hover {
@@ -488,7 +513,8 @@
         }
     }
 
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @media all and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
 
         .new-control.new-checkbox .new-control-indicator {
@@ -542,7 +568,7 @@
             max-width: 100%;
         }
 
-        .filtered-list-search form > div {
+        .filtered-list-search form>div {
             width: 100%;
         }
     }

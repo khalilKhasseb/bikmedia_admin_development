@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import i18n from "../i18n";
-
+import auth from "./modules/auth";
+import vipopt from "./modules/vipopt";
 export default new createStore({
     state: {
         layout: "app",
@@ -12,21 +13,8 @@ export default new createStore({
         menu_style: "vertical",
         layout_style: "full",
         countryList: [
-            { code: "zh", name: "Chinese" },
-            { code: "da", name: "Danish" },
             { code: "en", name: "English" },
-            { code: "fr", name: "French" },
-            { code: "de", name: "German" },
-            { code: "el", name: "Greek" },
-            { code: "hu", name: "Hungarian" },
-            { code: "it", name: "Italian" },
-            { code: "ja", name: "Japanese" },
-            { code: "pl", name: "Polish" },
-            { code: "pt", name: "Portuguese" },
-            { code: "ru", name: "Russian" },
-            { code: "es", name: "Spanish" },
-            { code: "sv", name: "Swedish" },
-            { code: "tr", name: "Turkish" },
+            { code: "ar", name: "العربية" },
         ],
     },
     mutations: {
@@ -44,13 +32,14 @@ export default new createStore({
             i18n.global.locale.value = value;
             localStorage.setItem("i18n_locale", value);
             state.locale = value;
-        },
+        }, 
 
         toggleDarkMode(state, value) {
             //light|dark|system
             value = value || "light";
             localStorage.setItem("dark_mode", value);
             state.dark_mode = value;
+            
             if (value == "light") {
                 state.is_dark_mode = false;
             } else if (value == "dark") {
@@ -95,5 +84,10 @@ export default new createStore({
         },
     },
     actions: {},
-    modules: {},
+    modules: {
+        auth,
+        vipopt
+    },
+
+    
 });
